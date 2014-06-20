@@ -1,0 +1,14 @@
+[user]
+	name = Aaron Schumacher
+	email = ajschumacher@gmail.com
+[push]
+	default = simple
+[color]
+  ui = auto
+[alias]
+  s = status
+  a = add
+  c = commit
+  co = checkout
+  b = branch
+  l = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
