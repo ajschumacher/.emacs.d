@@ -17,3 +17,6 @@
 ;; Switch undo and upcase-word because undo is useful
 (global-set-key (kbd "M-u") 'undo)
 (global-set-key (kbd "C-x u") 'upcase-word)
+
+;; One space after sentences. One.
+(setq sentence-end-double-space nil)
