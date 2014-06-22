@@ -9,8 +9,13 @@
   ui = auto
 [alias]
   s = status
+  st = status
   a = add
   c = commit
+  ci = commit
   co = checkout
   b = branch
+  br = branch
   l = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
+  ll = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
+  lol = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
