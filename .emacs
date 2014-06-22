@@ -20,3 +20,15 @@
 
 ;; One space after sentences. One.
 (setq sentence-end-double-space nil)
+
+;; Interactively Do Things
+(require 'ido)
+(ido-mode t)
+
+;; Be paranoid about white space
+(set-default 'show-trailing-whitespace t)
+(setq whitespace-style '(tabs tab-mark))
+(global-whitespace-mode t)
+
+;; Precise when moving to next lines
+(setq scroll-step 1)
