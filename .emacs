@@ -1,8 +1,5 @@
 ;; Manually built .emacs config
 
-;; C-x C-m does long command (like M-x)
-(global-set-key (kbd "C-x C-m") 'execute-extended-command)
-
 ;; get rid of UI stuff (not sure all of these always apply)
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -16,3 +13,7 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-h") 'backward-kill-word)
 (global-set-key (kbd "C-x h") 'help-command)
+
+;; Switch undo and upcase-word because undo is useful
+(global-set-key (kbd "M-u") 'undo)
+(global-set-key (kbd "C-x u") 'upcase-word)
