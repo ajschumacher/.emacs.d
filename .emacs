@@ -35,3 +35,6 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (global-auto-complete-mode t)
+
+;; Allow region downcase w/ C-x C-l
+(put 'downcase-region 'disabled nil)
