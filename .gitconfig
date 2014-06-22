@@ -12,12 +12,14 @@
   st = status
   d = diff
   a = add
+  unstage = "reset HEAD --"
   c = commit
   ci = commit
   co = checkout
   b = branch
   br = branch
   p = push
+  last = "log -1 HEAD"
   l = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
   ll = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
   lol = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
