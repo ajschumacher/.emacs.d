@@ -16,6 +16,7 @@
   co = checkout
   b = branch
   br = branch
+  p = push
   l = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
   ll = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
   lol = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
