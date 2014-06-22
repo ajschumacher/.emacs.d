@@ -10,6 +10,7 @@
 [alias]
   s = status
   st = status
+  d = diff
   a = add
   c = commit
   ci = commit
