@@ -1,5 +1,8 @@
 ;; Manually built .emacs config
 
+;; sometimes C-spc and C-@ don't work
+(global-set-key (kbd "C-x 9") 'set-mark-command)
+
 ;; get rid of UI stuff (not sure all of these always apply)
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
