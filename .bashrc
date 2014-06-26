@@ -104,3 +104,5 @@ fi
 alias g='git'
 alias gi='git'
 alias nb='ipython notebook --pylab=inline'
+
+alias e='emacsclient -c --alternate-editor=""'
