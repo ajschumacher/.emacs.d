@@ -13,5 +13,6 @@ On a mac also:
 
 ### Other things to consider:
 
- * It seems like `vcsh` might be the eventual awesome way to do configs. See:
-   [Manage Your Configs with vcsh](http://www.linuxjournal.com/content/manage-your-configs-vcsh)
+ * It seems like `[vcsh](https://github.com/RichiH/vcsh]` might be the
+   eventual awesome way to do configs. See: [Manage Your Configs with
+   vcsh](http://www.linuxjournal.com/content/manage-your-configs-vcsh)
