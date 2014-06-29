@@ -5,7 +5,7 @@ On a mac also:
  * [KeyRemap4MacBook](https://pqrs.org/macosx/keyremap4macbook/) `Command_R to Option_R`
  * The nice default-provided font in Terminal is called "Menlo".
 
-### Todo
+### To do
 
  * make/improve setup script to include setting up git user name, generating ssh key and presenting it to be copied into github, etc.
  * tell emacs to not generate ~ files
@@ -14,5 +14,11 @@ On a mac also:
 ### Other things to consider:
 
  * It seems like `[vcsh](https://github.com/RichiH/vcsh]` might be the
-   eventual awesome way to do configs. See: [Manage Your Configs with
+   eventual awesome way to do configs. With
+   `[myrepos](http://myrepos.branchable.com/)` probably. See: [Manage
+   Your Configs with
    vcsh](http://www.linuxjournal.com/content/manage-your-configs-vcsh)
+
+### References:
+
+ * [http://dotfiles.github.io/](http://dotfiles.github.io/)
