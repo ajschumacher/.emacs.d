@@ -7,7 +7,7 @@
 (require 'package)
 (package-initialize)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t))
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 ;; Interactively Do Things
 (require 'ido)
@@ -23,6 +23,9 @@
 
 
 ;;; keybindings
+
+;; set C-x g to magit
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; sometimes C-spc and C-@ don't work, so set mark this way too
 (global-set-key (kbd "C-x 9") 'set-mark-command)
@@ -47,6 +50,12 @@
 
 ;; improve status line
 (setq column-number-mode t)
+
+;; highlight the current ling
+(setq global-hl-line-mode t)
+
+;; set a color scheme
+(load-theme 'misterioso)
 
 
 ;;; UI things for interaction
