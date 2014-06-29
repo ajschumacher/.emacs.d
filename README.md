@@ -1,5 +1,9 @@
 # My config files
 
+Also:
+
+ * `pip install elpy rope jedi` for all the emacs-python love from elpy
+
 On a mac also:
 
  * `System Preferences...` `Keyboard` `Modifier Keys...` Caps Lock to Control
