@@ -1,5 +1,8 @@
 ;; Manually built .emacs config
 
+;; sometimes C-spc and C-@ don't work
+(global-set-key (kbd "C-x 9") 'set-mark-command)
+
 ;; get rid of UI stuff (not sure all of these always apply)
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -14,9 +17,9 @@
 (global-set-key (kbd "M-h") 'backward-kill-word)
 (global-set-key (kbd "C-x h") 'help-command)
 
-;; Switch undo and upcase-word because undo is useful
+;; Prefer undo access and move upcase-word
 (global-set-key (kbd "M-u") 'undo)
-(global-set-key (kbd "C-x u") 'upcase-word)
+(global-set-key (kbd "C-x y") 'upcase-word)
 
 ;; One space after sentences. One.
 (setq sentence-end-double-space nil)
@@ -38,3 +41,4 @@
 
 ;; Allow region downcase w/ C-x C-l
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
