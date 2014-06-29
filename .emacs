@@ -13,16 +13,20 @@
 (require 'ido)
 (ido-mode t)
 
-;; auto-complete mode - hoping to replace this with elpa
-;;(add-to-list 'load-path "~/.emacs.d/auto-complete-1.3.1")
-;;(require 'auto-complete)
-;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-;;(require 'auto-complete-config)
-;;(ac-config-default)
-;;(global-auto-complete-mode t)
+;; tree undo
+(global-undo-tree-mode t)
+
+;; auto-complete mode
+(global-auto-complete-mode t)
+
+;; elpy for python
+(elpy-enable)
 
 
 ;;; keybindings
+
+;; from elpy guide guy; this is pretty cool
+(define-key global-map (kbd "C-c o") 'iedit-mode)
 
 ;; set C-x g to magit
 (global-set-key (kbd "C-x g") 'magit-status)
