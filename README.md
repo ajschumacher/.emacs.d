@@ -10,3 +10,8 @@ On a mac also:
  * make/improve setup script to include setting up git user name, generating ssh key and presenting it to be copied into github, etc.
  * tell emacs to not generate ~ files
  * [git completion](https://github.com/git/git/blob/master/contrib/completion/git-completion.bash)?
+
+### Other things to consider:
+
+ * It seems like `vcsh` might be the eventual awesome way to do configs. See:
+   [Manage Your Configs with vcsh](http://www.linuxjournal.com/content/manage-your-configs-vcsh)
