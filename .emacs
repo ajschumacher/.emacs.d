@@ -58,8 +58,8 @@
 ;; improve status line
 (setq column-number-mode t)
 
-;; highlight the current ling
-(setq global-hl-line-mode t)
+;; highlight the current line
+(global-hl-line-mode t)
 
 ;; set a color scheme
 (load-theme 'misterioso)
