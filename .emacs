@@ -25,6 +25,9 @@
 
 ;;; keybindings
 
+;; dired at point is nice
+(global-set-key (kbd "C-x C-j") 'dired-at-point)
+
 ;; from elpy guide guy; this is pretty cool
 (define-key global-map (kbd "C-c o") 'iedit-mode)
 
