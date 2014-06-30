@@ -25,6 +25,9 @@
 
 ;;; keybindings
 
+;; maybe I'll want line numbers sometimes
+(global-set-key (kbd "M-1") 'linum-mode)
+
 ;; dired at point is nice
 (global-set-key (kbd "C-x C-j") 'dired-at-point)
 
