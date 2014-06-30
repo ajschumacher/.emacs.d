@@ -25,6 +25,9 @@
 
 ;;; keybindings
 
+;; expand-region is that new hotness
+(global-set-key (kbd "C-\\") 'er/expand-region)
+
 ;; maybe I'll want line numbers sometimes
 (global-set-key (kbd "M-1") 'linum-mode)
 

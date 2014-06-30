@@ -1,0 +1,3 @@
+ls
+python -m SimpleHTTPServer
+exit
