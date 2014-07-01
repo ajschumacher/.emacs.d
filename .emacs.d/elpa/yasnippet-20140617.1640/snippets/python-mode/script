@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
 # name: script
 # key: script
+# expand-env: ((yas-indent-line 'fixed))
 # --
 #!/usr/bin/env python
 
