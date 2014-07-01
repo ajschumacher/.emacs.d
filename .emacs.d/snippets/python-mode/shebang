@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: shebang
+# key: she
+# group: general
+# --
+#!/usr/bin/env python
+$0
