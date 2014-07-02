@@ -25,8 +25,12 @@
 
 ;;; keybindings
 
+;; I use these too much to struggle with them
+(global-set-key (kbd "C-]") 'beginning-of-buffer)
+(global-set-key (kbd "C-\\") 'end-of-buffer)
+
 ;; expand-region is that new hotness
-(global-set-key (kbd "C-\\") 'er/expand-region)
+(global-set-key (kbd "M-o") 'er/expand-region)
 
 ;; maybe I'll want line numbers sometimes
 (global-set-key (kbd "M-1") 'linum-mode)
