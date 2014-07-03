@@ -13,8 +13,8 @@ On a mac also:
 
 ### Other things to consider:
 
- * It seems like `[vcsh][2]` might be the eventual awesome way to do
-   configs. With `[myrepos][3]` probably. See: [Manage Your Configs
+ * It seems like [vcsh][2] might be the eventual awesome way to do
+   configs. With [myrepos][3] probably. See: [Manage Your Configs
    with vcsh][4]
 
 
