@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-ln -s ~/newdot/.tmux.conf ~/.tmux.conf
+mkdir ~/.matplotlib/
+ln -s ~/newdot/.matplotlib/matplotlibrc ~/.matplotlib/matplotlibrc
 ln -s ~/newdot/.emacs ~/.emacs
 ln -s ~/newdot/.emacs.d/ ~/.emacs.d
 ln -s ~/newdot/.gitconfig ~/.gitconfig
