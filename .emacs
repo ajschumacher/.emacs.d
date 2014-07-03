@@ -22,6 +22,9 @@
 ;; elpy for python
 (elpy-enable)
 
+;; global snippets
+(yas-global-mode t)
+
 
 ;;; keybindings
 
