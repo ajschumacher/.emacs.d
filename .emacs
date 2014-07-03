@@ -25,8 +25,28 @@
 ;; global snippets
 (yas-global-mode t)
 
+;; copying in something to make ido work better
+(require 'flx-ido)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
+
+;; copying in something to make ido work better for M-x
+;; Smex
+(require 'smex)
+(smex-initialize)
+
 
 ;;; keybindings
+
+;; more for Smex
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; I use these too much to struggle with them
 (global-set-key (kbd "C-]") 'beginning-of-buffer)
