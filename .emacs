@@ -81,10 +81,6 @@
 (global-set-key (kbd "M-h") 'backward-kill-word)
 (global-set-key (kbd "C-x h") 'help-command)
 
-;; Prefer undo access and move upcase-word
-(global-set-key (kbd "M-u") 'undo)
-(global-set-key (kbd "C-x y") 'upcase-word)
-
 
 ;;; UI things for display
 
