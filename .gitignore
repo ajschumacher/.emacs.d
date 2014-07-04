@@ -2,3 +2,4 @@
 .emacs.d/auto-save-list/
 .emacs.d/ac-comphist.dat
 .emacs.d/eshell/history
+.emacs.d./backups/
