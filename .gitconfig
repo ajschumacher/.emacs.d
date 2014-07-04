@@ -2,7 +2,7 @@
   name = Aaron Schumacher
   email = ajschumacher@gmail.com
 [core]
-  editor = e
+  editor = emacsclient -c --alternate-editor=""
 [push]
   default = simple
 [color]
