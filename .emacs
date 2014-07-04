@@ -113,3 +113,17 @@
 ;; Allow region downcase w/ C-x C-l
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+;; Put backup files a little out of the way
+(defvar --backup-directory (concat user-emacs-directory "backups"))
+(if (not (file-exists-p --backup-directory))
+            (make-directory --backup-directory t))
+(setq backup-directory-alist `(("." . ,--backup-directory)))
+(setq make-backup-files t          ; backup file the first time it is saved
+      backup-by-copying t          ; don't clobber symlinks
+      version-control t            ; version numbers for backup files
+      delete-old-versions t        ; delete excess backup files silently
+      delete-by-moving-to-trash t  ; system recycle bin or whatever
+      auto-save-default t          ; auto-save every buffer that visits file
+      vc-make-backup-files t       ; backup version-controlled files too
+)
