@@ -21,6 +21,8 @@
 
 ;; elpy for python
 (elpy-enable)
+(elpy-use-ipython)
+(elpy-clean-modeline)
 
 ;; global snippets
 (yas-global-mode t)
