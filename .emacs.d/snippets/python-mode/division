@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: division
+# key: div
+# group: general
+# --
+from __future__ import division
+$0
