@@ -89,6 +89,9 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
+;; turn on time mode
+(display-time-mode t)
+
 ;; turn off highlight-indentation-mode by making it not load by default
 (delete 'highlight-indentation-mode elpy-default-minor-modes)
 
