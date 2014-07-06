@@ -24,6 +24,9 @@
 (elpy-use-ipython)
 (elpy-clean-modeline)
 
+;; ess for R
+(require 'ess-site)
+
 ;; global snippets
 (yas-global-mode t)
 
