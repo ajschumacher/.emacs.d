@@ -95,11 +95,6 @@
 ;; turn on time mode
 (display-time-mode t)
 
-;; diminish some things
-(diminish 'undo-tree-mode)
-(diminish 'compilation-shell-minor-mode)
-(diminish 'magit-auto-revert-mode)
-
 ;; turn off highlight-indentation-mode by making it not load by default
 (delete 'highlight-indentation-mode elpy-default-minor-modes)
 
@@ -108,6 +103,10 @@
 
 ;; get rid of those trailing dashes
 (setq mode-line-end-spaces "")
+
+;; diminish some things
+(diminish 'undo-tree-mode)
+(diminish 'compilation-shell-minor-mode)
 
 ;; highlight the current line
 (global-hl-line-mode t)
