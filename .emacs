@@ -103,6 +103,9 @@
 ;; improve status line
 (setq column-number-mode t)
 
+;; get rid of those trailing dashes
+(setq mode-line-end-spaces "")
+
 ;; highlight the current line
 (global-hl-line-mode t)
 
