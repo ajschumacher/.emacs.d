@@ -92,6 +92,10 @@
 ;; turn on time mode
 (display-time-mode t)
 
+;; diminish some things
+(diminish 'undo-tree-mode)
+(diminish 'compilation-shell-minor-mode)
+
 ;; turn off highlight-indentation-mode by making it not load by default
 (delete 'highlight-indentation-mode elpy-default-minor-modes)
 
