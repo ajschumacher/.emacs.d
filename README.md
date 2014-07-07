@@ -4,6 +4,7 @@ Also:
 
  * install `aspell` to have spell checking in emacs (and everywhere)
  * `pip install elpy rope jedi` for all the emacs-python love from elpy
+ * `python` and `R` kind of go without saying...
 
 On a mac also:
 
