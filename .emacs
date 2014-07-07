@@ -140,3 +140,7 @@
       auto-save-default t          ; auto-save every buffer that visits file
       vc-make-backup-files t       ; backup version-controlled files too
 )
+
+;; better buffer names when multiple files have the same name
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
