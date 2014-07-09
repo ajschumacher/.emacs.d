@@ -71,6 +71,7 @@
 
 ;; from elpy guide guy; this is pretty cool
 (define-key global-map (kbd "C-c o") 'iedit-mode)
+(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
 
 ;; set C-x g to magit
 (global-set-key (kbd "C-x g") 'magit-status)

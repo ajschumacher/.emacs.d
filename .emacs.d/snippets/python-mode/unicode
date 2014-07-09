@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: unicode
+# key: uni
+# group: general
+# --
+from __future__ import unicode_literals
+$0
