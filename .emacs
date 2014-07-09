@@ -148,3 +148,27 @@
 ;; better buffer names when multiple files have the same name
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-drawers (quote ("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "SCRIPT"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; macro(s)
+(fset 'truth-execute
+   "\C-a\C-@\C-e\C-[w\C-@\C-@\C-xb*Python*\C-m\C-y\C-m\C-xb*scratch*\C-m\C-\\\C-m(sleep-for 1)\C-x\C-e\C-xb*Python*\C-m\C-r:\C-r\C-f\C-f\C-@\C-e\C-[w\C-@\C-@\C-\\\C-xbschools.py\C-m\C-aassert((\C-e ==\C-j\C-y))")
+(global-set-key (kbd "C-x C-k 5") 'truth-execute)
+
+;; don't open images in emacs
+(add-hook 'org-mode-hook '(lambda ()
+  (setq org-file-apps (append '(("\\.png\\'" . default)
+				("\\.jpg\\'" . default)) org-file-apps))
+))
