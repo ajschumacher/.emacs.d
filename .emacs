@@ -148,3 +148,6 @@
 ;; better buffer names when multiple files have the same name
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
+
+;; make it easier to run elisp in org mode
+(setq org-confirm-elisp-link-function 'y-or-n-p)
