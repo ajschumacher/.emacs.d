@@ -119,7 +119,7 @@
 (global-hl-line-mode t)
 
 ;; set a color scheme
-(load-theme 'zenburn)
+(load-theme 'zenburn t)
 ;; disable with disable-theme
 
 
