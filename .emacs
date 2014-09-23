@@ -71,7 +71,11 @@
 
 ;; from elpy guide guy; this is pretty cool
 (define-key global-map (kbd "C-c o") 'iedit-mode)
-(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
+
+;; don't use tab for yasnippets, use shift-tab
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
 
 ;; set C-x g to magit
 (global-set-key (kbd "C-x g") 'magit-status)
