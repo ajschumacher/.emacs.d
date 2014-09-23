@@ -132,7 +132,7 @@
       '(help-at-pt-timer-delay 0.9)
            '(help-at-pt-display-when-idle '(flymake-overlay)))
 
-;; Allow region downcase w/ C-x C-l
+;; Allow region downcase w/ C-x C-l, upcase w/ C-x C-u
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
