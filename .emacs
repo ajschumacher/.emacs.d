@@ -111,6 +111,7 @@
 ;; diminish some things
 (diminish 'undo-tree-mode)
 (diminish 'compilation-shell-minor-mode)
+(diminish 'magit-auto-revert-mode)
 
 ;; highlight the current line
 (global-hl-line-mode t)
