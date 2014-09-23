@@ -116,7 +116,7 @@
 (global-hl-line-mode t)
 
 ;; set a color scheme
-(load-theme 'misterioso)
+;;(load-theme 'misterioso)
 
 
 ;;; UI things for interaction
@@ -126,6 +126,11 @@
 
 ;; Precise when moving to next lines
 (setq scroll-step 1)
+
+;; Get help on flymake-discovered problems
+(custom-set-variables
+      '(help-at-pt-timer-delay 0.9)
+           '(help-at-pt-display-when-idle '(flymake-overlay)))
 
 ;; Allow region downcase w/ C-x C-l
 (put 'downcase-region 'disabled nil)
@@ -151,3 +156,9 @@
 
 ;; make it easier to run elisp in org mode
 (setq org-confirm-elisp-link-function 'y-or-n-p)
+
+;; don't open images in emacs
+(add-hook 'org-mode-hook '(lambda ()
+  (setq org-file-apps (append '(("\\.png\\'" . default)
+				("\\.jpg\\'" . default)) org-file-apps))
+))
