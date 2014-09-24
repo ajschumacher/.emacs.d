@@ -19,6 +19,13 @@
 ;; auto-complete mode
 (global-auto-complete-mode t)
 
+;; multiple cursors!
+(require 'multiple-cursors)
+;; this is nicer than string-rectangle
+(global-set-key (kbd "C-x r t") 'mc/edit-lines)
+;; this is enough for most other functionality
+(global-set-key (kbd "C-x C-x") 'mc/mark-more-like-this-extended)
+
 ;; elpy for python
 (elpy-enable)
 (elpy-use-ipython)
