@@ -103,7 +103,7 @@
 (display-time-mode t)
 
 ;; turn off highlight-indentation-mode by making it not load by default
-(delete 'highlight-indentation-mode elpy-modules)
+(delete 'elpy-module-highlight-indentation elpy-modules)
 
 ;; improve status line
 (setq column-number-mode t)
