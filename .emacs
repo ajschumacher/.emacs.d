@@ -114,6 +114,7 @@
 ;; diminish some things
 (diminish 'undo-tree-mode)
 (diminish 'compilation-shell-minor-mode)
+(diminish 'auto-complete-mode)
 
 ;; highlight the current line
 (global-hl-line-mode t)
