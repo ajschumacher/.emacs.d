@@ -95,6 +95,10 @@
 ;; I switch to other window a lot
 (global-set-key (kbd "C-q") 'other-window)
 
+;; and I like to switch buffers
+(global-set-key (kbd "C-x b") 'fill-paragraph)
+(global-set-key (kbd "M-q") 'ido-switch-buffer)
+
 
 ;;; UI things for display
 
