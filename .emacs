@@ -89,7 +89,7 @@
 (global-set-key (kbd "C-x h") 'help-command)
 
 ;; take Yegge's advice on kill-region
-(global-set-key (kbd "C-x C-m") 'execute-extended-command)
+(global-set-key (kbd "C-x C-m") 'smex)
 (global-set-key (kbd "C-x C-k") 'kill-region)
 
 ;; I switch to other window a lot
