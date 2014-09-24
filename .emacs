@@ -141,6 +141,13 @@
 
 ;;; UI things for interaction
 
+;; parentheses (etc.)
+(show-paren-mode t)
+(electric-pair-mode t)
+
+;; delete marked stuff
+(delete-selection-mode t)
+
 ;; One space after sentences. One.
 (setq sentence-end-double-space nil)
 
