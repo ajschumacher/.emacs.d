@@ -26,6 +26,9 @@
 ;; this is enough for most other functionality
 (global-set-key (kbd "C-x C-x") 'mc/mark-more-like-this-extended)
 
+(require 'iy-go-to-char)
+(add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+
 (require 'key-chord)
 (key-chord-mode t)
 
