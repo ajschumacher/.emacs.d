@@ -19,6 +19,9 @@
 ;; auto-complete mode
 (global-auto-complete-mode t)
 
+;; lines for ^L
+(global-page-break-lines-mode t)
+
 ;; multiple cursors!
 (require 'multiple-cursors)
 ;; this is nicer than string-rectangle
