@@ -3,3 +3,4 @@
 .emacs.d/ac-comphist.dat
 .emacs.d/eshell/history
 .emacs.d./backups/
+.emacs.d/.cask/

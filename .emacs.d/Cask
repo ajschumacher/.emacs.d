@@ -1,19 +1,21 @@
 (source gnu)
 (source melpa)
 
+;; cask default packages
+;; (overlap with mine marked)
 (depends-on "bind-key")
 (depends-on "cask")
 (depends-on "dash")
 (depends-on "drag-stuff")
 (depends-on "exec-path-from-shell")
-(depends-on "expand-region")
+(depends-on "expand-region")		; also mine
 (depends-on "f")
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
-(depends-on "magit")
-(depends-on "multiple-cursors")
+(depends-on "magit")			; also mine
+(depends-on "multiple-cursors")		; also mine
 (depends-on "nyan-mode")
 (depends-on "pallet")
 (depends-on "popwin")
@@ -21,7 +23,24 @@
 (depends-on "projectile")
 (depends-on "s")
 (depends-on "smartparens")
-(depends-on "smex")
+(depends-on "smex")			; also mine
 (depends-on "use-package")
 (depends-on "web-mode")
 (depends-on "yasnippet")
+
+;; my desired packages
+(depends-on "auto-complete")
+(depends-on "elpy")
+(depends-on "ess")
+(depends-on "flx-ido")
+(depends-on "browse-kill-ring")
+(depends-on "undo-tree")
+(depends-on "diminish")
+(depends-on "iy-go-to-char")
+(depends-on "key-chord")
+(depends-on "page-break-lines")
+
+;; themes
+(depends-on "zenburn-theme")
+(depends-on "monokai-theme")
+(depends-on "ample-theme")
