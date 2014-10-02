@@ -6,6 +6,7 @@ Also:
  * `pip install elpy rope` for all the emacs-python love from elpy (`jedi` can be used in place of `rope`)
  * `python` and `R` kind of go without saying...
  * install `cask` for `emacs` dependencies: [cask](https://github.com/cask/cask)
+ * install `emacs` package dependencies with `cask install` from `~/.emacs.d`
 
 On a mac also:
 
