@@ -4,10 +4,8 @@
 ;;; packages and modes and so on
 
 ;; establish package system
-(require 'package)
-(package-initialize)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
 
 ;; Interactively Do Things
 (require 'ido)
