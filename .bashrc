@@ -3,7 +3,7 @@
 # PATH things:
 export PATH=/usr/local/bin:$PATH
 export PATH=~/anaconda/bin:$PATH
-export PATH=~/.cask/.bin:$PATH
+export PATH=~/.cask/bin:$PATH
 
 # If not running interactively, don't do anything
 case $- in
