@@ -79,6 +79,12 @@
 (global-set-key (kbd "C-]") 'beginning-of-buffer)
 (global-set-key (kbd "C-\\") 'end-of-buffer)
 
+;; Joy of paragraphs
+(global-set-key (kbd "M-\\") 'mark-paragraph)
+
+;; less shell-command-on-region, more mark-whole-buffer
+(global-set-key (kbd "M-|") 'mark-whole-buffer)
+
 ;; expand-region is that new hotness
 (global-set-key (kbd "M-o") 'er/expand-region)
 
