@@ -151,9 +151,8 @@
 (diminish 'compilation-shell-minor-mode)
 (diminish 'auto-complete-mode)
 
-;; set a color scheme, when graphical
-(when (display-graphic-p)
-  (load-theme 'monokai t))
+;; set a color scheme
+(load-theme 'zenburn t)
 ;; disable with disable-theme
 
 
