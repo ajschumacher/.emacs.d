@@ -43,6 +43,7 @@
 (depends-on "git-gutter-fringe+")
 (depends-on "yasnippet")
 (depends-on "markdown-mode")
+(depends-on "zoom-frm")
 
 ;; themes
 (depends-on "zenburn-theme")

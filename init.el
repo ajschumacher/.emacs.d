@@ -182,6 +182,13 @@
 (load-theme 'zenburn t)
 ;; disable with disable-theme
 
+;; frame zooming with zoom-frm
+(require 'zoom-frm)
+(global-set-key (kbd "C-=") 'zoom-in/out)
+(global-set-key (kbd "C-+") 'zoom-in/out)
+(global-set-key (kbd "C-0") 'zoom-in/out)
+(global-set-key (kbd "C--") 'zoom-in/out)
+
 
 ;;; UI things for interaction
 
