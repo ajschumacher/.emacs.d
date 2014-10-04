@@ -41,7 +41,7 @@ export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)") \d \t\n\$ '
+PS1='\n\[\033[0;34m\]\u@\h \w$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
 
 # enable color support of ls and also add handy aliases
 alias ls='ls -Gp'
@@ -58,20 +58,13 @@ alias l='ls -CF'
 # easily check for a running program
 alias got='ps awx | grep'
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
+# lazy git
 alias g='git'
 alias gi='git'
+
+# all the namespaces
 alias nb='ipython notebook --pylab=inline'
 
+# emacs client/server, text or graphical mode
 alias e='emacsclient -c --alternate-editor="" -nw'
 alias eg='emacsclient -c --alternate-editor="" &'
