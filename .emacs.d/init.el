@@ -153,6 +153,8 @@
 (diminish 'undo-tree-mode)
 (diminish 'compilation-shell-minor-mode)
 (diminish 'auto-complete-mode)
+(diminish 'whole-line-or-region-mode)
+(diminish 'page-break-lines-mode)
 
 ;; set a color scheme
 (load-theme 'zenburn t)
