@@ -42,6 +42,7 @@
 (depends-on "whole-line-or-region")
 (depends-on "git-gutter-fringe+")
 (depends-on "yasnippet")
+(depends-on "markdown-mode")
 
 ;; themes
 (depends-on "zenburn-theme")
