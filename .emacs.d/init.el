@@ -151,9 +151,6 @@
 (diminish 'compilation-shell-minor-mode)
 (diminish 'auto-complete-mode)
 
-;; highlight the current line
-(global-hl-line-mode t)
-
 ;; set a color scheme
 (load-theme 'zenburn t)
 ;; disable with disable-theme
