@@ -10,6 +10,10 @@
 ;; turn this on
 (whole-line-or-region-mode t)
 
+;; marks for changes
+(require 'git-gutter-fringe)
+(global-git-gutter-mode t)
+
 ;; you know what? why the heck not
 (require 'nyan-mode)
 
@@ -159,6 +163,7 @@
 (diminish 'auto-complete-mode)
 (diminish 'whole-line-or-region-mode)
 (diminish 'page-break-lines-mode)
+(diminish 'git-gutter-mode)
 
 ;; set a color scheme
 (load-theme 'zenburn t)
