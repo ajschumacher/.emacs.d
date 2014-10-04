@@ -70,6 +70,11 @@
 
 ;;; keybindings
 
+;; use the Mac keys:
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
+(setq ns-function-modifier 'hyper)
+
 ;; M-y now does interactive stuff
 (browse-kill-ring-default-keybindings)
 

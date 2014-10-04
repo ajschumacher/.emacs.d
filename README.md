@@ -11,7 +11,6 @@ Also:
 On a mac also:
 
  * `System Preferences...` `Keyboard` `Modifier Keys...` Caps Lock to Control
- * [KeyRemap4MacBook][] `Command_R to Option_R`
  * The nice default-provided font in Terminal is called "Menlo".
 
 
