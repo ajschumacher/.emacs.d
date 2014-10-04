@@ -189,6 +189,11 @@
 (global-set-key (kbd "C-0") 'zoom-in/out)
 (global-set-key (kbd "C--") 'zoom-in/out)
 
+;; don't beep all the time
+(setq visible-bell t)
+;; (doesn't apply to terminal mode)
+;; (have to adjust a setting in the term)
+
 
 ;;; UI things for interaction
 
