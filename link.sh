@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-ln -s ~/newdot/.emacs ~/.emacs
-ln -s ~/newdot/.emacs.d/ ~/.emacs.d
-ln -s ~/newdot/.gitconfig ~/.gitconfig
-ln -s ~/newdot/.bashrc ~/.bashrc
-ln -s ~/newdot/.git-completion.sh ~/.git-completion.sh
-ln -s ~/newdot/.git-prompt.sh ~/.git-prompt.sh
+ln -s ~/.emacs.d/git/.gitconfig ~/.gitconfig
+ln -s ~/.emacs.d/bash/.bashrc ~/.bashrc
 ln -s ~/.bashrc ~/.bash_profile
+ln -s ~/.emacs.d/bash/.git-completion.sh ~/.git-completion.sh
+ln -s ~/.emacs.d/bash/.git-prompt.sh ~/.git-prompt.sh
