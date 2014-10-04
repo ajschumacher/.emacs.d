@@ -1,34 +1,34 @@
 (source gnu)
 (source melpa)
 
-;; cask default packages
-;; (overlap with mine marked)
-(depends-on "bind-key")
+;; mission-critical
 (depends-on "cask")
+(depends-on "nyan-mode")
+
+;; cask default packages that I don't know
+(depends-on "bind-key")
 (depends-on "dash")
 (depends-on "drag-stuff")
 (depends-on "exec-path-from-shell")
-(depends-on "expand-region")		; also mine
 (depends-on "f")
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
-(depends-on "magit")			; also mine
-(depends-on "multiple-cursors")		; also mine
-(depends-on "nyan-mode")
 (depends-on "pallet")
 (depends-on "popwin")
 (depends-on "prodigy")
 (depends-on "projectile")
 (depends-on "s")
 (depends-on "smartparens")
-(depends-on "smex")			; also mine
 (depends-on "use-package")
 (depends-on "web-mode")
-(depends-on "yasnippet")
 
 ;; my desired packages
+(depends-on "expand-region")
+(depends-on "smex")
+(depends-on "magit")
+(depends-on "multiple-cursors")
 (depends-on "auto-complete")
 (depends-on "elpy")
 (depends-on "ess")
@@ -41,6 +41,7 @@
 (depends-on "page-break-lines")
 (depends-on "whole-line-or-region")
 (depends-on "git-gutter-fringe")
+(depends-on "yasnippet")
 
 ;; themes
 (depends-on "zenburn-theme")
