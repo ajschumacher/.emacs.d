@@ -12,6 +12,7 @@ On a mac also:
 
  * `System Preferences...` `Keyboard` `Modifier Keys...` Caps Lock to Control
  * The nice default-provided font in Terminal is called "Menlo".
+ * To turn off window drop shadows when doing screenshots, run: `defaults write com.apple.screencapture disable-shadow -bool true; killall SystemUIServer` ([ref](http://computers.tutsplus.com/tutorials/how-to-become-an-os-x-screenshot-wizard--mac-50467)).
 
 
 ### Other things to consider:
