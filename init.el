@@ -291,6 +291,6 @@ All permutations equally likely."
 				   "ajschumacher@gmail.com" nil))
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 465
+      smtpmail-smtp-service 587
       user-full-name "Aaron Schumacher"
       user-mail-address "ajschumacher@gmail.com")

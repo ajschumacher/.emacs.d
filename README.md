@@ -7,6 +7,7 @@ Also:
  * `python` and `R` kind of go without saying...
  * install `[cask](https://github.com/cask/cask)` for `emacs` dependencies (use python installer!)
  * install `emacs` package dependencies with `cask install` from `~/.emacs.d`
+ * possibly install `gnutls` (`brew install gnutls` on mac)
 
 On a mac also:
 
