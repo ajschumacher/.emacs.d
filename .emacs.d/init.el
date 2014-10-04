@@ -7,6 +7,9 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
+;; turn this on
+(whole-line-or-region-mode t)
+
 ;; you know what? why the heck not
 (require 'nyan-mode)
 

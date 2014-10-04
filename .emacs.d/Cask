@@ -39,6 +39,7 @@
 (depends-on "iy-go-to-char")
 (depends-on "key-chord")
 (depends-on "page-break-lines")
+(depends-on "whole-line-or-region")
 
 ;; themes
 (depends-on "zenburn-theme")
