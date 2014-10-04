@@ -11,8 +11,8 @@
 (whole-line-or-region-mode t)
 
 ;; marks for changes
-(require 'git-gutter-fringe)
-(global-git-gutter-mode t)
+(require 'git-gutter-fringe+)
+(global-git-gutter+-mode t)
 
 ;; you know what? why the heck not
 (require 'nyan-mode)

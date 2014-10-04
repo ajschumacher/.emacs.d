@@ -40,7 +40,7 @@
 (depends-on "key-chord")
 (depends-on "page-break-lines")
 (depends-on "whole-line-or-region")
-(depends-on "git-gutter-fringe")
+(depends-on "git-gutter-fringe+")
 (depends-on "yasnippet")
 
 ;; themes
