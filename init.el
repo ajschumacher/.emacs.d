@@ -45,6 +45,8 @@
 
 (key-chord-define-global "hj" 'undo)
 (key-chord-define-global "fg" 'iy-go-to-char)
+(key-chord-define-global "ui" 'backward-paragraph)
+(key-chord-define-global "m," 'forward-paragraph)
 
 ;; elpy for python
 (elpy-enable)
