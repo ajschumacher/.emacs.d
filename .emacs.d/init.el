@@ -163,7 +163,8 @@
 (diminish 'auto-complete-mode)
 (diminish 'whole-line-or-region-mode)
 (diminish 'page-break-lines-mode)
-(diminish 'git-gutter-mode)
+;(diminish 'git-gutter-mode)
+;(diminish 'magit-auto-revert-mode)
 
 ;; set a color scheme
 (load-theme 'zenburn t)
