@@ -7,6 +7,8 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
+;; you know what? why the heck not
+(require 'nyan-mode)
 
 ;; Interactively Do Things
 (require 'ido)
