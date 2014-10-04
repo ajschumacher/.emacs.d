@@ -44,8 +44,8 @@
 (key-chord-mode t)
 
 (key-chord-define-global "hj" 'undo)
-(key-chord-define-global "fg" 'iy-go-to-char)
-(key-chord-define-global "rt" 'iy-go-to-char-backward)
+(key-chord-define-global "cv" 'iy-go-to-char)
+(key-chord-define-global "fg" 'iy-go-to-char-backward)
 (key-chord-define-global "ui" 'backward-paragraph)
 (key-chord-define-global "m," 'forward-paragraph)
 
