@@ -157,14 +157,26 @@
 ;; get rid of those trailing dashes
 (setq mode-line-end-spaces "")
 
+;; 'after', from bling's config
+(if (fboundp 'with-eval-after-load)
+    (defmacro after (feature &rest body)
+      "After FEATURE is loaded, evaluate BODY."
+      (declare (indent defun))
+      `(with-eval-after-load ,feature ,@body))
+  (defmacro after (feature &rest body)
+    "After FEATURE is loaded, evaluate BODY."
+    (declare (indent defun))
+    `(eval-after-load ,feature
+       '(progn ,@body))))
+
 ;; diminish some things
 (diminish 'undo-tree-mode)
 (diminish 'compilation-shell-minor-mode)
 (diminish 'auto-complete-mode)
 (diminish 'whole-line-or-region-mode)
 (diminish 'page-break-lines-mode)
-;(diminish 'git-gutter-mode)
-;(diminish 'magit-auto-revert-mode)
+(after 'git-gutter+ (diminish 'git-gutter+-mode))
+(after 'magit (diminish 'magit-auto-revert-mode))
 
 ;; set a color scheme
 (load-theme 'zenburn t)
