@@ -110,7 +110,7 @@
 (global-set-key (kbd "C-x C-j") 'dired-at-point)
 
 ;; from elpy guide guy; this is pretty cool
-(define-key global-map (kbd "C-c o") 'iedit-mode)
+(define-key global-map (kbd "C-c C-o") 'iedit-mode)
 
 ;; don't use tab for yasnippets, use shift-tab
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
