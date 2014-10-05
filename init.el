@@ -52,6 +52,10 @@
 ;; elpy for python
 (elpy-enable)
 (elpy-use-ipython)
+;; but use flycheck
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 ;; ess for R
 (require 'ess-site)

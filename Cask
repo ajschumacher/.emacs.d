@@ -11,7 +11,6 @@
 (depends-on "drag-stuff")
 (depends-on "exec-path-from-shell")
 (depends-on "f")
-(depends-on "flycheck")
 (depends-on "flycheck-cask")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
@@ -45,6 +44,7 @@
 (depends-on "markdown-mode")
 (depends-on "zoom-frm")
 (depends-on "wrap-region-mode")
+(depends-on "flycheck")
 
 ;; themes
 (depends-on "zenburn-theme")
