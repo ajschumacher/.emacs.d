@@ -5,8 +5,8 @@
  * Install `git`
  * In home directory, `git clone [clone URL]`
  * Run the `link.sh` script as needed to connect things.
- * Install `emacs` 24.
- * Install `[cask][]` for `emacs` dependencies (use python installer!)
+ * Install `emacs` 24
+ * Install `[cask][]` for `emacs` dependencies (use python installer)
  * Install `emacs` package dependencies with `cask install` from
    `~/.emacs.d`
  * Install `aspell` to have spell checking in emacs (and everywhere)
