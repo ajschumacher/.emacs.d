@@ -44,7 +44,6 @@
 (depends-on "yasnippet")
 (depends-on "markdown-mode")
 (depends-on "zoom-frm")
-(depends-on "litable")
 
 ;; themes
 (depends-on "zenburn-theme")
