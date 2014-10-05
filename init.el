@@ -178,7 +178,6 @@
 
 ;; diminish some things
 (diminish 'undo-tree-mode)
-(diminish 'wrap-region-mode)
 (diminish 'compilation-shell-minor-mode)
 (diminish 'auto-complete-mode)
 (diminish 'whole-line-or-region-mode)
@@ -186,6 +185,7 @@
 (diminish 'global-whitespace-mode)
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
 (after 'magit (diminish 'magit-auto-revert-mode))
+(after 'wrap-region-mode (diminish 'wrap-region-mode))
 
 ;; set a color scheme
 (load-theme 'zenburn t)
