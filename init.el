@@ -178,6 +178,7 @@
 
 ;; diminish some things
 (diminish 'undo-tree-mode)
+(diminish 'wrap-region-mode)
 (diminish 'compilation-shell-minor-mode)
 (diminish 'auto-complete-mode)
 (diminish 'whole-line-or-region-mode)
@@ -204,6 +205,11 @@
 
 
 ;;; UI things for interaction
+
+;; wrap things nicely
+(wrap-region-global-mode t)
+(wrap-region-add-wrappers
+ '(("`" "`")))
 
 ;; Don't insert tabs!
 (setq-default indent-tabs-mode nil)
