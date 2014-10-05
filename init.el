@@ -185,7 +185,7 @@
 (diminish 'global-whitespace-mode)
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
 (after 'magit (diminish 'magit-auto-revert-mode))
-(after 'wrap-region-mode (diminish 'wrap-region-mode))
+(after 'wrap-region (diminish 'wrap-region-mode))
 
 ;; set a color scheme
 (load-theme 'zenburn t)
