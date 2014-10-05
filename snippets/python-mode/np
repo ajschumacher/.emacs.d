@@ -1,6 +1,6 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: unicode
-# key: uni
+# name: np
+# key: np
 # group: general
 # --
-from __future__ import unicode_literals$0
+import numpy as np$0

@@ -3,5 +3,4 @@
 # key: pd
 # group: general
 # --
-import pandas as pd
-$0
+import pandas as pd$0
