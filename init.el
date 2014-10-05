@@ -254,7 +254,7 @@
 ;; don't open images in emacs
 (add-hook 'org-mode-hook '(lambda ()
   (setq org-file-apps (append '(("\\.png\\'" . default)
-				("\\.jpg\\'" . default)) org-file-apps))
+                                ("\\.jpg\\'" . default)) org-file-apps))
 ))
 
 
