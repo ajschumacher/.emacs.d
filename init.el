@@ -148,6 +148,10 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
+;; Highlight ugly whitespace
+(setq whitespace-style '(face trailing tabs tab-mark))
+(global-whitespace-mode)
+
 ;; turn on time mode
 (display-time-mode t)
 
