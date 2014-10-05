@@ -182,6 +182,7 @@
 (diminish 'auto-complete-mode)
 (diminish 'whole-line-or-region-mode)
 (diminish 'page-break-lines-mode)
+(diminish 'global-whitespace-mode)
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
 (after 'magit (diminish 'magit-auto-revert-mode))
 
