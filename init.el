@@ -220,10 +220,11 @@
 ;; Precise when moving to next lines
 (setq scroll-step 1)
 
-;; Get help on flymake-discovered problems
+;; this is messed with by emacs if you let it...
 (custom-set-variables
-      '(help-at-pt-timer-delay 0.9)
-           '(help-at-pt-display-when-idle '(flymake-overlay)))
+ '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
+ '(help-at-pt-timer-delay 0.9)
+ '(tab-width 4))
 
 ;; Allow region downcase w/ C-x C-l, upcase w/ C-x C-u
 (put 'downcase-region 'disabled nil)
@@ -322,7 +323,7 @@ file of a buffer in an external program."
 (setq message-send-mail-function 'smtpmail-send-it
       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
       smtpmail-auth-credentials '(("smtp.gmail.com" 587
-				   "ajschumacher@gmail.com" nil))
+                                   "ajschumacher@gmail.com" nil))
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587
