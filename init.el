@@ -204,6 +204,9 @@
 
 ;;; UI things for interaction
 
+;; Don't insert tabs!
+(setq-default indent-tabs-mode nil)
+
 ;; just 'y' or 'n', not 'yes' or 'no'
 (defalias 'yes-or-no-p 'y-or-n-p)
 
