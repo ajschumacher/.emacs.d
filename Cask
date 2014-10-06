@@ -43,7 +43,7 @@
 (depends-on "yasnippet")
 (depends-on "markdown-mode")
 (depends-on "zoom-frm")
-(depends-on "wrap-region-mode")
+(depends-on "wrap-region")
 (depends-on "flycheck")
 (depends-on "twittering-mode")
 
