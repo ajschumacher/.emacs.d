@@ -77,6 +77,9 @@
 (require 'smex)
 (smex-initialize)
 
+;; and... twitter
+(require 'twittering-mode)
+
 
 ;;; keybindings
 

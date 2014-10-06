@@ -45,6 +45,7 @@
 (depends-on "zoom-frm")
 (depends-on "wrap-region-mode")
 (depends-on "flycheck")
+(depends-on "twittering-mode")
 
 ;; themes
 (depends-on "zenburn-theme")
