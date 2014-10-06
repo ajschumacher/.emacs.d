@@ -6,6 +6,9 @@
  * In home directory, `git clone [clone URL]`
  * Run the `link.sh` script as needed to connect things.
  * Install `emacs` 24
+     * `apt-get install emacs24`
+     * `brew install emacs --cocoa --srgb`; `brew linkapps Emacs`
+     * Clojure has [good directions](http://clojure-doc.org/articles/tutorials/emacs.html)
  * Install `[cask][]` for `emacs` dependencies (use python installer)
  * Install `emacs` package dependencies with `cask install` from
    `~/.emacs.d`
