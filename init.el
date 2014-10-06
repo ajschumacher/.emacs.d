@@ -190,6 +190,7 @@
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
 (after 'magit (diminish 'magit-auto-revert-mode))
 (after 'wrap-region (diminish 'wrap-region-mode))
+(after 'flycheck (diminish 'flycheck-mode))
 
 ;; set a color scheme
 (load-theme 'zenburn t)
