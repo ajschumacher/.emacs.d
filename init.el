@@ -56,6 +56,8 @@
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
+;; use flycheck next-error instead of elpy's flymake one
+(define-key elpy-mode-map (kbd "C-c C-n") 'flycheck-next-error)
 
 ;; ess for R
 (require 'ess-site)
