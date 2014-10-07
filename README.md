@@ -2,6 +2,8 @@
 
 ### Setup
 
+(The order is not always strict, but shouldn't be broken.)
+
  * Install `git`
  * In home directory, `git clone [clone URL]`
  * Run the `link.sh` script as needed to connect things.
