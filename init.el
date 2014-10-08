@@ -58,6 +58,7 @@
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 ;; use flycheck next-error instead of elpy's flymake one
 (define-key elpy-mode-map (kbd "C-c C-n") 'flycheck-next-error)
+(define-key elpy-mode-map (kbd "C-c C-p") 'flycheck-previous-error)
 
 ;; ess for R
 (require 'ess-site)
