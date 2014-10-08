@@ -46,6 +46,9 @@
 (depends-on "wrap-region")
 (depends-on "flycheck")
 (depends-on "twittering-mode")
+(depends-on "inf-ruby")
+(depends-on "yari")
+(depends-on "ruby-tools")
 
 ;; themes
 (depends-on "zenburn-theme")
