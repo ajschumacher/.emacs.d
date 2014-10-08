@@ -4,6 +4,7 @@
 export PATH=/usr/local/bin:$PATH
 export PATH=~/anaconda/bin:$PATH
 export PATH=~/.cask/bin:$PATH
+export PATH=$PATH:$HOME/.rvm/bin
 
 # If not running interactively, don't do anything
 case $- in
