@@ -19,7 +19,6 @@
 (depends-on "prodigy")
 (depends-on "projectile")
 (depends-on "s")
-(depends-on "smartparens")
 (depends-on "use-package")
 (depends-on "web-mode")
 
@@ -43,7 +42,6 @@
 (depends-on "yasnippet")
 (depends-on "markdown-mode")
 (depends-on "zoom-frm")
-(depends-on "wrap-region")
 (depends-on "flycheck")
 (depends-on "twittering-mode")
 (depends-on "inf-ruby")
@@ -52,6 +50,7 @@
 (depends-on "smartrep")
 (depends-on "operate-on-number")
 (depends-on "rainbow-mode")
+(depends-on "smartparens")
 
 ;; themes
 (depends-on "zenburn-theme")

@@ -214,9 +214,9 @@
 (diminish 'page-break-lines-mode)
 (diminish 'global-whitespace-mode)
 (diminish 'rainbow-mode)
+(after 'smartparens (diminish 'smartparens-mode))
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
 (after 'magit (diminish 'magit-auto-revert-mode))
-(after 'wrap-region (diminish 'wrap-region-mode))
 (after 'flycheck (diminish 'flycheck-mode))
 
 ;; set a color scheme
@@ -243,11 +243,6 @@
 
 ;;; UI things for interaction
 
-;; wrap things nicely
-(wrap-region-global-mode t)
-(wrap-region-add-wrappers
- '(("`" "`")))
-
 ;; Don't insert tabs!
 (setq-default indent-tabs-mode nil)
 
@@ -255,8 +250,8 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; parentheses (etc.)
-(show-paren-mode t)
-(electric-pair-mode t)
+(smartparens-global-mode t)
+(show-smartparens-global-mode t)
 
 ;; delete marked stuff
 (delete-selection-mode t)
