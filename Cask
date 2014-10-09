@@ -49,6 +49,8 @@
 (depends-on "inf-ruby")
 (depends-on "yari")
 (depends-on "ruby-tools")
+(depends-on "smartrep")
+(depends-on "operate-on-number")
 
 ;; themes
 (depends-on "zenburn-theme")
