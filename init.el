@@ -214,6 +214,9 @@
 ;; (doesn't apply to terminal mode)
 ;; (have to adjust a setting in the term)
 
+;; get spell-checking in graphical mode where path is weird
+(setq exec-path (append exec-path '("/usr/local/bin")))
+
 
 ;;; UI things for interaction
 
@@ -340,7 +343,7 @@ file of a buffer in an external program."
 ;;; end prelude open function
 
 
-;; set up email maybe?
+;;; set up email maybe?
 
 (setq message-send-mail-function 'smtpmail-send-it
       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
