@@ -51,6 +51,7 @@
 (depends-on "ruby-tools")
 (depends-on "smartrep")
 (depends-on "operate-on-number")
+(depends-on "rainbow-mode")
 
 ;; themes
 (depends-on "zenburn-theme")

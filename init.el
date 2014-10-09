@@ -177,6 +177,11 @@
 (setq whitespace-style '(face trailing tabs tab-mark))
 (global-whitespace-mode)
 
+;; so rainbow. wow.
+(define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
+  (lambda () (rainbow-mode t)))
+(my-global-rainbow-mode t)
+
 ;; turn on time mode
 (display-time-mode t)
 
@@ -208,6 +213,7 @@
 (diminish 'whole-line-or-region-mode)
 (diminish 'page-break-lines-mode)
 (diminish 'global-whitespace-mode)
+(diminish 'rainbow-mode)
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
 (after 'magit (diminish 'magit-auto-revert-mode))
 (after 'wrap-region (diminish 'wrap-region-mode))
