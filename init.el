@@ -216,6 +216,8 @@
 
 ;; get spell-checking in graphical mode where path is weird
 (setq exec-path (append exec-path '("/usr/local/bin")))
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 
 ;;; UI things for interaction
