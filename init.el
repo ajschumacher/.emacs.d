@@ -91,6 +91,7 @@
 (setq mac-option-modifier 'super)
 (setq ns-function-modifier 'hyper)
 
+(require 'smartrep)
 (require 'operate-on-number)
 (smartrep-define-key global-map "C-c ."
   '(("+" . apply-operation-to-number-at-point)
