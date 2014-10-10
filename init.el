@@ -214,7 +214,7 @@
 (diminish 'page-break-lines-mode)
 (diminish 'global-whitespace-mode)
 (diminish 'rainbow-mode)
-(diminish 'flyspell-mode)
+(after 'flyspell (diminish 'flyspell-mode))
 (after 'smartparens (diminish 'smartparens-mode))
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
 (after 'magit (diminish 'magit-auto-revert-mode))
