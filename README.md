@@ -5,16 +5,15 @@
 (The order is not always strict, but shouldn't be broken.)
 
  * Install `git`
- * In home directory, `git clone [clone URL]`
+ * In home directory, `git clone <clone URL>`
  * Run the `link.sh` script as needed to connect things.
  * Install `emacs` 24:
      * On Ubuntu etc.: `apt-get install emacs24`
-     * On a Mac this is often okay; see also Clojure's
-       [fine directions](http://clojure-doc.org/articles/tutorials/emacs.html)
+     * On a Mac this is often okay; see also
+       [Clojure's fine directions][]
          * `brew install emacs --cocoa --srgb`
          * `brew linkapps Emacs`
-     * On a Mac this is the bee's knees:
-       [emacs-mac-port](https://github.com/railwaycat/emacs-mac-port)
+     * On a Mac this is the bee's knees: [emacs-mac-port][]
          * `brew tap railwaycat/emacsmacport`
          * `brew install emacs-mac`
          * `brew linkapps Emacs`
@@ -29,6 +28,8 @@
    (`jedi` can be used in place of `rope`)
  * possibly install `gnutls` (`brew install gnutls` on mac)
 
+[Clojure's fine directions]: http://clojure-doc.org/articles/tutorials/emacs.html
+[emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
 [cask]: https://github.com/cask/cask
 
 
