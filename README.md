@@ -39,9 +39,11 @@
  * The nice default-provided font in Terminal is called "Menlo".
  * To turn off window drop shadows when doing screenshots, run:
    `defaults write com.apple.screencapture disable-shadow -bool true;
-   killall SystemUIServer` ([ref][]).
+   killall SystemUIServer` ([ref1][]).
+ * To make all files visible in the Finder, run: `defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder` ([ref2][])
 
-[ref]: http://computers.tutsplus.com/tutorials/how-to-become-an-os-x-screenshot-wizard--mac-50467
+[ref1]: http://computers.tutsplus.com/tutorials/how-to-become-an-os-x-screenshot-wizard--mac-50467
+[ref2]: https://discussions.apple.com/thread/1935221
 
 
 ### Other things:
