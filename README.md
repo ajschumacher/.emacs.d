@@ -7,10 +7,19 @@
  * Install `git`
  * In home directory, `git clone [clone URL]`
  * Run the `link.sh` script as needed to connect things.
- * Install `emacs` 24
-     * `apt-get install emacs24`
-     * `brew install emacs --cocoa --srgb`; `brew linkapps Emacs`
-     * Clojure has [good directions](http://clojure-doc.org/articles/tutorials/emacs.html)
+ * Install `emacs` 24:
+     * On Ubuntu etc.: `apt-get install emacs24`
+     * On a Mac this is often okay; see also Clojure's
+       [fine directions](http://clojure-doc.org/articles/tutorials/emacs.html)
+         * `brew install emacs --cocoa --srgb`
+         * `brew linkapps Emacs`
+     * On a Mac this is the bee's knees:
+       [emacs-mac-port](https://github.com/railwaycat/emacs-mac-port)
+         * `brew tap railwaycat/emacsmacport`
+         * `brew install emacs-mac`
+         * `brew linkapps Emacs`
+         * You get nice things like more utf-8 characters actually
+           displaying, etc.
  * Install `[cask][]` for `emacs` dependencies (use python installer)
  * Install `emacs` package dependencies with `cask install` from
    `~/.emacs.d`
