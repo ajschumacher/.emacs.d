@@ -291,7 +291,7 @@
 (define-key sp-keymap (kbd "C-M-<backspace>") 'sp-splice-sexp-killing-backward)
 (define-key sp-keymap (kbd "C-S-<backspace>") 'sp-splice-sexp-killing-around)
 
-(define-key sp-keymap (kbd "C-]") 'sp-select-next-thing-exchange)
+;(define-key sp-keymap (kbd "C-]") 'sp-select-next-thing-exchange)
 (define-key sp-keymap (kbd "C-<left_bracket>") 'sp-select-previous-thing)
 (define-key sp-keymap (kbd "C-M-]") 'sp-select-next-thing)
 
