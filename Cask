@@ -21,6 +21,7 @@
 (depends-on "s")
 (depends-on "use-package")
 (depends-on "web-mode")
+(depends-on "smartparens")
 
 ;; my desired packages
 (depends-on "expand-region")
@@ -50,7 +51,7 @@
 (depends-on "smartrep")
 (depends-on "operate-on-number")
 (depends-on "rainbow-mode")
-(depends-on "smartparens")
+(depends-on "wrap-region")
 
 ;; themes
 (depends-on "zenburn-theme")
