@@ -59,6 +59,9 @@ alias l='ls -CF'
 # easily check for a running program
 alias got='ps awx | grep'
 
+# run web server quickly
+alias web='python -m SimpleHTTPServer'
+
 # lazy git
 alias g='git'
 alias gi='git'
