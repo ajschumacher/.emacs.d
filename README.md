@@ -24,8 +24,8 @@
    `~/.emacs.d`
  * Install `aspell` to have spell checking in emacs (and everywhere)
  * `python` and `R` kind of go without saying...
- * `pip install elpy rope` for all the emacs-python love from elpy
-   (`jedi` can be used in place of `rope`)
+ * `pip install elpy jedi` for all the emacs-python love from elpy
+   (`rope` can be used in place of `jedi`)
  * possibly install `gnutls` (`brew install gnutls` on mac)
 
 [Clojure's fine directions]: http://clojure-doc.org/articles/tutorials/emacs.html
