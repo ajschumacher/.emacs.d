@@ -23,7 +23,7 @@
  * Install `emacs` package dependencies with `cask install` from
    `~/.emacs.d`
  * Install `aspell` to have spell checking in emacs (and everywhere)
- * `python` and `R` kind of go without saying...
+ * `python` and `R` kind of go without saying... (`r-base` on Ubuntu)
  * `pip install elpy jedi` for all the emacs-python love from elpy
    (`rope` can be used in place of `jedi`)
  * possibly install `gnutls` (`brew install gnutls` on mac)
