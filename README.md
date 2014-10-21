@@ -2,7 +2,7 @@
 
 ### Setup
 
-(The order is not always strict, but shouldn't be broken.)
+(The order is not always strict.)
 
  * Install `git`
  * In home directory, `git clone <clone URL>`
