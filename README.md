@@ -19,7 +19,7 @@
          * `brew linkapps Emacs`
          * You get nice things like more utf-8 characters actually
            displaying, etc.
- * Install [cask][] for `emacs` dependencies (use python installer)
+ * Install [cask][] for `emacs` dependencies (use python installer with `curl -fsSkL https://raw.github.com/cask/cask/master/go | python` if it hasn't changed)
  * Install `emacs` package dependencies with `cask install` from
    `~/.emacs.d`
  * Install `aspell` to have spell checking in emacs (and everywhere)
