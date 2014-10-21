@@ -72,3 +72,5 @@ alias nb='ipython notebook --pylab=inline'
 # emacs client/server, text or graphical mode
 alias e='emacsclient -c --alternate-editor="" -nw'
 alias eg='emacsclient -c --alternate-editor=""'
+
+export EDITOR='emacsclient -c --alternate-editor="" -nw'
