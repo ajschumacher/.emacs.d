@@ -6,6 +6,13 @@ export PATH=~/anaconda/bin:$PATH
 export PATH=~/.cask/bin:$PATH
 export PATH=$PATH:$HOME/.rvm/bin
 
+# For virtualenvwrapper:
+export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh # possibly brittle
+
+
+# These bits I just copied in from somewhere
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -33,6 +40,9 @@ shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# End bits I just copied in from somewhere
+
 
 # imports and config for git prompt
 source ~/.git-completion.sh
