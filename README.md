@@ -13,7 +13,7 @@
        [Clojure's fine directions][]
          * `brew install emacs --cocoa --srgb`
          * `brew linkapps Emacs`
-     * On a Mac this is the bee's knees: [emacs-mac-port][]
+     * On a Mac this is (kind of) the bee's knees: [emacs-mac-port][]
          * `brew tap railwaycat/emacsmacport`
          * `brew install emacs-mac`
          * `brew linkapps Emacs`
@@ -26,6 +26,7 @@
  * `python` and `R` kind of go without saying... (`r-base` on Ubuntu)
  * `pip install elpy jedi` for all the emacs-python love from elpy
    (`rope` can be used in place of `jedi`)
+ * `gem install rubocop ruby-lint` to get nice things for Ruby
  * possibly install `gnutls` (`brew install gnutls` on mac)
 
 [Clojure's fine directions]: http://clojure-doc.org/articles/tutorials/emacs.html
