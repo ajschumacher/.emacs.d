@@ -49,16 +49,16 @@
 (key-chord-define-global ",." 'backward-paragraph)
 (key-chord-define-global "./" 'forward-paragraph)
 
+;; flycheck is my boss
+(add-hook 'after-init-hook #'global-flycheck-mode)
+; (what is that '#' in there for?
+
 ;; elpy for python
 (elpy-enable)
 (elpy-use-ipython)
-;; but use flycheck
+;; but don't use flymake, since using flycheck
 (when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-;; use flycheck next-error instead of elpy's flymake one
-(define-key elpy-mode-map (kbd "C-c C-n") 'flycheck-next-error)
-(define-key elpy-mode-map (kbd "C-c C-p") 'flycheck-previous-error)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
 
 ;; ess for R
 (require 'ess-site)
@@ -217,7 +217,11 @@
 (after 'flyspell (diminish 'flyspell-mode))
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
 (after 'magit (diminish 'magit-auto-revert-mode))
-(after 'flycheck (diminish 'flycheck-mode))
+(after 'flycheck (diminish 'flycheck-mode)
+                 (define-key flycheck-mode-map
+                   (kbd "C-c C-n") 'flycheck-next-error)
+                 (define-key flycheck-mode-map
+                   (kbd "C-c C-p") 'flycheck-previous-error))
 
 ;; set a color scheme
 (load-theme 'zenburn t)
