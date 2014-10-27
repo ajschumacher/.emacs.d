@@ -52,6 +52,7 @@
 (depends-on "operate-on-number")
 (depends-on "rainbow-mode")
 (depends-on "wrap-region")
+(depends-on "discover")
 
 ;; themes
 (depends-on "zenburn-theme")
