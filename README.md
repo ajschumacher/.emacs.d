@@ -11,6 +11,8 @@
      * On Ubuntu etc.: `apt-get install emacs24`
      * On a Mac this is often okay; see also
        [Clojure's fine directions][]
+         * `brew install emacs --HEAD --use-git-head --cocoa --with-gnutls`
+           *DO IT*
          * `brew install emacs --cocoa --srgb`
          * `brew linkapps Emacs`
      * On a Mac this is (kind of) the bee's knees: [emacs-mac-port][]
