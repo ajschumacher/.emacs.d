@@ -69,6 +69,9 @@ alias l='ls -CF'
 # easily check for a running program
 alias got='ps awx | grep'
 
+# command-line setdiff
+function setdiff () { comm -23 <(sort "$1") <(sort "$2"); }
+
 # run web server quickly
 alias web='python -m SimpleHTTPServer'
 
