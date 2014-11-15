@@ -50,6 +50,18 @@
 [ref2]: https://discussions.apple.com/thread/1935221
 
 
+### Browser stuff
+
+ * For Chrome:
+     * Install [AdBlock](https://chrome.google.com/webstore/detail/adblock/gighmmpiobklfepjocnamgkkbiglidom)
+     * Install [Markdown Here](http://markdown-here.com/)
+     * Install [Markdown Preview Plus](https://chrome.google.com/webstore/detail/markdown-preview-plus/febilkbfcbhebfnokafefeacimjdckgl)
+     * Install [JSONView](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc)
+     * Install [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
+     * Install [downloadyoutube](https://github.com/gantt/downloadyoutube)
+     * Install [Hangouts](https://chrome.google.com/webstore/detail/hangouts/nckgahadagoaajjgafhacjanaoiihapd), I guess?
+
+
 ### Other things:
 
  * It seems like [vcsh][] might be the eventual awesome way to do
