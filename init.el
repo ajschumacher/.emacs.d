@@ -1,5 +1,14 @@
-;; help us emacs config - you're our only hope
+;;; init.el --- Summary:
 
+;; I hear and obey, flymake
+
+
+;;; Commentary:
+
+;; help us Emacs config - you're our only hope
+
+
+;;; Code:
 
 ;;; packages and modes and so on
 
