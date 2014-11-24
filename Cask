@@ -20,7 +20,6 @@
 (depends-on "projectile")
 (depends-on "s")
 (depends-on "use-package")
-(depends-on "web-mode")
 (depends-on "smartparens")
 
 ;; my desired packages
@@ -53,6 +52,7 @@
 (depends-on "rainbow-mode")
 (depends-on "wrap-region")
 (depends-on "discover")
+(depends-on "web-mode")
 
 ;; themes
 (depends-on "zenburn-theme")
