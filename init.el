@@ -110,6 +110,9 @@
 (setq mac-option-modifier 'super)
 (setq ns-function-modifier 'hyper)
 
+;; follow Sacha's lead on this one:
+(global-set-key (kbd "RET") 'newline-and-indent)
+
 (require 'smartrep)
 (require 'operate-on-number)
 (smartrep-define-key global-map "C-c ."
