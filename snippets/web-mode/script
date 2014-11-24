@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: script
+# key: script
+# group: general
+# --
+<script type="text/javascript">
+$0
+</script>
