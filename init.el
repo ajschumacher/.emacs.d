@@ -59,8 +59,7 @@
 (key-chord-define-global "./" 'forward-paragraph)
 
 ;; flycheck is my boss
-(add-hook 'after-init-hook #'global-flycheck-mode)
-; (what is that '#' in there for?
+(add-hook 'after-init-hook 'global-flycheck-mode)
 
 ;; elpy for python
 (elpy-enable)
