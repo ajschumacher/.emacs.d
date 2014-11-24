@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: js
+# key: js
+# group: general
+# --
+<script src="$0"></script>

@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: html
+# key: html
+# group: general
+# --
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>$0</title>
+  </head>
+  <body>
+  </body>
+</html>
