@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: d3
+# key: d3
+# group: general
+# --
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
