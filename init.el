@@ -102,6 +102,8 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
+(drag-stuff-global-mode)
+
 
 ;;; keybindings
 
@@ -236,6 +238,7 @@
 (diminish 'page-break-lines-mode)
 (diminish 'global-whitespace-mode)
 (diminish 'rainbow-mode)
+(diminish 'drag-stuff-mode)
 (after 'flyspell (diminish 'flyspell-mode))
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
 (after 'magit (diminish 'magit-auto-revert-mode))

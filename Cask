@@ -8,7 +8,6 @@
 ;; cask default packages that I don't know
 (depends-on "bind-key")
 (depends-on "dash")
-(depends-on "drag-stuff")
 (depends-on "exec-path-from-shell")
 (depends-on "f")
 (depends-on "flycheck-cask")
@@ -53,6 +52,7 @@
 (depends-on "wrap-region")
 (depends-on "discover")
 (depends-on "web-mode")
+(depends-on "drag-stuff")
 
 ;; themes
 (depends-on "zenburn-theme")
