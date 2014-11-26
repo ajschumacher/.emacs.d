@@ -102,10 +102,17 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
+(add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+
 (drag-stuff-global-mode)
 
 
 ;;; keybindings
+
+;; tab for completing things
+(define-key emmet-mode-keymap (kbd "C-<tab>") 'emmet-expand-line)
+
 
 ;; use the Mac keys:
 (setq mac-command-modifier 'meta)
@@ -231,6 +238,7 @@
        '(progn ,@body))))
 
 ;; diminish some things
+(diminish 'emmet-mode)
 (diminish 'undo-tree-mode)
 (diminish 'compilation-shell-minor-mode)
 (diminish 'auto-complete-mode)

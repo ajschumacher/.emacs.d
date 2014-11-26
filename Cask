@@ -53,6 +53,7 @@
 (depends-on "discover")
 (depends-on "web-mode")
 (depends-on "drag-stuff")
+(depends-on "emmet-mode")
 
 ;; themes
 (depends-on "zenburn-theme")
