@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: jquery
+# key: jquery
+# group: general
+# --
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
