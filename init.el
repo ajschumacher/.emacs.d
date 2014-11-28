@@ -259,6 +259,7 @@
                    (kbd "C-c C-n") 'flycheck-next-error)
                  (define-key flycheck-mode-map
                    (kbd "C-c C-p") 'flycheck-previous-error))
+(after 'robe (diminish 'robe-mode))
 
 ;; set a color scheme
 (load-theme 'zenburn t)
