@@ -71,6 +71,10 @@
 ;; ess for R
 (require 'ess-site)
 
+;; robe for ruby
+(add-hook 'ruby-mode-hook 'robe-mode)
+(add-hook 'robe-mode-hook 'ac-robe-setup)
+
 ;; global snippets
 (yas-global-mode t)
 
