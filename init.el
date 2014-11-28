@@ -114,9 +114,22 @@
 
 ;;; keybindings
 
-;; tab for completing things
-(define-key emmet-mode-keymap (kbd "C-<tab>") 'emmet-expand-line)
+;; 'after', from bling's config
+(if (fboundp 'with-eval-after-load)
+    (defmacro after (feature &rest body)
+      "After FEATURE is loaded, evaluate BODY."
+      (declare (indent defun))
+      `(with-eval-after-load ,feature ,@body))
+  (defmacro after (feature &rest body)
+    "After FEATURE is loaded, evaluate BODY."
+    (declare (indent defun))
+    `(eval-after-load ,feature
+       '(progn ,@body))))
 
+;; tab for completing things
+(after 'emmet-mode
+  (define-key emmet-mode-keymap (kbd "C-<tab>") 'emmet-expand-yas)
+  (diminish 'emmet-mode))
 
 ;; use the Mac keys:
 (setq mac-command-modifier 'meta)
@@ -229,20 +242,7 @@
 ;; get rid of those trailing dashes
 (setq mode-line-end-spaces "")
 
-;; 'after', from bling's config
-(if (fboundp 'with-eval-after-load)
-    (defmacro after (feature &rest body)
-      "After FEATURE is loaded, evaluate BODY."
-      (declare (indent defun))
-      `(with-eval-after-load ,feature ,@body))
-  (defmacro after (feature &rest body)
-    "After FEATURE is loaded, evaluate BODY."
-    (declare (indent defun))
-    `(eval-after-load ,feature
-       '(progn ,@body))))
-
 ;; diminish some things
-(diminish 'emmet-mode)
 (diminish 'undo-tree-mode)
 (diminish 'compilation-shell-minor-mode)
 (diminish 'auto-complete-mode)
