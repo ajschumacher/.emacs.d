@@ -242,6 +242,15 @@
 ;; get rid of those trailing dashes
 (setq mode-line-end-spaces "")
 
+;; prettify everywhere!
+(define-globalized-minor-mode
+  my-global-prettify-symbols-mode
+  prettify-symbols-mode
+  (lambda () (prettify-symbols-mode t)))
+(my-global-prettify-symbols-mode t)
+(defconst prettify-symbols-alist
+  '(("lambda"  . ?λ)))
+
 ;; diminish some things
 (diminish 'undo-tree-mode)
 (diminish 'compilation-shell-minor-mode)
