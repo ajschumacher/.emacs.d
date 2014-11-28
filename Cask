@@ -43,6 +43,7 @@
 (depends-on "zoom-frm")
 (depends-on "flycheck")
 (depends-on "twittering-mode")
+(depends-on "robe")
 (depends-on "inf-ruby")
 (depends-on "yari")
 (depends-on "ruby-tools")
