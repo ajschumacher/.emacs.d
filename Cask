@@ -55,6 +55,7 @@
 (depends-on "web-mode")
 (depends-on "drag-stuff")
 (depends-on "emmet-mode")
+(depends-on "restclient")
 
 ;; themes
 (depends-on "zenburn-theme")
