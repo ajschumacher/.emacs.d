@@ -22,8 +22,12 @@
          * You get nice things like more utf-8 characters actually
            displaying, etc.
  * Install [cask][] for `emacs` dependencies (use python installer with `curl -fsSkL https://raw.github.com/cask/cask/master/go | python` if it hasn't changed)
- * Install `emacs` package dependencies with `cask install` from
-   `~/.emacs.d`
+ * Install `emacs` package dependencies with `cask install` from `~/.emacs.d`
+ * To get TAGS set up for Emacs Lisp sources:
+     * `cd /usr/local/share/emacs/25.0.50/lisp/` or whatever
+     * `gunzip *.gz`
+     * `etags *.el`
+     * Now `M-.` should work. See also: [docs 1](http://www.gnu.org/software/emacs/manual/html_mono/eintr.html#Finding-More), [docs 2](http://www.gnu.org/software/emacs/manual/html_mono/eintr.html#etags)
  * Install `aspell` to have spell checking in emacs (and everywhere)
  * `python` and `R` kind of go without saying... (`r-base` on Ubuntu)
  * `pip install elpy jedi` for all the emacs-python love from elpy
