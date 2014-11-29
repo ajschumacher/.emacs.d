@@ -326,6 +326,7 @@
 ;; Allow region downcase w/ C-x C-l, upcase w/ C-x C-u
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 
 ;; Put backup files a little out of the way
 (defvar --backup-directory (concat user-emacs-directory "backups"))
