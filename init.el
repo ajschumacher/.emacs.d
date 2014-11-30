@@ -438,7 +438,7 @@ Operates on the active region or the whole buffer."
   (insert (replace-regexp-in-string
            "&#[0-9]*;"
            (lambda (match)
-             (format "%c" (string-to-int (substring match 2 -1))))
+             (format "%c" (string-to-number (substring match 2 -1))))
            (filter-buffer-substring start end t))))
 
 
