@@ -427,6 +427,21 @@ file of a buffer in an external program."
 ;;; end prelude open function
 
 
+;;; my function!
+
+(defun ajs-decimal-escapes-to-unicode (start end)
+  "Convert escapes like '&#955;' to Unicode like 'λ'.
+Operates on the active region or the whole buffer."
+  (interactive "r")
+  (or (use-region-p)
+      (setq start (point-min) end (point-max)))
+  (insert (replace-regexp-in-string
+           "&#[0-9]*;"
+           (lambda (match)
+             (format "%c" (string-to-int (substring match 2 -1))))
+           (filter-buffer-substring start end t))))
+
+
 ;;; set up email maybe?
 
 (setq message-send-mail-function 'smtpmail-send-it
