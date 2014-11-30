@@ -446,9 +446,11 @@ Operates on the active region or the whole buffer."
   "Run the function in a buffer for the FILE and save it"
   (save-excursion
     (let ((buffer (find-file-noselect filename)))
+      (message "Working on %s" filename)
       (set-buffer buffer)
       (funcall function)
-      (save-buffer))))
+      (save-buffer)
+      (kill-buffer buffer))))
 
 
 ;;; set up email maybe?
