@@ -427,19 +427,28 @@ file of a buffer in an external program."
 ;;; end prelude open function
 
 
-;;; my function!
+;;; my functions!
 
-(defun ajs-decimal-escapes-to-unicode (start end)
+(defun ajs-decimal-escapes-to-unicode ()
   "Convert escapes like '&#955;' to Unicode like 'λ'.
 Operates on the active region or the whole buffer."
-  (interactive (list (point) (mark)))
-  (or (use-region-p)
-      (setq start (point-min) end (point-max)))
-  (insert (replace-regexp-in-string
-           "&#[0-9]*;"
-           (lambda (match)
-             (format "%c" (string-to-number (substring match 2 -1))))
-           (filter-buffer-substring start end t))))
+  (interactive)
+  (let ((start (point)) (end (mark)))
+    (or (use-region-p)
+        (setq start (point-min) end (point-max)))
+    (insert (replace-regexp-in-string
+             "&#[0-9]*;"
+             (lambda (match)
+               (format "%c" (string-to-number (substring match 2 -1))))
+             (filter-buffer-substring start end t)))))
+
+(defun ajs-run-in-file-and-save (filename function)
+  "Run the function in a buffer for the FILE and save it"
+  (save-excursion
+    (let ((buffer (find-file-noselect filename)))
+      (set-buffer buffer)
+      (funcall function)
+      (save-buffer))))
 
 
 ;;; set up email maybe?
