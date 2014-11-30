@@ -432,7 +432,7 @@ file of a buffer in an external program."
 (defun ajs-decimal-escapes-to-unicode (start end)
   "Convert escapes like '&#955;' to Unicode like 'λ'.
 Operates on the active region or the whole buffer."
-  (interactive "r")
+  (interactive (list (point) (mark)))
   (or (use-region-p)
       (setq start (point-min) end (point-max)))
   (insert (replace-regexp-in-string
