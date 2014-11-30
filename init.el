@@ -452,6 +452,36 @@ Operates on the active region or the whole buffer."
       (save-buffer)
       (kill-buffer buffer))))
 
+(defun ajs-run-in-many-files-and-save (list-of-filenames function)
+  (dolist (filename list-of-filenames)
+    (ajs-run-in-file-and-save filename function)))
+
+(defun ajs-md-html-files-in-below-directory (directory)
+  "List the .md and .html files in DIRECTORY and in its sub-directories."
+  (interactive "DDirectory name: ")
+  (let (all-files-list
+        (current-directory-list
+         (directory-files-and-attributes directory t)))
+    (while current-directory-list
+      (cond
+       ((or
+         (equal ".md" (substring (car (car current-directory-list)) -3))
+         (equal ".html" (substring (car (car current-directory-list)) -5)))
+        (setq all-files-list
+              (cons (car (car current-directory-list)) all-files-list)))
+       ((eq t (car (cdr (car current-directory-list))))
+        (if
+            (equal "."
+                   (substring (car (car current-directory-list)) -1))
+            ()
+          (setq all-files-list
+                (append
+                 (ajs-md-html-files-in-below-directory
+                  (car (car current-directory-list)))
+                 all-files-list)))))
+      (setq current-directory-list (cdr current-directory-list)))
+    all-files-list))
+
 
 ;;; set up email maybe?
 
