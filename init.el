@@ -1,12 +1,9 @@
 ;;; init.el --- Summary:
-
-;; I hear and obey, flymake
-
+;;  This is the Emacs configuration of Aaron J. Schumacher.
+;;  I try to follow the suggestions that flycheck makes.
 
 ;;; Commentary:
-
-;; help us Emacs config - you're our only hope
-
+;;  Help us Emacs config - you're our only hope.
 
 ;;; Code:
 
@@ -15,6 +12,10 @@
 ;; establish package system
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
+
+;; some defaults for new things
+(setq-default major-mode 'text-mode)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; turn this on
 (whole-line-or-region-mode t)
@@ -300,6 +301,9 @@
 ;; just 'y' or 'n', not 'yes' or 'no'
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; switch point into buffer list
+(global-set-key (kbd "C-x C-b") 'buffer-menu)
+
 ;;; parentheses etc.
 (show-paren-mode t)
 (electric-pair-mode t)
@@ -365,6 +369,22 @@
            (setq explicit-sh.exe-args '("--login" "-i"))
            (setenv "SHELL" shell-file-name)
            (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)))
+
+;; the-the in honor of An Introduction to Programming in Emacs Lisp
+(defun the-the ()
+  "Search forward for for a duplicated word."
+  (interactive)
+  (message "Searching for for duplicated words ...")
+  (push-mark)
+  ;; This regexp is not perfect
+  ;; but is fairly good over all:
+  (if (re-search-forward
+       "\\b\\([^@ \n\t]+\\)[ \n\t]+\\1\\b" nil 'move)
+      (message "Found duplicated word.")
+    (message "End of buffer")))
+
+;; Bind `the-the' to  C-c \
+(global-set-key "\C-c\\" 'the-the)
 
 
 ;;; randomize-reqion:
