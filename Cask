@@ -56,6 +56,8 @@
 (depends-on "drag-stuff")
 (depends-on "emmet-mode")
 (depends-on "restclient")
+(depends-on "clojure-mode")
+(depends-on "cider")
 
 ;; themes
 (depends-on "zenburn-theme")
