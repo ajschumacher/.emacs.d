@@ -57,7 +57,9 @@
 (depends-on "emmet-mode")
 (depends-on "restclient")
 (depends-on "clojure-mode")
+(depends-on "clojure-snippets")
 (depends-on "cider")
+(depends-on "ac-cider")
 
 ;; themes
 (depends-on "zenburn-theme")
