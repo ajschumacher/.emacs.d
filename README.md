@@ -34,6 +34,7 @@
    (`rope` can be used in place of `jedi`)
  * `gem install rubocop ruby-lint pry pry-doc method_source` to get nice things for Ruby
  * possibly install `gnutls` (`brew install gnutls` on mac)
+ * `brew install leiningen` works fine.
 
 [Clojure's fine directions]: http://clojure-doc.org/articles/tutorials/emacs.html
 [emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
