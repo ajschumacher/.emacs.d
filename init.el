@@ -298,8 +298,9 @@
 ;; Don't insert tabs!
 (setq-default indent-tabs-mode nil)
 
-;; only two space tabs for javascript
+;; only two space tabs for javascript and CSS
 (setq js-indent-level 2)
+(setq css-indent-offset 2)
 
 ;; just 'y' or 'n', not 'yes' or 'no'
 (defalias 'yes-or-no-p 'y-or-n-p)
