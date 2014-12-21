@@ -15,7 +15,6 @@
 
 ;; some defaults for new things
 (setq-default major-mode 'text-mode)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; turn this on
 (whole-line-or-region-mode t)
