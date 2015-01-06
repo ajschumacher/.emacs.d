@@ -60,6 +60,7 @@
 (depends-on "clojure-snippets")
 (depends-on "cider")
 (depends-on "ac-cider")
+(depends-on "litable")
 
 ;; themes
 (depends-on "zenburn-theme")
