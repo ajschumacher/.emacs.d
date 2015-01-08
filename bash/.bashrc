@@ -1,14 +1,14 @@
 # .bashrc / .bash_profile
 
 # PATH things:
-export PATH=/usr/local/bin:$PATH
-export PATH=~/anaconda/bin:$PATH
+export PATH=~/.local/bin:$PATH
 export PATH=~/.cask/bin:$PATH
 export PATH=$PATH:$HOME/.rvm/bin
+export PATH=~/anaconda/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 
-# For virtualenvwrapper:
+# For pew (not virtualenvwrapper):
 export WORKON_HOME=~/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh # possibly brittle
 
 
 # These bits I just copied in from somewhere
@@ -52,7 +52,15 @@ export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
-PS1='\n\[\033[0;34m\]\u@\h \w$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+# python virtual env, however it comes to be
+if [ -z ${VIRTUAL_ENV+x} ]
+then
+    PEW_STATE=""
+else
+    PEW_STATE=" (py: $(basename "$VIRTUAL_ENV"))"
+fi
+
+PS1='\n\[\033[0;34m\]\u@\h \w$PEW_STATE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
 
 # enable color support of ls and also add handy aliases
 alias ls='ls -Gp'
