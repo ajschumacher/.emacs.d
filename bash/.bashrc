@@ -55,12 +55,12 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 # python virtual env, however it comes to be
 if [ -z ${VIRTUAL_ENV+x} ]
 then
-    PEW_STATE=""
+    VENV_NOTICE=""
 else
-    PEW_STATE=" (py: $(basename "$VIRTUAL_ENV"))"
+    VENV_NOTICE=" (py: $(basename "$VIRTUAL_ENV"))"
 fi
 
-PS1='\n\[\033[0;34m\]\u@\h \w$PEW_STATE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PS1='\n\[\033[0;34m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
 
 # enable color support of ls and also add handy aliases
 alias ls='ls -Gp'
