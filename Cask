@@ -61,6 +61,7 @@
 (depends-on "cider")
 (depends-on "ac-cider")
 (depends-on "litable")
+(depends-on "typo")
 
 ;; themes
 (depends-on "zenburn-theme")
