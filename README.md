@@ -5,7 +5,9 @@
 (The order is not always strict.)
 
  * Install `git`
- * In home directory, `git clone <clone URL>`
+     * Run `ssh-keygen`
+     * Add `~/.ssh/id_rsa.pub` to [GitHub](https://github.com/), etc.
+ * In home directory, `git clone git@github.com:ajschumacher/.emacs.d.git`
  * Run the `link.sh` script as needed to connect things.
  * Install `emacs` 24:
      * On Ubuntu etc.: `apt-get install emacs24`
@@ -29,7 +31,10 @@
      * `etags *.el`
      * Now `M-.` should work. See also: [docs 1](http://www.gnu.org/software/emacs/manual/html_mono/eintr.html#Finding-More), [docs 2](http://www.gnu.org/software/emacs/manual/html_mono/eintr.html#etags)
  * Install `aspell` to have spell checking in emacs (and everywhere)
- * `python` and `R` kind of go without saying... (`r-base` on Ubuntu)
+ * `python` and `R` kind of go without saying...
+     * make sure there's `pip` (`python-pip`)
+         * and `pip install virtualenv pew` etc.
+     * `r-base` on Ubuntu
  * `pip install elpy jedi` for all the emacs-python love from elpy
    (`rope` can be used in place of `jedi`)
  * `gem install rubocop ruby-lint pry pry-doc method_source` to get nice things for Ruby
@@ -57,14 +62,14 @@
 
 ### Browser stuff
 
- * For Chrome:
-     * Install [AdBlock](https://chrome.google.com/webstore/detail/adblock/gighmmpiobklfepjocnamgkkbiglidom)
-     * Install [Markdown Here](http://markdown-here.com/)
-     * Install [Markdown Preview Plus](https://chrome.google.com/webstore/detail/markdown-preview-plus/febilkbfcbhebfnokafefeacimjdckgl)
-     * Install [JSONView](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc)
-     * Install [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
-     * Install [downloadyoutube](https://github.com/gantt/downloadyoutube)
-     * Install [Hangouts](https://chrome.google.com/webstore/detail/hangouts/nckgahadagoaajjgafhacjanaoiihapd), I guess?
+ * For Chrome, install:
+     * [AdBlock](https://chrome.google.com/webstore/detail/adblock/gighmmpiobklfepjocnamgkkbiglidom)
+     * [Markdown Here](http://markdown-here.com/)
+     * [Markdown Preview Plus](https://chrome.google.com/webstore/detail/markdown-preview-plus/febilkbfcbhebfnokafefeacimjdckgl)
+     * [JSONView](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc)
+     * [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
+     * [downloadyoutube](https://github.com/gantt/downloadyoutube)
+     * [Hangouts](https://chrome.google.com/webstore/detail/hangouts/nckgahadagoaajjgafhacjanaoiihapd), I guess?
 
 
 ### Other things:
