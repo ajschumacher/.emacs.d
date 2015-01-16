@@ -62,6 +62,7 @@
 (depends-on "ac-cider")
 (depends-on "litable")
 (depends-on "typo")
+(depends-on "js2-mode")
 
 ;; themes
 (depends-on "zenburn-theme")
