@@ -63,6 +63,7 @@
 (depends-on "litable")
 (depends-on "typo")
 (depends-on "js2-mode")
+(depends-on "ac-js2")
 
 ;; themes
 (depends-on "zenburn-theme")
