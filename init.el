@@ -304,7 +304,7 @@
 (setq-default indent-tabs-mode nil)
 
 ;; only two space tabs for javascript and CSS
-(setq js-indent-level 2)
+(setq-default js2-basic-offset 2)
 (setq css-indent-offset 2)
 
 ;; just 'y' or 'n', not 'yes' or 'no'
