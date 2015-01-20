@@ -7,8 +7,8 @@ export PATH=$PATH:$HOME/.rvm/bin
 export PATH=~/anaconda/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
-# For pew (not virtualenvwrapper):
-export WORKON_HOME=~/.virtualenvs
+# WORKON_HOME considered harmful;
+# default of ~/.local/share/virtualenvs preferred
 
 
 # These bits I just copied in from somewhere
