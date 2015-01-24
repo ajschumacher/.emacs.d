@@ -50,6 +50,7 @@
 
  * `System Preferences...`, `Keyboard`, `Modifier Keys...`, `Caps Lock to
    Control`
+ * Use [Karabiner](https://pqrs.org/osx/karabiner/) to `Change return key`, `Return to Control_L`. (Thanks [Howard](https://www.youtube.com/watch?v=B6jfrrwR10k).)
  * The nice default-provided font in Terminal is called "Menlo".
  * To turn off window drop shadows when doing screenshots, run:
    `defaults write com.apple.screencapture disable-shadow -bool true;
