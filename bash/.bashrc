@@ -1,12 +1,10 @@
 # .bashrc / .bash_profile
 
 # PATH things:
-export PATH=~/.local/bin:$PATH
-export PATH=~/.cask/bin:$PATH
-export PATH=$PATH:$HOME/.rvm/bin
-export PATH=~/anaconda/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-
+export PATH=$PATH:~/.local/bin   # local installs, largely Python
+export PATH=$PATH:~/.cask/bin    # for Cask (Emacs packages)
+export PATH=~/.rvm/bin:$PATH     # in case I'm using RVM
+# Anaconda can be used via pew as `pew workon ~/anaconda`
 # WORKON_HOME considered harmful;
 # default of ~/.local/share/virtualenvs preferred
 
