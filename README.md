@@ -46,6 +46,11 @@
 [cask]: https://github.com/cask/cask
 
 
+### Other things
+
+ * Recall that custom local short names for IP addresses are configured in `/etc/hosts`.
+
+
 ### Other Mac tweaks
 
  * `System Preferences...`, `Keyboard`, `Modifier Keys...`, `Caps Lock to
