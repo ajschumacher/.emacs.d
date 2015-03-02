@@ -7,7 +7,9 @@ export PATH=~/.rvm/bin:$PATH     # in case I'm using RVM
 # Anaconda can be used via pew as `pew workon ~/anaconda`
 # WORKON_HOME considered harmful;
 # default of ~/.local/share/virtualenvs preferred
-
+# WORKON_HOME considered needed for elpy (pyvenv) virtualenv support
+export WORKON_HOME=~/.local/share/virtualenvs
+# (it would be nicer to have pyvenv default like pew, but this will do)
 
 # These bits I just copied in from somewhere
 
