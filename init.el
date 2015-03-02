@@ -63,7 +63,8 @@
 
 ;; elpy for python
 (elpy-enable)
-(elpy-use-ipython)
+; often prefer ipython, but default to always-present cpython
+; (elpy-use-ipython)
 ;; but don't use flymake, since using flycheck
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
