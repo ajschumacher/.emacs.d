@@ -8,6 +8,8 @@
 
 # Set environment variables for all shells:
 
+export GOPATH=~/.go              # for installing Go things
+export PATH=$PATH:$GOPATH/bin    # (like gof3r)
 export PATH=$PATH:~/.local/bin   # local installs, largely Python
 export PATH=$PATH:~/.cask/bin    # for Cask (Emacs packages)
 export PATH=~/.rvm/bin:$PATH     # in case I'm using RVM
