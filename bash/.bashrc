@@ -45,9 +45,6 @@ HISTFILESIZE=2000  # maximum lines stored in the history file
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Use "**" to expand deeply.
-shopt -s globstar
-
 # Make less more friendly for non-text input files. (See lesspipe(1).)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
