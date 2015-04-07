@@ -93,7 +93,7 @@ alias g='git'
 alias gi='git'
 
 # Easily get IPython Notebook started up.
-alias nb='ipython notebook --pylab=inline'
+alias nb='ipython notebook'
 
 # Emacs in client/server, text or graphical mode:
 alias e='emacsclient -c --alternate-editor="" -nw'
