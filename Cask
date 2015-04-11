@@ -30,6 +30,7 @@
 (depends-on "elpy")
 (depends-on "ess")
 (depends-on "flx-ido")
+(depends-on "ido-vertical-mode")
 (depends-on "browse-kill-ring")
 (depends-on "undo-tree")
 (depends-on "diminish")

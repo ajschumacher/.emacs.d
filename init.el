@@ -30,6 +30,23 @@
 (require 'ido)
 (ido-mode t)
 
+;; list vertically (so much nicer!)
+(ido-vertical-mode t)
+
+;; copying in something to make ido work better
+(require 'flx-ido)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
+
+;; copying in something to make ido work better for M-x
+;; Smex
+(require 'smex)
+(smex-initialize)
+
 ;; tree undo
 (global-undo-tree-mode t)
 
@@ -78,20 +95,6 @@
 
 ;; global snippets
 (yas-global-mode t)
-
-;; copying in something to make ido work better
-(require 'flx-ido)
-(ido-mode 1)
-(ido-everywhere 1)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
-
-;; copying in something to make ido work better for M-x
-;; Smex
-(require 'smex)
-(smex-initialize)
 
 ;; and... twitter
 (require 'twittering-mode)
