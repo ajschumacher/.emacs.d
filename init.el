@@ -47,6 +47,8 @@
 (require 'smex)
 (smex-initialize)
 
+(projectile-global-mode)
+
 ;; tree undo
 (global-undo-tree-mode t)
 

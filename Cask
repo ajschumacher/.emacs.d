@@ -16,12 +16,12 @@
 (depends-on "pallet")
 (depends-on "popwin")
 (depends-on "prodigy")
-(depends-on "projectile")
 (depends-on "s")
 (depends-on "use-package")
 (depends-on "smartparens")
 
 ;; my desired packages
+(depends-on "projectile")
 (depends-on "expand-region")
 (depends-on "smex")
 (depends-on "magit")
