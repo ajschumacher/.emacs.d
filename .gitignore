@@ -4,3 +4,5 @@ auto-save-list/
 backups/
 .mc-lists.el
 url/
+tramp
+projectile-bookmarks.eld
