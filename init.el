@@ -35,7 +35,6 @@
 
 ;; copying in something to make ido work better
 (require 'flx-ido)
-(ido-mode 1)
 (ido-everywhere 1)
 (flx-ido-mode 1)
 ;; disable ido faces to see flx highlights.
@@ -47,6 +46,7 @@
 (require 'smex)
 (smex-initialize)
 
+;; projectile adds nice project functions
 (projectile-global-mode)
 
 ;; tree undo
