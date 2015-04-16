@@ -19,6 +19,7 @@
   b = branch
   br = branch
   p = push
+  u = pull upstream master
   last = "log -1 HEAD"
   l = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
   ll = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
