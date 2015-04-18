@@ -235,6 +235,12 @@
 (setq whitespace-style '(face trailing tabs tab-mark))
 (global-whitespace-mode)
 
+;; untabify for git committing
+(add-hook 'git-commit-mode-hook
+          '(lambda ()
+             (untabify (point-min) (point-max)))
+          t)
+
 ;; so rainbow. wow.
 (define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
   (lambda () (rainbow-mode t)))
