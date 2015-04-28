@@ -65,7 +65,14 @@ else
 fi
 
 # Display an informative, nicely spaced prompt.
-PS1='\n\[\033[0;34m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+# Let's use colors! This is not DRY, but it works...
+PSred='\n\[\033[0;31m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PSgreen='\n\[\033[0;32m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PSyellow='\n\[\033[0;33m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PSblue='\n\[\033[0;34m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PSpink='\n\[\033[0;35m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PScyan='\n\[\033[0;36m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PS1=$PSblue
 
 # Enable color support by default.
 alias ls='ls -Gp'
