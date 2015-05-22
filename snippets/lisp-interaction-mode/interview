@@ -1,0 +1,14 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: interview
+# key: int
+# binding: direct-keybinding
+# --
+Total: 
+
+**Technical skills: $0** 
+**Communication: ** 
+**Curiosity: ** 
+**Passion: ** 
+**Coding Challenges: ** 
+**Grit: ** 
+
