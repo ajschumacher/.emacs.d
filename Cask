@@ -21,6 +21,7 @@
 (depends-on "smartparens")
 
 ;; my desired packages
+(depends-on "engine-mode")
 (depends-on "projectile")
 (depends-on "expand-region")
 (depends-on "smex")

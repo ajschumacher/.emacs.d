@@ -77,6 +77,19 @@
 (key-chord-define-global "yu" 'backward-paragraph)
 (key-chord-define-global "nm" 'forward-paragraph)
 
+;; define some engines for engine-mode
+(require 'engine-mode)
+(engine-mode t)
+(defengine github
+  "https://github.com/search?ref=simplesearch&q=%s")
+(defengine duckduckgo
+  "https://duckduckgo.com/?q=%s"
+  :keybinding "d")
+(defengine google
+  "https://www.google.com/#q=%s"
+  :keybinding "g")
+
+
 ;; flycheck is my boss
 (add-hook 'after-init-hook 'global-flycheck-mode)
 
