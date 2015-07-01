@@ -224,6 +224,9 @@
 (global-set-key (kbd "M-h") 'backward-kill-word)
 (global-set-key (kbd "C-x h") 'help-command)
 
+;; from Mickie's book
+(setq apropos-sort-by-scores t)
+
 ;; take Yegge's advice on kill-region
 (global-set-key (kbd "C-x C-m") 'smex)
 (global-set-key (kbd "C-x C-k") 'kill-region)
