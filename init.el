@@ -12,6 +12,8 @@
 ;; establish package system
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
+(require 'pallet)
+(pallet-mode t)
 
 ;; some defaults for new things
 (setq-default major-mode 'text-mode)
