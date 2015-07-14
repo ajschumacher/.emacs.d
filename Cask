@@ -13,7 +13,6 @@
 (depends-on "flycheck-cask")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
-(depends-on "pallet")
 (depends-on "popwin")
 (depends-on "prodigy")
 (depends-on "s")
@@ -21,6 +20,7 @@
 (depends-on "smartparens")
 
 ;; my desired packages
+(depends-on "pallet")
 (depends-on "engine-mode")
 (depends-on "projectile")
 (depends-on "expand-region")
