@@ -3,6 +3,7 @@
 
 ;; mission-critical
 (depends-on "cask")
+(depends-on "pallet")
 (depends-on "nyan-mode")
 
 ;; cask default packages that I don't know
@@ -20,7 +21,6 @@
 (depends-on "smartparens")
 
 ;; my desired packages
-(depends-on "pallet")
 (depends-on "engine-mode")
 (depends-on "projectile")
 (depends-on "expand-region")
