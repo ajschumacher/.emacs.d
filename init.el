@@ -95,6 +95,7 @@
 ;; flycheck is my boss
 (add-hook 'after-init-hook 'global-flycheck-mode)
 
+
 ;; elpy for python
 (elpy-enable)
 ; often prefer ipython, but default to always-present cpython
@@ -102,6 +103,17 @@
 ;; but don't use flymake, since using flycheck
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
+
+;; turn off highlight-indentation-mode by making it not load by default
+(delete 'elpy-module-highlight-indentation elpy-modules)
+
+;; this is messed with by emacs if you let it...
+(custom-set-variables
+ '(elpy-rpc-backend "jedi")
+ '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
+ '(help-at-pt-timer-delay 0.9)
+ '(tab-width 4))
+
 
 ;; ess for R
 (require 'ess-site)
@@ -267,9 +279,6 @@
 ;; turn on time mode
 (display-time-mode t)
 
-;; turn off highlight-indentation-mode by making it not load by default
-(delete 'elpy-module-highlight-indentation elpy-modules)
-
 ;; improve status line
 (setq column-number-mode t)
 
@@ -358,13 +367,6 @@
 
 ;; Precise when moving to next lines
 (setq scroll-step 1)
-
-;; this is messed with by emacs if you let it...
-(custom-set-variables
- '(elpy-rpc-backend "jedi")
- '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
- '(help-at-pt-timer-delay 0.9)
- '(tab-width 4))
 
 ;; Allow region downcase w/ C-x C-l, upcase w/ C-x C-u
 (put 'downcase-region 'disabled nil)
