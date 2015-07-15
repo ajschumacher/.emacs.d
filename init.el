@@ -18,8 +18,11 @@
 ;; some defaults for new things
 (setq-default major-mode 'text-mode)
 
-;; turn this on
+;; turn this on because... good.
 (whole-line-or-region-mode t)
+
+;; shift-arrows for changing windows
+(windmove-default-keybindings)
 
 ;; marks for changes
 (require 'git-gutter-fringe+)
