@@ -54,6 +54,8 @@
 (depends-on "smartparens")
 (depends-on "smartrep")
 (depends-on "smex")
+(depends-on "stan-mode")
+(depends-on "stan-snippets")
 (depends-on "twittering-mode")
 (depends-on "typo")
 (depends-on "undo-tree")
