@@ -51,6 +51,7 @@
 (depends-on "robe")
 (depends-on "ruby-tools")
 (depends-on "s")
+(depends-on "skewer-mode")
 (depends-on "smartparens")
 (depends-on "smartrep")
 (depends-on "smex")
