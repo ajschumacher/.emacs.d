@@ -106,3 +106,6 @@ alias nb='ipython notebook'
 alias e='emacsclient -c --alternate-editor="" -nw'
 alias eg='emacsclient -c --alternate-editor=""'
 export EDITOR='emacsclient -c --alternate-editor="" -nw'
+
+# Convenience
+alias ..='cd ..'
