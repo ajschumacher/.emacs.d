@@ -150,6 +150,9 @@
 
 (drag-stuff-global-mode)
 
+;; ThisIsFourWords
+(global-subword-mode t)
+
 
 ;;; keybindings
 
