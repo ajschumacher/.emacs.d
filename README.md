@@ -80,6 +80,8 @@
 
 ### Other things:
 
+ * I wanted to include a note about `rlwrap` and `rlundo`.
+
  * It seems like [vcsh][] might be the eventual awesome way to do
    configs. With [myrepos][] probably. See: [Manage Your Configs
    with vcsh][]
