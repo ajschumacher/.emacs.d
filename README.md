@@ -55,6 +55,7 @@
 
  * `System Preferences...`, `Keyboard`, `Modifier Keys...`, `Caps Lock to
    Control`
+ * Maybe this markdown preview plugin [thing](http://inkmarkapp.com/markdown-quick-look-plugin-mac-os-x/) for Finder?
  * Use [Karabiner](https://pqrs.org/osx/karabiner/) to `Change return key`, `Return to Control_L`. (Thanks [Howard](https://www.youtube.com/watch?v=B6jfrrwR10k).)
  * The nice default-provided font in Terminal is called "Menlo".
  * To turn off window drop shadows when doing screenshots, run:
