@@ -313,7 +313,6 @@
 (diminish 'drag-stuff-mode)
 (after 'flyspell (diminish 'flyspell-mode))
 (after 'git-gutter+ (diminish 'git-gutter+-mode))
-(after 'magit (diminish 'magit-auto-revert-mode))
 (after 'flycheck (diminish 'flycheck-mode)
                  (define-key flycheck-mode-map
                    (kbd "C-c C-n") 'flycheck-next-error)
