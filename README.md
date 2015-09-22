@@ -58,18 +58,13 @@
  * Maybe this markdown preview plugin [thing](http://inkmarkapp.com/markdown-quick-look-plugin-mac-os-x/) for Finder?
  * Use [Karabiner](https://pqrs.org/osx/karabiner/) to `Change return key`, `Return to Control_L`. (Thanks [Howard](https://www.youtube.com/watch?v=B6jfrrwR10k).)
  * The nice default-provided font in Terminal is called "Menlo".
- * To turn off window drop shadows when doing screenshots, run:
-   `defaults write com.apple.screencapture disable-shadow -bool true;
-   killall SystemUIServer` ([ref1][]).
- * To make all files visible in the Finder, run: `defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder` ([ref2][])
-
-[ref1]: http://computers.tutsplus.com/tutorials/how-to-become-an-os-x-screenshot-wizard--mac-50467
-[ref2]: https://discussions.apple.com/thread/1935221
+ * To turn off window drop shadows when doing screenshots, run: `defaults write com.apple.screencapture disable-shadow -bool true; killall SystemUIServer` ([ref](http://computers.tutsplus.com/tutorials/how-to-become-an-os-x-screenshot-wizard--mac-50467).
+ * To make all files visible in the Finder, run: `defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder` ([ref](https://discussions.apple.com/thread/1935221)
 
 
 ### Browser stuff
 
- * For Chrome, install:
+ * For Chrome, install (or don't, because things auto-install when you log in to Chrome):
      * [AdBlock](https://chrome.google.com/webstore/detail/adblock/gighmmpiobklfepjocnamgkkbiglidom)
      * [Markdown Here](http://markdown-here.com/)
      * [Markdown Preview Plus](https://chrome.google.com/webstore/detail/markdown-preview-plus/febilkbfcbhebfnokafefeacimjdckgl)
@@ -93,3 +88,34 @@
 [myrepos]: http://myrepos.branchable.com/
 [Manage Your Configs with vcsh]: http://www.linuxjournal.com/content/manage-your-configs-vcsh
 [dotfiles.github.io]: http://dotfiles.github.io/
+
+
+### Setting up a new MacBook
+
+ * Open Safari and install Chrome.
+     * Never open Safari again.
+ * Change caps lock to control.
+ * Open up Terminal.
+     * Clean up the Dock and hide it.
+     * Make Terminal settings reasonable.
+         * `Profiles` - `Keyboard` - `Use Option as Meta key` on
+         * `Profiles` - `Advanced` - `Audible bell` off
+         * `Profiles` - `Advanced` - `Visual bell` - `Only when sound is muted` off
+         * `Profiles` - `Text` - Menlo Regular 14 pt.
+         * `Profiles` - `Text` - three colors: `Text`, `Bold Text`, `Selection`
+         * `Profiles` - `Window` - background color
+ * Install [brew](http://brew.sh/)
+     * This triggers the XCode command-line tools install.
+ * `brew install git`
+ * `ssh-keygen`
+ * Add `~/.ssh/id_rsa.pub` to [GitHub](https://github.com/), etc.
+ * In home directory, `git clone git@github.com:ajschumacher/.emacs.d.git`
+ * Run the `link.sh` script as needed to connect things.
+ * `brew install emacs --cocoa --srgb`
+ * `brew install cask`
+ * In `~/.emacs.d/`, `cask install`
+ * `brew install aspell`
+ * Install Slack.
+ * Install [Anaconda](http://continuum.io/downloads) Python
+ * To make all files visible in the Finder, run: `defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder` ([ref](https://discussions.apple.com/thread/1935221)
+ * To turn off window drop shadows when doing screenshots, run: `defaults write com.apple.screencapture disable-shadow -bool true; killall SystemUIServer` ([ref](http://computers.tutsplus.com/tutorials/how-to-become-an-os-x-screenshot-wizard--mac-50467).
