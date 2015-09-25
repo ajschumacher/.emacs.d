@@ -121,3 +121,10 @@
  * Install [Anaconda](http://continuum.io/downloads) Python
  * `brew install python`, `brew install python3`
  * `pip install pew`
+ * `brew install bash` and then change shell as per [johndjameson](http://johndjameson.com/blog/updating-your-shell-with-homebrew/):
+     * sudo -s
+     * echo /usr/local/bin/bash >> /etc/shells
+     * chsh -s /usr/local/bin/bash
+     * exit
+     * chsh -s /usr/local/bin/bash
+ * `brew install homebrew/versions/bash-completion2`
