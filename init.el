@@ -235,6 +235,9 @@
 ;; set C-x g to magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
+;; don't nag when pushing
+(setq magit-push-always-verify nil)
+
 ;; sometimes C-spc and C-@ don't work, so set mark this way too
 (global-set-key (kbd "C-x 9") 'set-mark-command)
 
