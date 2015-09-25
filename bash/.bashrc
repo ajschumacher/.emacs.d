@@ -109,3 +109,12 @@ export EDITOR='emacsclient -c --alternate-editor="" -nw'
 
 # Convenience
 alias ..='cd ..'
+
+# load bash-completion 2 on a Mac with brew
+# (should probably update to also do something on Linux etc.)
+if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+  . $(brew --prefix)/share/bash-completion/bash_completion
+fi
+
+# get pew virtualenv auto-complete
+source "$( dirname $(pew shell_config) )"/complete.bash
