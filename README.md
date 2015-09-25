@@ -116,7 +116,8 @@
  * In `~/.emacs.d/`, `cask install`
  * `brew install aspell`
  * Install Slack.
- * Install [Anaconda](http://continuum.io/downloads) Python
  * To make all files visible in the Finder, run: `defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder` ([ref](https://discussions.apple.com/thread/1935221)
  * To turn off window drop shadows when doing screenshots, run: `defaults write com.apple.screencapture disable-shadow -bool true; killall SystemUIServer` ([ref](http://computers.tutsplus.com/tutorials/how-to-become-an-os-x-screenshot-wizard--mac-50467).
+ * Install [Anaconda](http://continuum.io/downloads) Python
+ * `brew install python`, `brew install python3`
  * `pip install pew`
