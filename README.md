@@ -2,7 +2,7 @@
 
 ### Setup
 
-(The order is not always strict.)
+(The order is not always strict.) (And there are multiple versions now.)
 
  * Install `git`
      * Run `ssh-keygen`
