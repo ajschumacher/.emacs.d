@@ -128,3 +128,7 @@
      * exit
      * chsh -s /usr/local/bin/bash
  * `brew install homebrew/versions/bash-completion2`
+ * install R and RStudio
+     * https://www.r-project.org/
+     * https://www.rstudio.com/
+ * Turn off "iPhone Cellular Calls" in FaceTime preferences as per [osxdaily](http://osxdaily.com/2014/10/17/stop-iphone-calls-ringing-mac-os-x/)
