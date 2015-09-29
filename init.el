@@ -221,6 +221,9 @@
 ;; maybe I'll want line numbers sometimes
 (global-set-key (kbd "M-1") 'linum-mode)
 
+;; and I definitely want to see where buffers end
+(setq indicate-empty-lines t)
+
 ;; dired at point is nice
 (global-set-key (kbd "C-x C-j") 'dired-at-point)
 
