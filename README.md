@@ -92,7 +92,7 @@
 
 ### Setting up a new MacBook
 
- * Open Safari and install Chrome.
+ * Open Safari and install [Chrome](http://www.google.com/chrome/) and [Firefox](http://firefox.com).
      * Never open Safari again.
  * Change caps lock to control.
  * Open up Terminal.
