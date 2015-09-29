@@ -263,7 +263,8 @@
 ;; and I like to switch buffers
 (global-set-key (kbd "C-x b") 'fill-paragraph)
 (global-set-key (kbd "C-q") 'ido-switch-buffer)
-
+(key-chord-define-global "jk" 'buffer-stack-down)
+(key-chord-define-global "kl" 'buffer-stack-up)
 
 ;;; UI things for display
 
