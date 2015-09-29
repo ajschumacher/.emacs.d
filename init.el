@@ -258,13 +258,13 @@
 (global-set-key (kbd "C-x C-k") 'kill-region)
 
 ;; I switch to other window a lot
-(global-set-key (kbd "M-q") 'other-window)
+(key-chord-define-global "df" 'other-window)
 
 ;; and I like to switch buffers
-(global-set-key (kbd "C-x b") 'fill-paragraph)
-(global-set-key (kbd "C-q") 'ido-switch-buffer)
 (key-chord-define-global "jk" 'buffer-stack-down)
 (key-chord-define-global "kl" 'buffer-stack-up)
+;; Do I need to bind 'ido-switch-buffer over the default on C-x b?
+;; (global-set-key (kbd "C-q") 'ido-switch-buffer)
 
 ;;; UI things for display
 
