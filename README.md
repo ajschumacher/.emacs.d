@@ -132,3 +132,8 @@
      * https://www.r-project.org/
      * https://www.rstudio.com/
  * Turn off "iPhone Cellular Calls" in FaceTime preferences as per [osxdaily](http://osxdaily.com/2014/10/17/stop-iphone-calls-ringing-mac-os-x/)
+ * Install [XQuartz](https://xquartz.macosforge.org/)
+ * `brew install wine` (maybe) (or not)
+ * Install [some](https://www.java.com/en/download/mac_download.jsp) [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+ * Install GNU `tar` because the standard Mac `tar` is too dumb to unpack Spark without stupid messages: `brew install gnu-tar` (it's available as `gtar`)
+ * [Download](http://spark.apache.org/downloads.html) and unpack Spark
