@@ -77,14 +77,17 @@
 (key-chord-mode t)
 
 (key-chord-define-global "hj" 'undo)
-(key-chord-define-global "fg" 'iy-go-to-char)
+;; I hardly ever use this and want fg for window-switching
+;;(key-chord-define-global "fg" 'iy-go-to-char)
 (key-chord-define-global "cv" 'iy-go-to-char-backward)
 (key-chord-define-global "yu" 'backward-paragraph)
-(key-chord-define-global "nm" 'forward-paragraph)
+;; conflicts with the word "column"
+;;(key-chord-define-global "nm" 'forward-paragraph)
 
 ;; define some engines for engine-mode
 (require 'engine-mode)
 (engine-mode t)
+(engine/set-keymap-prefix (kbd "C-/"))
 (defengine github
   "https://github.com/search?ref=simplesearch&q=%s")
 (defengine duckduckgo
@@ -178,6 +181,11 @@
 (setq mac-option-modifier 'super)
 (setq ns-function-modifier 'hyper)
 
+;; on a Mac, command (meta) - space already does things
+;; and conrol - delete does the same thing as meta - delete
+;; so this is totally free for just-one-space
+(global-set-key (kbd "C-<backspace>") 'just-one-space)
+
 ;; follow Sacha's lead on this one:
 (global-set-key (kbd "RET") 'newline-and-indent)
 
@@ -258,7 +266,8 @@
 (global-set-key (kbd "C-x C-k") 'kill-region)
 
 ;; I switch to other window a lot
-(key-chord-define-global "df" 'other-window)
+;; (don't use "df" because of the PDF format)
+(key-chord-define-global "fg" 'other-window)
 
 ;; and I like to switch buffers
 (key-chord-define-global "jk" 'buffer-stack-down)
@@ -460,7 +469,7 @@
     (or (and (eolp) (not (bolp)))
         (progn (forward-line -1) (end-of-line)))
     (setq end (point-marker))
-    (let ((strs (shuffle-list 
+    (let ((strs (shuffle-list
                  (split-string (buffer-substring-no-properties beg end)
                              "\n"))))
       (delete-region beg end)
