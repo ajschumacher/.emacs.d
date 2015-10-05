@@ -137,3 +137,4 @@
  * Install [some](https://www.java.com/en/download/mac_download.jsp) [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
  * Install GNU `tar` because the standard Mac `tar` is too dumb to unpack Spark without stupid messages: `brew install gnu-tar` (it's available as `gtar`)
  * [Download](http://spark.apache.org/downloads.html) and unpack Spark
+ * Install [Skype](http://www.skype.com/)
