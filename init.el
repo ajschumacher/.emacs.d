@@ -277,8 +277,7 @@
 ;; Do I need to bind 'ido-switch-buffer over the default on C-x b?
 ;; (global-set-key (kbd "C-q") 'ido-switch-buffer)
 ;; Yes.
-(global-set-key (kbd "C-;") 'ido-switch-buffer)
-;; But this keybinding doesn't work???
+(key-chord-define-global "JK" 'ido-switch-buffer)
 
 ;;; UI things for display
 
