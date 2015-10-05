@@ -278,6 +278,7 @@
 ;; (global-set-key (kbd "C-q") 'ido-switch-buffer)
 ;; Yes.
 (key-chord-define-global "JK" 'ido-switch-buffer)
+(global-set-key (kbd "C-M-l") 'ido-switch-buffer)
 
 ;;; UI things for display
 
