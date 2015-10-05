@@ -268,12 +268,17 @@
 ;; I switch to other window a lot
 ;; (don't use "df" because of the PDF format)
 (key-chord-define-global "fg" 'other-window)
+;; Easier key-action:
+(global-set-key (kbd "M-l") 'other-window)
 
 ;; and I like to switch buffers
 (key-chord-define-global "jk" 'buffer-stack-down)
 (key-chord-define-global "kl" 'buffer-stack-up)
 ;; Do I need to bind 'ido-switch-buffer over the default on C-x b?
 ;; (global-set-key (kbd "C-q") 'ido-switch-buffer)
+;; Yes.
+(global-set-key (kbd "C-;") 'ido-switch-buffer)
+;; But this keybinding doesn't work???
 
 ;;; UI things for display
 
