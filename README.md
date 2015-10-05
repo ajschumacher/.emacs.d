@@ -138,3 +138,4 @@
  * Install GNU `tar` because the standard Mac `tar` is too dumb to unpack Spark without stupid messages: `brew install gnu-tar` (it's available as `gtar`)
  * [Download](http://spark.apache.org/downloads.html) and unpack Spark
  * Install [Skype](http://www.skype.com/)
+ * Turn on filename extension visibility [like this](http://www.idownloadblog.com/2014/10/29/how-to-show-or-hide-filename-extensions-in-os-x-yosemite/)
