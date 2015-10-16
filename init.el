@@ -420,6 +420,9 @@
 ;; make it easier to run elisp in org mode
 (setq org-confirm-elisp-link-function 'y-or-n-p)
 
+;; fewer stars everywhere
+(setq org-hide-leading-stars t)
+
 ;; don't open images in emacs
 (add-hook 'org-mode-hook '(lambda ()
   (setq org-file-apps (append '(("\\.png\\'" . default)
