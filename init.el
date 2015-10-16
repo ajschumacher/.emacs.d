@@ -24,6 +24,9 @@
 ;; shift-arrows for changing windows
 (windmove-default-keybindings)
 
+;; I guess I have to turn this on...
+(abbrev-mode)
+
 ;; marks for changes
 (require 'git-gutter-fringe+)
 (global-git-gutter+-mode t)
