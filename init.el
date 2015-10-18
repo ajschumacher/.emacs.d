@@ -15,6 +15,17 @@
 (require 'pallet)
 (pallet-mode t)
 
+;; auto-compile recommends loading this early
+(setq load-prefer-newer t)
+
+(require 'use-package)
+(setq use-package-verbose t)
+
+(use-package auto-compile
+  :config
+  (auto-compile-on-load-mode t)
+  (auto-compile-on-save-mode t))
+
 ;; some defaults for new things
 (setq-default major-mode 'text-mode)
 
