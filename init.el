@@ -327,6 +327,7 @@
     '(("lambda"  . ?λ))))
 
 ;; diminish some things
+(diminish 'projectile-mode)
 (diminish 'undo-tree-mode)
 (diminish 'compilation-shell-minor-mode)
 (diminish 'auto-complete-mode)
