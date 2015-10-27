@@ -111,10 +111,13 @@ export EDITOR='emacsclient -c --alternate-editor="" -nw'
 alias ..='cd ..'
 
 # load bash-completion 2 on a Mac with brew
-# (should probably update to also do something on Linux etc.)
-if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
-  . $(brew --prefix)/share/bash-completion/bash_completion
+if hash brew 2>/dev/null; then
+    if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+        . $(brew --prefix)/share/bash-completion/bash_completion
+    fi
 fi
 
 # get pew virtualenv auto-complete
-source "$( dirname $(pew shell_config) )"/complete.bash
+if hash pew 2>/dev/null; then
+    source "$( dirname $(pew shell_config) )"/complete.bash
+fi
