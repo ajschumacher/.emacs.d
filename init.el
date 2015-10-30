@@ -10,7 +10,7 @@
 ;;; packages and modes and so on
 
 ;; establish package system
-(require 'cask)
+(require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
