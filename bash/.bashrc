@@ -121,3 +121,6 @@ fi
 if hash pew 2>/dev/null; then
     source "$( dirname $(pew shell_config) )"/complete.bash
 fi
+
+# optional local config
+source ~/.bashrc.local
