@@ -89,6 +89,9 @@ alias l='ls -CF'
 # easily check for a running program
 alias got='ps awx | grep'
 
+# parameters for rsync over ssh
+alias srsync='rsync -avz -e ssh --progress'
+
 # (experimental) command-line setdiff
 function setdiff () { comm -23 <(sort "$1") <(sort "$2"); }
 
