@@ -76,7 +76,7 @@ PS1=$PSblue
 
 # Enable color support by default.
 alias ls='ls -Gp'  # this is for a Mac
-ls --color=auto &> /dev/null && alias ls='ls --color=auto'
+ls --color=auto &> /dev/null && alias ls='ls --color=auto -p'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
