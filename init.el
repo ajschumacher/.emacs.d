@@ -538,12 +538,12 @@ file of a buffer in an external program."
 (defun space-tab (current desired)
   "Change size of space tabs."
   (interactive "nCurrent size: \nnDesired size: ")
-  (let ((original-tab-width tab-width))
     (setq tab-width current)
     (tabify (point-min) (point-max))
     (setq tab-width desired)
     (untabify (point-min) (point-max))
-    (setq tab-width original-tab-width)))
+    (setq tab-width desired)
+    (setq python-indent desired))
 
 (defun ajs-decimal-escapes-to-unicode ()
   "Convert escapes like '&#955;' to Unicode like 'λ'.
