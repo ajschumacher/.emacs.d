@@ -45,7 +45,7 @@
 ;; you know what? why the heck not
 (require 'nyan-mode)
 
-;; Interactively Do Things
+;; Interactive
 (require 'ido)
 (ido-mode t)
 
@@ -368,7 +368,7 @@
 (global-set-key (kbd "C--") 'zoom-in/out)
 
 ;; don't beep all the time
-(setq visible-bell t)
+(setq visible-bell nil) ; turned off for now
 ;; (doesn't apply to terminal mode)
 ;; (have to adjust a setting in the term)
 
@@ -533,6 +533,17 @@ file of a buffer in an external program."
 
 
 ;;; my functions!
+
+;; possibly a useful function
+(defun space-tab (current desired)
+  "Change size of space tabs."
+  (interactive "nCurrent size: \nnDesired size: ")
+  (let ((original-tab-width tab-width))
+    (setq tab-width current)
+    (tabify (point-min) (point-max))
+    (setq tab-width desired)
+    (untabify (point-min) (point-max))
+    (setq tab-width original-tab-width)))
 
 (defun ajs-decimal-escapes-to-unicode ()
   "Convert escapes like '&#955;' to Unicode like 'λ'.
