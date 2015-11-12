@@ -75,7 +75,8 @@ PScyan='\n\[\033[0;36m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m
 PS1=$PSblue
 
 # Enable color support by default.
-alias ls='ls -Gp'
+alias ls='ls -Gp'  # this is for a Mac
+ls --color=auto &> /dev/null && alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
