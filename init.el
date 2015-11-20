@@ -187,6 +187,7 @@
 ;; Show where files have changed vs. last commit.
 (use-package git-gutter-fringe+
   :init (global-git-gutter+-mode)
+  ;; nothing
   :diminish git-gutter+-mode)
 
 
