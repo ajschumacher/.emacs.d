@@ -184,6 +184,19 @@
   :diminish whole-line-or-region-mode)
 
 
+;; Work with git with magic ease.
+(use-package magit
+  :bind ("C-x g" . magit-status)
+  :config
+  (setq magit-push-always-verify nil)
+  (set-default 'magit-unstage-all-confirm nil)
+  (set-default 'magit-stage-all-confirm nil)
+  (set-default 'magit-revert-buffers 'silent)
+  ;; Don't use tabs, magit!
+  (add-hook 'git-commit-mode-hook
+            '(lambda () (untabify (point-min) (point-max))) t))
+
+
 (add-to-list 'load-path
              (expand-file-name "git-gutter-plus" user-emacs-directory))
 (require 'git-gutter+)
@@ -374,19 +387,6 @@
 (use-package js2-mode
   :config
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
-
-
-;; Work with git with magic ease.
-(use-package magit
-  :bind ("C-x g" . magit-status)
-  :config
-  (setq magit-push-always-verify nil)
-  (set-default 'magit-unstage-all-confirm nil)
-  (set-default 'magit-stage-all-confirm nil)
-  (set-default 'magit-revert-buffers 'silent)
-  ;; Don't use tabs, magit!
-  (add-hook 'git-commit-mode-hook
-            '(lambda () (untabify (point-min) (point-max))) t))
 
 
 ;; See colors specified with text.
