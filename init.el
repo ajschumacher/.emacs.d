@@ -31,41 +31,51 @@
   (package-install 'use-package))
 (setq use-package-verbose t)
 (require 'use-package)
-;; After this, use-package with :ensure will install if needed.
+(setq use-package-always-ensure t)
+;; After this, use-package will install if needed.
 
 ;; (Things are set up so that first startup will be slow!)
 
 ;; This promises to make things faster on second load.
 (use-package auto-compile
-  :ensure t
   :config (auto-compile-on-load-mode))
 (setq load-prefer-newer t)
 
 
-;; some defaults for new things
+;;; Set some defaults.
+
 ;; TODO: reconsider
 (setq-default major-mode 'text-mode)
 
+;; Recommended by Mickey.
+(setq apropos-sort-by-scores t)
 
-;; turn this on because... good.
-(use-package whole-line-or-region
-  :ensure t
-  :config (whole-line-or-region-mode t)
-  :diminish whole-line-or-region-mode)
-
+;; ThisIsFourWords
+(global-subword-mode t)
 
 ;; shift-arrows for changing windows
 (windmove-default-keybindings)
 
+;; and I definitely want to see where buffers end
+(setq-default indicate-empty-lines t)
 
 ;; I guess I have to turn this on...
 (abbrev-mode)
 
+;; Don't insert tabs!
+(setq-default indent-tabs-mode nil)
+
+
+;; turn this on because... good.
+(use-package whole-line-or-region
+  :config (whole-line-or-region-mode t)
+  :diminish whole-line-or-region-mode)
+
 
 ;; marks for changes
 (use-package git-gutter-fringe+
-  :ensure t
-  :config (global-git-gutter+-mode t))
+  :config (global-git-gutter+-mode t)
+  :diminish git-gutter+-mode)
 
 
 ;; Interactive
@@ -75,19 +85,18 @@
 ;; disable ido faces to see flx highlights.
 (setq ido-enable-flex-matching t)
 (setq ido-use-faces nil)
+(global-set-key (kbd "M-l") 'other-window)
+(global-set-key (kbd "C-M-l") 'ido-switch-buffer)
 
 ;; list vertically (so much nicer!)
 (use-package ido-vertical-mode
-  :ensure t
   :config (ido-vertical-mode t))
 
 (use-package flx-ido
-  :ensure t
   :config (flx-ido-mode 1))
 
 ;; Smart M-x
 (use-package smex
-  :ensure t
   :config
   (smex-initialize)
   (global-set-key (kbd "M-x") 'smex)
@@ -100,153 +109,130 @@
 
 ;; projectile adds nice project functions
 (use-package projectile
-  :ensure t
   :config (projectile-global-mode)
   :diminish projectile-mode)
 
 
-;; tree undo
 (use-package undo-tree
-  :ensure t
   :config (global-undo-tree-mode t)
   :diminish undo-tree-mode)
 
 
-;; ;; auto-complete mode
-;; (global-auto-complete-mode t)
+(use-package auto-complete
+  :config (global-auto-complete-mode t)
+  :diminish auto-complete-mode)
 
 
-;; lines for ^L
+;; Display lines for ^L characters.
 (use-package page-break-lines
-  :ensure t
   :config (global-page-break-lines-mode t)
   :diminish page-break-lines-mode)
 
 
-;; ;; multiple cursors!
-;; (require 'multiple-cursors)
-;; ;; this is nicer than string-rectangle
-;; (global-set-key (kbd "C-x r t") 'mc/edit-lines)
-;; ;; this is enough for most other functionality
-;; (global-set-key (kbd "C-x C-x") 'mc/mark-more-like-this-extended)
-
-;; (require 'iy-go-to-char)
-;; (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
-
-;; (require 'key-chord)
-;; (key-chord-mode t)
-
-;; (key-chord-define-global "hj" 'undo)
-;; ;; I hardly ever use this and want fg for window-switching
-;; ;;(key-chord-define-global "fg" 'iy-go-to-char)
-;; (key-chord-define-global "cv" 'iy-go-to-char-backward)
-;; (key-chord-define-global "yu" 'backward-paragraph)
-;; ;; conflicts with the word "column"
-;; ;;(key-chord-define-global "nm" 'forward-paragraph)
-
-;; ;; define some engines for engine-mode
-;; (require 'engine-mode)
-;; (engine-mode t)
-;; (engine/set-keymap-prefix (kbd "C-/"))
-;; (defengine github
-;;   "https://github.com/search?ref=simplesearch&q=%s")
-;; (defengine duckduckgo
-;;   "https://duckduckgo.com/?q=%s"
-;;   :keybinding "d")
-;; (defengine google
-;;   "https://www.google.com/#q=%s"
-;;   :keybinding "g")
+(use-package multiple-cursors
+  :config
+  ;; this is nicer than string-rectangle
+  (global-set-key (kbd "C-x r t")
+                  'mc/edit-lines)
+  ;; this is enough for most other functionality
+  (global-set-key (kbd "C-x C-x")
+                  'mc/mark-more-like-this-extended))
 
 
-;; ;; flycheck is my boss
-;; (add-hook 'after-init-hook 'global-flycheck-mode)
+(use-package key-chord
+  :config
+  (key-chord-mode t)
+  (key-chord-define-global "hj" 'undo))
 
 
-;; ;; elpy for python
-;; (elpy-enable)
-;; ; often prefer ipython, but default to always-present cpython
-;; ; (elpy-use-ipython)
-;; ;; but don't use flymake, since using flycheck
-;; (when (require 'flycheck nil t)
-;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
-
-;; ;; turn off highlight-indentation-mode by making it not load by default
-;; (delete 'elpy-module-highlight-indentation elpy-modules)
-
-;; ;; this is messed with by emacs if you let it...
-;; (custom-set-variables
-;;  '(elpy-rpc-backend "jedi")
-;;  '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
-;;  '(help-at-pt-timer-delay 0.9)
-;;  '(tab-width 4))
+(use-package buffer-stack
+  :config
+  (key-chord-define-global "jk" 'buffer-stack-down))
 
 
-;; ;; ess for R
-;; (require 'ess-site)
+(use-package drag-stuff
+  :config (drag-stuff-global-mode)
+  :diminish drag-stuff-mode)
 
 
-;; ;; global snippets
-;; (yas-global-mode t)
+;; Search the web from Emacs.
+(use-package engine-mode
+  :config
+  (engine-mode t)
+  (engine/set-keymap-prefix (kbd "C-/"))
+  (defengine github
+    "https://github.com/search?ref=simplesearch&q=%s")
+  (defengine duckduckgo
+    "https://duckduckgo.com/?q=%s"
+    :keybinding "d")
+  (defengine google
+    "https://www.google.com/#q=%s"
+    :keybinding "g"))
 
 
-;; ;; I hear js2 is the good js
-;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
-;; (add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-;; (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-
-;; (drag-stuff-global-mode)
-
-;; ;; ThisIsFourWords
-;; (global-subword-mode t)
-
-
-;; ;;; keybindings
-
-;; ;; 'after', from bling's config
-;; (if (fboundp 'with-eval-after-load)
-;;     (defmacro after (feature &rest body)
-;;       "After FEATURE is loaded, evaluate BODY."
-;;       (declare (indent defun))
-;;       `(with-eval-after-load ,feature ,@body))
-;;   (defmacro after (feature &rest body)
-;;     "After FEATURE is loaded, evaluate BODY."
-;;     (declare (indent defun))
-;;     `(eval-after-load ,feature
-;;        '(progn ,@body))))
-
-;; ;; tab for completing things
-;; (after 'emmet-mode
-;;   (define-key emmet-mode-keymap (kbd "C-<tab>") 'emmet-expand-yas)
-;;   (diminish 'emmet-mode))
-
-;; ;; use the Mac keys:
-;; (setq mac-command-modifier 'meta)
-;; (setq mac-option-modifier 'super)
-;; (setq ns-function-modifier 'hyper)
-;; ;; on a Mac, command (meta) - space already does things
-;; ;; and conrol - delete does the same thing as meta - delete
-;; ;; so this is totally free for just-one-space
-;; (global-set-key (kbd "C-<backspace>") 'just-one-space)
+;; Check syntax, make life better.
+(use-package flycheck
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (define-key flycheck-mode-map
+    (kbd "C-c C-n")
+    'flycheck-next-error)
+  (define-key flycheck-mode-map
+    (kbd "C-c C-p")
+    'flycheck-previous-error)
+  :diminish flycheck-mode)
 
 
-;; ;; follow Sacha's lead on this one:
-;; (global-set-key (kbd "RET") 'newline-and-indent)
+;; Elpy the Emacs Lisp Python Environment.
+(use-package elpy
+  :config
+  (elpy-enable)
+  ;; Use ipython if available.
+  (when (executable-find "ipython")
+    (elpy-use-ipython))
+  ;; Don't use flymake if flycheck is available.
+  (when (require 'flycheck nil t)
+    (setq elpy-modules
+          (delq 'elpy-module-flymake elpy-modules)))
+  ;; Don't use highlight-indentation-mode.
+  (delete 'elpy-module-highlight-indentation elpy-modules)
+  ;; this is messed with by emacs if you let it...
+  (custom-set-variables
+   '(elpy-rpc-backend "jedi")
+   '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
+   '(help-at-pt-timer-delay 0.9)
+   '(tab-width 4))
+  :diminish elpy-mode)
 
-;; (require 'smartrep)
-;; (require 'operate-on-number)
-;; (smartrep-define-key global-map "C-c ."
-;;   '(("+" . apply-operation-to-number-at-point)
-;;     ("-" . apply-operation-to-number-at-point)
-;;     ("*" . apply-operation-to-number-at-point)
-;;     ("/" . apply-operation-to-number-at-point)
-;;     ("\\" . apply-operation-to-number-at-point)
-;;     ("^" . apply-operation-to-number-at-point)
-;;     ("<" . apply-operation-to-number-at-point)
-;;     (">" . apply-operation-to-number-at-point)
-;;     ("#" . apply-operation-to-number-at-point)
-;;     ("%" . apply-operation-to-number-at-point)
-;;     ("'" . operate-on-number-at-point)))
+
+;; Emacs Speaks Statistics includes support for R.
+(use-package ess-site
+  :ensure ess)
+
+
+;; I hear js2 is the good js
+(use-package js2-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+
+;; four space tabs for javascript and CSS
+;; (setq css-indent-offset 4)
+
+
+
+
+
+;;; keybindings
+
+;; use the Mac keys:
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
+(setq ns-function-modifier 'hyper)
+;; on a Mac, command (meta) - space already does things
+;; and conrol - delete does the same thing as meta - delete
+;; so this is totally free for just-one-space
+(global-set-key (kbd "C-<backspace>") 'just-one-space)
+
 
 ;; ;; M-y now does interactive stuff
 ;; (browse-kill-ring-default-keybindings)
@@ -267,8 +253,7 @@
 ;; maybe I'll want line numbers sometimes
 (global-set-key (kbd "M-1") 'linum-mode)
 
-;; and I definitely want to see where buffers end
-(setq-default indicate-empty-lines t)
+
 
 ;; dired at point is nice
 (global-set-key (kbd "C-x C-j") 'dired-at-point)
@@ -295,24 +280,6 @@
 ;; (global-set-key (kbd "C-h") 'delete-backward-char)
 ;; (global-set-key (kbd "M-h") 'backward-kill-word)
 ;; (global-set-key (kbd "C-x h") 'help-command)
-
-;; ;; I switch to other window a lot
-;; ;; (don't use "df" because of the PDF format)
-;; (key-chord-define-global "fg" 'other-window)
-;; ;; Easier key-action:
-;; (global-set-key (kbd "M-l") 'other-window)
-
-;; ;; and I like to switch buffers
-;; (key-chord-define-global "jk" 'buffer-stack-down)
-;; (key-chord-define-global "m<" 'buffer-stack-up)
-;; ;; Do I need to bind 'ido-switch-buffer over the default on C-x b?
-;; ;; (global-set-key (kbd "C-q") 'ido-switch-buffer)
-;; ;; Yes.
-;; (key-chord-define-global "JK" 'ido-switch-buffer)
-;; (global-set-key (kbd "C-M-l") 'ido-switch-buffer)
-
-;; from Mickie's book
-(setq apropos-sort-by-scores t)
 
 
 ;; ;;; UI things for display
@@ -355,18 +322,11 @@
 
 ;; ;; diminish some things
 ;; (diminish 'compilation-shell-minor-mode)
-;; (diminish 'auto-complete-mode)
 ;; (diminish 'page-break-lines-mode)
 ;; (diminish 'global-whitespace-mode)
 ;; (diminish 'rainbow-mode)
-;; (diminish 'drag-stuff-mode)
 ;; (after 'flyspell (diminish 'flyspell-mode))
-;; (after 'git-gutter+ (diminish 'git-gutter+-mode))
-;; (after 'flycheck (diminish 'flycheck-mode)
-;;                  (define-key flycheck-mode-map
-;;                    (kbd "C-c C-n") 'flycheck-next-error)
-;;                  (define-key flycheck-mode-map
-;;                    (kbd "C-c C-p") 'flycheck-previous-error))
+
 
 ;; ;; set a color scheme
 ;; (load-theme 'zenburn t)
@@ -392,12 +352,7 @@
 
 ;; ;;; UI things for interaction
 
-;; ;; Don't insert tabs!
-;; (setq-default indent-tabs-mode nil)
 
-;; ;; four space tabs for javascript and CSS
-;; (setq-default js2-basic-offset 4)
-;; (setq css-indent-offset 4)
 
 ;; ;; just 'y' or 'n', not 'yes' or 'no'
 ;; (defalias 'yes-or-no-p 'y-or-n-p)
