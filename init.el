@@ -37,9 +37,9 @@
 ;; (Things are set up so that first startup will be slow!)
 
 ;; This promises to make things faster on second load.
-(use-package auto-compile
-  :config (auto-compile-on-load-mode))
-(setq load-prefer-newer t)
+;; (use-package auto-compile
+;;   :config (auto-compile-on-load-mode))
+;; (setq load-prefer-newer t)
 
 
 ;;; Set some defaults.
@@ -65,8 +65,11 @@
 ;; Don't insert tabs!
 (setq-default indent-tabs-mode nil)
 
+;; Use just 'y' or 'n', not 'yes' or 'no'.
+(defalias 'yes-or-no-p 'y-or-n-p)
 
-;; turn this on because... good.
+
+;; Get useful line behaviors when region is not active.
 (use-package whole-line-or-region
   :config (whole-line-or-region-mode t)
   :diminish whole-line-or-region-mode)
@@ -116,6 +119,15 @@
 (use-package undo-tree
   :config (global-undo-tree-mode t)
   :diminish undo-tree-mode)
+
+
+;; Un-namespaced Common Lisp names.
+;; https://github.com/browse-kill-ring/browse-kill-ring/pull/56
+(require 'cl)
+(use-package browse-kill-ring
+  :config
+  ;; Bind M-y to visual interactive kill ring.
+  (browse-kill-ring-default-keybindings))
 
 
 (use-package auto-complete
@@ -215,43 +227,33 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
 
-;; four space tabs for javascript and CSS
-;; (setq css-indent-offset 4)
-
-
-
-
 
 ;;; keybindings
 
-;; use the Mac keys:
+;; Use Mac keys:
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 (setq ns-function-modifier 'hyper)
-;; on a Mac, command (meta) - space already does things
-;; and conrol - delete does the same thing as meta - delete
-;; so this is totally free for just-one-space
 (global-set-key (kbd "C-<backspace>") 'just-one-space)
 
+;; Jump easily to beginning and end.
+(global-set-key (kbd "C-]") 'beginning-of-buffer)
+(global-set-key (kbd "C-\\") 'end-of-buffer)
 
-;; ;; M-y now does interactive stuff
-;; (browse-kill-ring-default-keybindings)
+;; Easily memorable whole-buffer selection.
+(global-set-key (kbd "M-A") 'mark-whole-buffer)
 
-;; ;; I use these too much to struggle with them
-;; (global-set-key (kbd "C-]") 'beginning-of-buffer)
-;; (global-set-key (kbd "C-\\") 'end-of-buffer)
+;; Easily turn line numbers on and off.
+(global-set-key (kbd "M-1") 'linum-mode)
 
-;; ;; Joy of paragraphs
-;; (global-set-key (kbd "M-\\") 'mark-paragraph)
+;; switch point into buffer list
+(global-set-key (kbd "C-x C-b") 'buffer-menu)
 
-;; ;; more mark-whole-buffer
-;; (global-set-key (kbd "M-A") 'mark-whole-buffer)
+
 
 ;; ;; expand-region is that new hotness
 ;; (global-set-key (kbd "M-o") 'er/expand-region)
 
-;; maybe I'll want line numbers sometimes
-(global-set-key (kbd "M-1") 'linum-mode)
 
 
 
@@ -354,11 +356,7 @@
 
 
 
-;; ;; just 'y' or 'n', not 'yes' or 'no'
-;; (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; ;; switch point into buffer list
-;; (global-set-key (kbd "C-x C-b") 'buffer-menu)
 
 ;; ;;; parentheses etc.
 ;; (show-paren-mode t)
