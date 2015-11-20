@@ -26,20 +26,14 @@
 (package-initialize)
 
 ;; From github.com/sachac/.emacs.d:
-;; Bootstrap install of use-package.
+;; Bootstrap install of use-package,
+;; which also installs diminish.
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 (setq use-package-verbose t)
 (require 'use-package)
 (setq use-package-always-ensure t)
-;; After this, use-package will install if needed.
-
-;; (Things are set up so that first startup will be slow!)
-
-;; This promises to make things faster on second load.
-;; (use-package auto-compile
-;;   :config (auto-compile-on-load-mode))
-;; (setq load-prefer-newer t)
+;; After this, use-package will install things as needed.
 
 
 ;;; Set some defaults.
@@ -62,11 +56,63 @@
 ;; I guess I have to turn this on...
 (abbrev-mode)
 
+;; Be aware of whitespace.
+(setq whitespace-style '(face trailing tabs tab-mark))
+(global-whitespace-mode)
+(diminish 'global-whitespace-mode)
+
 ;; Don't insert tabs!
 (setq-default indent-tabs-mode nil)
 
 ;; Use just 'y' or 'n', not 'yes' or 'no'.
 (defalias 'yes-or-no-p 'y-or-n-p)
+;; Do the same for running elisp in org-mode.
+(setq org-confirm-elisp-link-function 'y-or-n-p)
+
+;; Improve mode-line:
+;; Show system time.
+(display-time-mode t)
+;; Show column number.
+(setq column-number-mode t)
+;; Don't show trailing dashes.
+(setq mode-line-end-spaces "")
+
+
+;;; Set some keybindings.
+
+;; Use Mac keys:
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
+(setq ns-function-modifier 'hyper)
+(global-set-key (kbd "C-<backspace>") 'just-one-space)
+
+;; Jump easily to beginning and end.
+(global-set-key (kbd "C-]") 'beginning-of-buffer)
+(global-set-key (kbd "C-\\") 'end-of-buffer)
+
+;; Easily memorable whole-buffer selection.
+(global-set-key (kbd "M-A") 'mark-whole-buffer)
+
+;; Easily turn line numbers on and off.
+(global-set-key (kbd "M-1") 'linum-mode)
+
+;; switch point into buffer list
+(global-set-key (kbd "C-x C-b") 'buffer-menu)
+
+;; dired at point is nice
+(global-set-key (kbd "C-x C-j") 'dired-at-point)
+
+;; Make C-h and M-h backspace; move help to C-x h.
+;; (On some systems, C-h already sends DEL.)
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-h") 'backward-kill-word)
+(global-set-key (kbd "C-x h") 'help-command)
+
+
+;; Use nice colors.
+(use-package zenburn-theme
+  :config (load-theme 'zenburn t))
+;; Themes can be disabled with disable-theme.
 
 
 ;; Get useful line behaviors when region is not active.
@@ -167,6 +213,11 @@
   :diminish drag-stuff-mode)
 
 
+;; expand-region is that new hotness
+(use-package expand-region
+  :config (global-set-key (kbd "M-o") 'er/expand-region))
+
+
 ;; Search the web from Emacs.
 (use-package engine-mode
   :config
@@ -216,100 +267,40 @@
    '(tab-width 4))
   :diminish elpy-mode)
 
+;; Elpy also installs yasnippets.
+;; Don't use tab for yasnippets, use shift-tab.
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
+
 
 ;; Emacs Speaks Statistics includes support for R.
 (use-package ess-site
   :ensure ess)
 
 
-;; I hear js2 is the good js
 (use-package js2-mode
   :config
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
 
 
-;;; keybindings
+(use-package magit
+  :config
+  (global-set-key (kbd "C-x g") 'magit-status)
+  (setq magit-push-always-verify nil)
+  (set-default 'magit-unstage-all-confirm nil)
+  (set-default 'magit-stage-all-confirm nil)
+  (set-default 'magit-revert-buffers 'silent)
+  ;; Don't use tabs, magit!
+  (add-hook 'git-commit-mode-hook
+            '(lambda () (untabify (point-min) (point-max))) t))
 
-;; Use Mac keys:
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'super)
-(setq ns-function-modifier 'hyper)
-(global-set-key (kbd "C-<backspace>") 'just-one-space)
-
-;; Jump easily to beginning and end.
-(global-set-key (kbd "C-]") 'beginning-of-buffer)
-(global-set-key (kbd "C-\\") 'end-of-buffer)
-
-;; Easily memorable whole-buffer selection.
-(global-set-key (kbd "M-A") 'mark-whole-buffer)
-
-;; Easily turn line numbers on and off.
-(global-set-key (kbd "M-1") 'linum-mode)
-
-;; switch point into buffer list
-(global-set-key (kbd "C-x C-b") 'buffer-menu)
-
-
-
-;; ;; expand-region is that new hotness
-;; (global-set-key (kbd "M-o") 'er/expand-region)
-
-
-
-
-;; dired at point is nice
-(global-set-key (kbd "C-x C-j") 'dired-at-point)
-
-;; ;; from elpy guide guy; this is pretty cool
-;; (define-key global-map (kbd "C-c C-o") 'iedit-mode)
-
-;; ;; don't use tab for yasnippets, use shift-tab
-;; (define-key yas-minor-mode-map (kbd "<tab>") nil)
-;; (define-key yas-minor-mode-map (kbd "TAB") nil)
-;; (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
-
-;; ;; set C-x g to magit
-;; (global-set-key (kbd "C-x g") 'magit-status)
-
-;; ;; don't nag when pushing
-;; (setq magit-push-always-verify nil)
-
-;; ;; sometimes C-spc and C-@ don't work, so set mark this way too
-;; (global-set-key (kbd "C-x 9") 'set-mark-command)
-
-;; ;; make C-h and M-h backspace; move help to C-x h
-;; ;; (on some systems, C-h already sends DEL)
-;; (global-set-key (kbd "C-h") 'delete-backward-char)
-;; (global-set-key (kbd "M-h") 'backward-kill-word)
-;; (global-set-key (kbd "C-x h") 'help-command)
-
-
-;; ;;; UI things for display
-
-
-;; ;; Highlight ugly whitespace
-;; (setq whitespace-style '(face trailing tabs tab-mark))
-;; (global-whitespace-mode)
-
-;; ;; untabify for git committing
-;; (add-hook 'git-commit-mode-hook
-;;           '(lambda ()
-;;              (untabify (point-min) (point-max)))
-;;           t)
 
 ;; ;; so rainbow. wow.
 ;; (define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
 ;;   (lambda () (rainbow-mode t)))
 ;; (my-global-rainbow-mode t)
 
-;; ;; turn on time mode
-;; (display-time-mode t)
-
-;; ;; improve status line
-;; (setq column-number-mode t)
-
-;; ;; get rid of those trailing dashes
-;; (setq mode-line-end-spaces "")
 
 ;; ;; prettify everywhere!
 ;; (when (and (<= 24 emacs-major-version)
@@ -325,14 +316,9 @@
 ;; ;; diminish some things
 ;; (diminish 'compilation-shell-minor-mode)
 ;; (diminish 'page-break-lines-mode)
-;; (diminish 'global-whitespace-mode)
 ;; (diminish 'rainbow-mode)
 ;; (after 'flyspell (diminish 'flyspell-mode))
 
-
-;; ;; set a color scheme
-;; (load-theme 'zenburn t)
-;; ;; disable with disable-theme
 
 ;; ;; frame zooming with zoom-frm
 ;; (require 'zoom-frm)
@@ -397,8 +383,6 @@
 ;; (require 'uniquify)
 ;; (setq uniquify-buffer-name-style 'forward)
 
-;; ;; make it easier to run elisp in org mode
-;; (setq org-confirm-elisp-link-function 'y-or-n-p)
 
 ;; ;; fewer stars everywhere
 ;; (setq org-hide-leading-stars t)
