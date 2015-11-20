@@ -197,16 +197,16 @@
             '(lambda () (untabify (point-min) (point-max))) t))
 
 
+;; Use my fix to git-gutter+
+;; See https://github.com/nonsequitur/git-gutter-plus/pull/27
 (add-to-list 'load-path
-             (expand-file-name "git-gutter-plus" user-emacs-directory))
+             (expand-file-name "elisp" user-emacs-directory))
 (require 'git-gutter+)
 (global-git-gutter+-mode)
-; change! back! to! something! wait!
-;; Show where files have changed vs. last commit.
-;; (use-package git-gutter-fringe+
-;;   :ensure nil
-;;   :init (global-git-gutter+-mode)
-;;   :diminish git-gutter+-mode)
+(diminish 'git-gutter+-mode)
+;; Use the fringe if in graphical mode (not terminal).
+(when (display-graphic-p)
+  (use-package git-gutter-fringe+))
 
 
 ;; Interactive selection of things.
