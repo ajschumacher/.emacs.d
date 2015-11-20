@@ -1,3 +1,8 @@
+;;; Configuration --- Summary
+;;; Commentary:
+;; This is configuration for Emacs.
+;;; Code:
+
 ;; Just a sec - have to clean things up a little!
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -37,9 +42,6 @@
 
 
 ;;; Set some defaults.
-
-;; Recommended by Mickey.
-(setq apropos-sort-by-scores t)
 
 ;; ThisIsFourWords
 (global-subword-mode t)
