@@ -390,6 +390,10 @@
   (add-hook 'css-mode-hook 'rainbow-mode-quietly))
 
 
+;; Support markdown, for goodness sake.
+(use-package markdown-mode)
+
+
 ;;; Functions Written by others:
 
 (defun prelude-open-with ()
