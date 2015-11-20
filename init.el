@@ -184,11 +184,15 @@
   :diminish whole-line-or-region-mode)
 
 
+(add-to-list 'load-path
+             (expand-file-name "git-gutter-plus" user-emacs-directory))
+(require 'git-gutter+)
+(global-git-gutter+-mode)
 ;; Show where files have changed vs. last commit.
-(use-package git-gutter-fringe+
-  :init (global-git-gutter+-mode)
-  ;; nothing much
-  :diminish git-gutter+-mode)
+;; (use-package git-gutter-fringe+
+;;   :ensure nil
+;;   :init (global-git-gutter+-mode)
+;;   :diminish git-gutter+-mode)
 
 
 ;; Interactive selection of things.
