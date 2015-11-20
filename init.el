@@ -80,7 +80,8 @@
 (setq mode-line-end-spaces "")
 
 ;; Blink, don't beep.
-(setq visible-bell t)
+;; (setq visible-bell t)
+;; A good setting, but resulting in visual artifacts.
 
 ;; Delete marked region when typing over it.
 (delete-selection-mode t)
