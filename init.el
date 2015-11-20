@@ -69,6 +69,9 @@
 ;; Do the same for running elisp in org-mode.
 (setq org-confirm-elisp-link-function 'y-or-n-p)
 
+;; Don't show so many stars in org-mode.
+(setq org-hide-leading-stars t)
+
 ;; Improve mode-line:
 ;; Show system time.
 (display-time-mode t)
@@ -76,6 +79,58 @@
 (setq column-number-mode t)
 ;; Don't show trailing dashes.
 (setq mode-line-end-spaces "")
+
+;; Blink, don't beep.
+(setq visible-bell t)
+
+;; Highlight current line.
+(global-hl-line-mode t)
+
+;; Delete marked region when typing over it.
+(delete-selection-mode t)
+
+;; Have nice parentheses.
+(show-paren-mode t)
+(electric-pair-mode t)
+
+;; One space after sentences. One.
+(setq sentence-end-double-space nil)
+
+;; Update the screen by one line, not one page.
+(setq scroll-step 1)
+
+;; Allow region downcase w/ C-x C-l, upcase w/ C-x C-u
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+
+;; Make nice buffer names when multiple files have the same name.
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+;; Use spell-checking.
+;; The aspell executable may be in /usr/local/bin.
+(setq exec-path (append exec-path '("/usr/local/bin")))
+(add-hook 'text-mode-hook (lambda ()
+                            (flyspell-mode)
+                            (diminish 'flyspell-mode)))
+(add-hook 'prog-mode-hook (lambda ()
+                            (flyspell-prog-mode)
+                            (diminish 'flyspell-mode)))
+
+;; Put backup files a little out of the way.
+(defvar --backup-directory (concat user-emacs-directory "backups"))
+(if (not (file-exists-p --backup-directory))
+            (make-directory --backup-directory t))
+(setq backup-directory-alist `(("." . ,--backup-directory)))
+(setq make-backup-files t          ; backup file the first time it is saved
+      backup-by-copying t          ; don't clobber symlinks
+      version-control t            ; version numbers for backup files
+      delete-old-versions t        ; delete excess backup files silently
+      delete-by-moving-to-trash t  ; system recycle bin or whatever
+      auto-save-default t          ; auto-save every buffer that visits file
+      vc-make-backup-files t       ; backup version-controlled files too
+)
 
 
 ;;; Set some keybindings.
@@ -213,9 +268,18 @@
   :diminish drag-stuff-mode)
 
 
-;; expand-region is that new hotness
+;; expand-region is that new hotness.
 (use-package expand-region
   :config (global-set-key (kbd "M-o") 'er/expand-region))
+
+
+;; Work well with parentheses and friends.
+;; TODO: Consider switching to smartparens.
+(use-package wrap-region
+  :config
+  (wrap-region-global-mode t)
+  (wrap-region-add-wrappers '(("`" "`")))
+  :diminish wrap-region-mode)
 
 
 ;; Search the web from Emacs.
@@ -285,8 +349,8 @@
 
 
 (use-package magit
+  :bind ("C-x g" . magit-status)
   :config
-  (global-set-key (kbd "C-x g") 'magit-status)
   (setq magit-push-always-verify nil)
   (set-default 'magit-unstage-all-confirm nil)
   (set-default 'magit-stage-all-confirm nil)
@@ -300,6 +364,7 @@
 ;; (define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
 ;;   (lambda () (rainbow-mode t)))
 ;; (my-global-rainbow-mode t)
+;; (diminish 'rainbow-mode)
 
 
 ;; ;; prettify everywhere!
@@ -313,11 +378,6 @@
 ;;   (defconst prettify-symbols-alist
 ;;     '(("lambda"  . ?λ))))
 
-;; ;; diminish some things
-;; (diminish 'compilation-shell-minor-mode)
-;; (diminish 'page-break-lines-mode)
-;; (diminish 'rainbow-mode)
-;; (after 'flyspell (diminish 'flyspell-mode))
 
 
 ;; ;; frame zooming with zoom-frm
@@ -327,65 +387,6 @@
 ;; (global-set-key (kbd "C-0") 'zoom-in/out)
 ;; (global-set-key (kbd "C--") 'zoom-in/out)
 
-;; ;; don't beep all the time
-;; (setq visible-bell nil) ; turned off for now
-;; ;; (doesn't apply to terminal mode)
-;; ;; (have to adjust a setting in the term)
-
-;; ;; get spell-checking in graphical mode where path is weird
-;; (setq exec-path (append exec-path '("/usr/local/bin")))
-;; (add-hook 'text-mode-hook 'flyspell-mode)
-;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-
-
-;; ;;; UI things for interaction
-
-
-
-
-
-;; ;;; parentheses etc.
-;; (show-paren-mode t)
-;; (electric-pair-mode t)
-;; (wrap-region-global-mode t)
-;; (wrap-region-add-wrappers '(("`" "`")))
-;; (after 'wrap-region (diminish 'wrap-region-mode))
-
-;; delete marked stuff
-(delete-selection-mode t)
-
-;; One space after sentences. One.
-(setq sentence-end-double-space nil)
-
-;; Precise when moving to next lines
-(setq scroll-step 1)
-
-;; Allow region downcase w/ C-x C-l, upcase w/ C-x C-u
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
-
-;; ;; Put backup files a little out of the way
-;; (defvar --backup-directory (concat user-emacs-directory "backups"))
-;; (if (not (file-exists-p --backup-directory))
-;;             (make-directory --backup-directory t))
-;; (setq backup-directory-alist `(("." . ,--backup-directory)))
-;; (setq make-backup-files t          ; backup file the first time it is saved
-;;       backup-by-copying t          ; don't clobber symlinks
-;;       version-control t            ; version numbers for backup files
-;;       delete-old-versions t        ; delete excess backup files silently
-;;       delete-by-moving-to-trash t  ; system recycle bin or whatever
-;;       auto-save-default t          ; auto-save every buffer that visits file
-;;       vc-make-backup-files t       ; backup version-controlled files too
-;; )
-
-;; ;; better buffer names when multiple files have the same name
-;; (require 'uniquify)
-;; (setq uniquify-buffer-name-style 'forward)
-
-
-;; ;; fewer stars everywhere
-;; (setq org-hide-leading-stars t)
 
 ;; the open function from prelude
 (defun prelude-open-with ()
