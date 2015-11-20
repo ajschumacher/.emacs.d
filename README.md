@@ -12,19 +12,17 @@
  * Install `emacs` 24:
      * On Ubuntu etc.: `apt-get install emacs24`
      * On a Mac this is often okay; see also
-       [Clojure's fine directions][]
+       [Clojure's fine directions](http://clojure-doc.org/articles/tutorials/emacs.html)
          * `brew install emacs --HEAD --use-git-head --cocoa --with-gnutls`
            *DO IT*
          * `brew install emacs --cocoa --srgb`
          * `brew linkapps Emacs`
-     * On a Mac this is (kind of) the bee's knees: [emacs-mac-port][]
+     * On a Mac this is (kind of) the bee's knees: [emacs-mac-port](https://github.com/railwaycat/emacs-mac-port)
          * `brew tap railwaycat/emacsmacport`
          * `brew install emacs-mac`
          * `brew linkapps Emacs`
          * You get nice things like more utf-8 characters actually
            displaying, etc.
- * Install [cask][] for `emacs` dependencies (use python installer with `curl -fsSkL https://raw.github.com/cask/cask/master/go | python` if it hasn't changed)
- * Install `emacs` package dependencies with `cask install` from `~/.emacs.d`
  * To get TAGS set up for Emacs Lisp sources:
      * `cd /usr/local/share/emacs/25.0.50/lisp/` or whatever
      * `gunzip *.gz`
@@ -40,10 +38,6 @@
  * `gem install rubocop ruby-lint pry pry-doc method_source` to get nice things for Ruby
  * possibly install `gnutls` (`brew install gnutls` on mac)
  * `brew install leiningen` works fine.
-
-[Clojure's fine directions]: http://clojure-doc.org/articles/tutorials/emacs.html
-[emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
-[cask]: https://github.com/cask/cask
 
 
 ### Other things
@@ -112,8 +106,6 @@
  * In home directory, `git clone git@github.com:ajschumacher/.emacs.d.git`
  * Run the `link.sh` script as needed to connect things.
  * `brew install emacs --cocoa --srgb`
- * `brew install cask`
- * In `~/.emacs.d/`, `cask install`
  * `brew install aspell`
  * Install Slack.
  * To make all files visible in the Finder, run: `defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder` ([ref](https://discussions.apple.com/thread/1935221))
