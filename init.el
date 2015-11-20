@@ -192,6 +192,7 @@
 
 ;; Interactive selection of things.
 ;; TODO: consider helm instead (see Sacha's config)
+;; NOTE: "C-j: Use the current input string verbatim."
 (ido-mode t)
 (ido-everywhere t)
 ;; disable ido faces to see flx highlights.
@@ -202,7 +203,9 @@
 
 ;; list vertically (so much nicer!)
 (use-package ido-vertical-mode
-  :config (ido-vertical-mode t))
+  :config
+  (ido-vertical-mode t)
+  (setq ido-vertical-define-keys 'C-n-C-p-up-and-down))
 
 (use-package flx-ido
   :config (flx-ido-mode 1))
