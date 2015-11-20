@@ -83,9 +83,6 @@
 ;; Blink, don't beep.
 (setq visible-bell t)
 
-;; Highlight current line.
-(global-hl-line-mode t)
-
 ;; Delete marked region when typing over it.
 (delete-selection-mode t)
 
@@ -117,6 +114,17 @@
 (add-hook 'prog-mode-hook (lambda ()
                             (flyspell-prog-mode)
                             (diminish 'flyspell-mode)))
+
+;; Show off lambdas everywhere
+(when (and (<= 24 emacs-major-version)
+           (<= 4 emacs-minor-version))
+  (define-globalized-minor-mode
+    my-global-prettify-symbols-mode
+    prettify-symbols-mode
+    (lambda () (prettify-symbols-mode t)))
+  (my-global-prettify-symbols-mode t)
+  (defconst prettify-symbols-alist
+    '(("lambda"  . ?λ))))
 
 ;; Put backup files a little out of the way.
 (defvar --backup-directory (concat user-emacs-directory "backups"))
@@ -211,12 +219,13 @@
   (global-set-key (kbd "M-X") 'smex-major-mode-commands))
 
 
-;; projectile adds nice project functions
+;; projectile adds nice project functions for git repos.
 (use-package projectile
   :config (projectile-global-mode)
   :diminish projectile-mode)
 
 
+;; See the undo history and move through it.
 (use-package undo-tree
   :config (global-undo-tree-mode t)
   :diminish undo-tree-mode)
@@ -231,6 +240,8 @@
   (browse-kill-ring-default-keybindings))
 
 
+;; Get auto-complete functionality.
+;; TODO: Determine whether this is doing what I really want.
 (use-package auto-complete
   :config (global-auto-complete-mode t)
   :diminish auto-complete-mode)
@@ -242,27 +253,26 @@
   :diminish page-break-lines-mode)
 
 
+;; Edit in multiple places at the same time.
 (use-package multiple-cursors
-  :config
-  ;; this is nicer than string-rectangle
-  (global-set-key (kbd "C-x r t")
-                  'mc/edit-lines)
-  ;; this is enough for most other functionality
-  (global-set-key (kbd "C-x C-x")
-                  'mc/mark-more-like-this-extended))
+  :bind (("C-x r t" . 'mc/edit-lines)
+         ("C-x C-x" . 'mc/mark-more-like-this-extended)))
 
 
+;; (Near) simultaneous keypresses create new keys.
 (use-package key-chord
   :config
   (key-chord-mode t)
   (key-chord-define-global "hj" 'undo))
 
 
+;; Flip through buffers with ease.
 (use-package buffer-stack
   :config
   (key-chord-define-global "jk" 'buffer-stack-down))
 
 
+;; Move things around intuitively.
 (use-package drag-stuff
   :config (drag-stuff-global-mode)
   :diminish drag-stuff-mode)
@@ -280,6 +290,13 @@
   (wrap-region-global-mode t)
   (wrap-region-add-wrappers '(("`" "`")))
   :diminish wrap-region-mode)
+
+
+;; Conveniently zoom all of Emacs.
+(use-package zoom-frm
+  :bind (("C-=" . zoom-in/out)
+         ("C-+" . zoom-in/out)
+         ("C--" . zoom-in/out)))
 
 
 ;; Search the web from Emacs.
@@ -329,13 +346,12 @@
    '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
    '(help-at-pt-timer-delay 0.9)
    '(tab-width 4))
+  ;; Elpy also installs yasnippets.
+  ;; Don't use tab for yasnippets, use shift-tab.
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+  (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
   :diminish elpy-mode)
-
-;; Elpy also installs yasnippets.
-;; Don't use tab for yasnippets, use shift-tab.
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
 
 
 ;; Emacs Speaks Statistics includes support for R.
@@ -343,11 +359,13 @@
   :ensure ess)
 
 
+;; Use a nice JavaScript mode.
 (use-package js2-mode
   :config
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
 
 
+;; Work with git with magic ease.
 (use-package magit
   :bind ("C-x g" . magit-status)
   :config
@@ -360,44 +378,11 @@
             '(lambda () (untabify (point-min) (point-max))) t))
 
 
-;; ;; so rainbow. wow.
-;; (define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
-;;   (lambda () (rainbow-mode t)))
-;; (my-global-rainbow-mode t)
-;; (diminish 'rainbow-mode)
-
-
-;; ;; prettify everywhere!
-;; (when (and (<= 24 emacs-major-version)
-;;            (<= 4 emacs-minor-version))
-;;   (define-globalized-minor-mode
-;;     my-global-prettify-symbols-mode
-;;     prettify-symbols-mode
-;;     (lambda () (prettify-symbols-mode t)))
-;;   (my-global-prettify-symbols-mode t)
-;;   (defconst prettify-symbols-alist
-;;     '(("lambda"  . ?λ))))
-
-
-
-;; ;; frame zooming with zoom-frm
-;; (require 'zoom-frm)
-;; (global-set-key (kbd "C-=") 'zoom-in/out)
-;; (global-set-key (kbd "C-+") 'zoom-in/out)
-;; (global-set-key (kbd "C-0") 'zoom-in/out)
-;; (global-set-key (kbd "C--") 'zoom-in/out)
-
-
-;; the open function from prelude
-(defun prelude-open-with ()
-  "Simple function that allows us to open the underlying
-file of a buffer in an external program."
-  (interactive)
-  (when buffer-file-name
-    (shell-command (concat
-                    (if (eq system-type 'darwin)
-                        "open"
-                      (read-shell-command "Open current file with: "))
-                    " "
-                    buffer-file-name))))
-(global-set-key (kbd "C-c o") 'prelude-open-with)
+;; See colors specified with text.
+(use-package rainbow-mode
+  :config
+  (defun rainbow-mode-quietly ()
+    (rainbow-mode)
+    (diminish 'rainbow-mode))
+  (add-hook 'html-mode-hook 'rainbow-mode-quietly)
+  (add-hook 'css-mode-hook 'rainbow-mode-quietly))

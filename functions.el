@@ -1,5 +1,18 @@
 ;; Written by others!
 
+(defun prelude-open-with ()
+  "Simple function that allows us to open the underlying
+file of a buffer in an external program."
+  (interactive)
+  (when buffer-file-name
+    (shell-command (concat
+                    (if (eq system-type 'darwin)
+                        "open"
+                      (read-shell-command "Open current file with: "))
+                    " "
+                    buffer-file-name))))
+(global-set-key (kbd "C-c o") 'prelude-open-with)
+
 (defun randomize-region (beg end)
   (interactive "r")
   (if (> beg end)
