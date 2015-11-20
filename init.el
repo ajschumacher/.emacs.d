@@ -467,7 +467,7 @@ All permutations equally likely."
   ;; next-line is only meant for interactive use,
   ;; but it works really well here.
   (next-line))
-(global-set-key (kbd "s-<up>") 'ajs-push-page-up)
+(global-set-key (kbd "M-n") 'ajs-push-page-up)
 
 (defun ajs-push-page-down ()
   (interactive)
@@ -475,7 +475,7 @@ All permutations equally likely."
   ;; previous-line is only meant for interactive use,
   ;; but it works really well here.
   (previous-line))
-(global-set-key (kbd "s-<down>") 'ajs-push-page-down)
+(global-set-key (kbd "M-p") 'ajs-push-page-down)
 
 (defun ajs-space-tab (current desired)
   "Change size of space tabs."
