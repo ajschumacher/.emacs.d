@@ -1,332 +1,120 @@
-;;; init.el --- Summary:
-;;  This is the Emacs configuration of Aaron J. Schumacher.
-;;  I try to follow the suggestions that flycheck makes.
-
+;;; Configuration --- Summary
 ;;; Commentary:
-;;  Help us Emacs config - you're our only hope.
-
+;; This is configuration for Emacs.
 ;;; Code:
 
-;;; packages and modes and so on
+;; Just a sec - have to clean things up a little!
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(setq inhibit-startup-screen t)
 
-;; establish package system
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
-(require 'pallet)
-(pallet-mode t)
 
-;; auto-compile recommends loading this early
-(setq load-prefer-newer t)
+;; Welcome!
+(setq user-full-name "Aaron Schumacher"
+      user-mail-address "ajschumacher@gmail.com")
 
-(require 'use-package)
+
+;; This package called package comes with Emacs.
+(require 'package)
+;; Many packages are on MELPA.
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+;; From github.com/magnars/.emacs.d:
+;; Ensure we have MELPA package awareness.
+(unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")
+  (package-refresh-contents))
+;; Turn on packaging.
+(package-initialize)
+
+;; From github.com/sachac/.emacs.d:
+;; Bootstrap install of use-package,
+;; which also installs diminish.
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 (setq use-package-verbose t)
-
-(use-package auto-compile
-  :config
-  (auto-compile-on-load-mode t)
-  (auto-compile-on-save-mode t))
-
-;; some defaults for new things
-(setq-default major-mode 'text-mode)
-
-;; turn this on because... good.
-(whole-line-or-region-mode t)
-
-;; shift-arrows for changing windows
-(windmove-default-keybindings)
-
-;; I guess I have to turn this on...
-(abbrev-mode)
-
-;; marks for changes
-(require 'git-gutter-fringe+)
-(global-git-gutter+-mode t)
-
-;; you know what? why the heck not
-(require 'nyan-mode)
-
-;; Interactive
-(require 'ido)
-(ido-mode t)
-
-;; list vertically (so much nicer!)
-(ido-vertical-mode t)
-
-;; copying in something to make ido work better
-(require 'flx-ido)
-(ido-everywhere 1)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
-
-;; copying in something to make ido work better for M-x
-;; Smex
-(require 'smex)
-(smex-initialize)
-
-;; projectile adds nice project functions
-(projectile-global-mode)
-
-;; tree undo
-(global-undo-tree-mode t)
-
-;; auto-complete mode
-(global-auto-complete-mode t)
-
-;; lines for ^L
-(global-page-break-lines-mode t)
-
-;; multiple cursors!
-(require 'multiple-cursors)
-;; this is nicer than string-rectangle
-(global-set-key (kbd "C-x r t") 'mc/edit-lines)
-;; this is enough for most other functionality
-(global-set-key (kbd "C-x C-x") 'mc/mark-more-like-this-extended)
-
-(require 'iy-go-to-char)
-(add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
-
-(require 'key-chord)
-(key-chord-mode t)
-
-(key-chord-define-global "hj" 'undo)
-;; I hardly ever use this and want fg for window-switching
-;;(key-chord-define-global "fg" 'iy-go-to-char)
-(key-chord-define-global "cv" 'iy-go-to-char-backward)
-(key-chord-define-global "yu" 'backward-paragraph)
-;; conflicts with the word "column"
-;;(key-chord-define-global "nm" 'forward-paragraph)
-
-;; define some engines for engine-mode
-(require 'engine-mode)
-(engine-mode t)
-(engine/set-keymap-prefix (kbd "C-/"))
-(defengine github
-  "https://github.com/search?ref=simplesearch&q=%s")
-(defengine duckduckgo
-  "https://duckduckgo.com/?q=%s"
-  :keybinding "d")
-(defengine google
-  "https://www.google.com/#q=%s"
-  :keybinding "g")
+(require 'use-package)
+(setq use-package-always-ensure t)
+;; After this, use-package will install things as needed.
 
 
-;; flycheck is my boss
-(add-hook 'after-init-hook 'global-flycheck-mode)
-
-
-;; elpy for python
-(elpy-enable)
-; often prefer ipython, but default to always-present cpython
-; (elpy-use-ipython)
-;; but don't use flymake, since using flycheck
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
-
-;; turn off highlight-indentation-mode by making it not load by default
-(delete 'elpy-module-highlight-indentation elpy-modules)
-
-;; this is messed with by emacs if you let it...
-(custom-set-variables
- '(elpy-rpc-backend "jedi")
- '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
- '(help-at-pt-timer-delay 0.9)
- '(tab-width 4))
-
-
-;; ess for R
-(require 'ess-site)
-
-;; robe for ruby
-(add-hook 'ruby-mode-hook 'robe-mode)
-(add-hook 'robe-mode-hook 'ac-robe-setup)
-
-;; global snippets
-(yas-global-mode t)
-
-;; and... twitter
-(require 'twittering-mode)
-
-;; web-mode? can it work?
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-
-;; I hear js2 is the good js
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
-(add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-
-(drag-stuff-global-mode)
+;;; Set some defaults.
 
 ;; ThisIsFourWords
 (global-subword-mode t)
 
+;; Use shift-arrows for changing windows.
+(windmove-default-keybindings)
 
-;;; keybindings
-
-;; 'after', from bling's config
-(if (fboundp 'with-eval-after-load)
-    (defmacro after (feature &rest body)
-      "After FEATURE is loaded, evaluate BODY."
-      (declare (indent defun))
-      `(with-eval-after-load ,feature ,@body))
-  (defmacro after (feature &rest body)
-    "After FEATURE is loaded, evaluate BODY."
-    (declare (indent defun))
-    `(eval-after-load ,feature
-       '(progn ,@body))))
-
-;; tab for completing things
-(after 'emmet-mode
-  (define-key emmet-mode-keymap (kbd "C-<tab>") 'emmet-expand-yas)
-  (diminish 'emmet-mode))
-
-;; use the Mac keys:
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'super)
-(setq ns-function-modifier 'hyper)
-
-;; on a Mac, command (meta) - space already does things
-;; and conrol - delete does the same thing as meta - delete
-;; so this is totally free for just-one-space
-(global-set-key (kbd "C-<backspace>") 'just-one-space)
-
-;; follow Sacha's lead on this one:
-(global-set-key (kbd "RET") 'newline-and-indent)
-
-(require 'smartrep)
-(require 'operate-on-number)
-(smartrep-define-key global-map "C-c ."
-  '(("+" . apply-operation-to-number-at-point)
-    ("-" . apply-operation-to-number-at-point)
-    ("*" . apply-operation-to-number-at-point)
-    ("/" . apply-operation-to-number-at-point)
-    ("\\" . apply-operation-to-number-at-point)
-    ("^" . apply-operation-to-number-at-point)
-    ("<" . apply-operation-to-number-at-point)
-    (">" . apply-operation-to-number-at-point)
-    ("#" . apply-operation-to-number-at-point)
-    ("%" . apply-operation-to-number-at-point)
-    ("'" . operate-on-number-at-point)))
-
-;; M-y now does interactive stuff
-(browse-kill-ring-default-keybindings)
-
-;; more for Smex
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-;; I use these too much to struggle with them
-(global-set-key (kbd "C-]") 'beginning-of-buffer)
-(global-set-key (kbd "C-\\") 'end-of-buffer)
-
-;; Joy of paragraphs
-(global-set-key (kbd "M-\\") 'mark-paragraph)
-
-;; more mark-whole-buffer
-(global-set-key (kbd "M-A") 'mark-whole-buffer)
-
-;; expand-region is that new hotness
-(global-set-key (kbd "M-o") 'er/expand-region)
-
-;; maybe I'll want line numbers sometimes
-(global-set-key (kbd "M-1") 'linum-mode)
-
-;; and I definitely want to see where buffers end
+;; Show where buffers end.
 (setq-default indicate-empty-lines t)
 
-;; dired at point is nice
-(global-set-key (kbd "C-x C-j") 'dired-at-point)
+;; Consider using abbreviations.
+(abbrev-mode)
 
-;; from elpy guide guy; this is pretty cool
-(define-key global-map (kbd "C-c C-o") 'iedit-mode)
-
-;; don't use tab for yasnippets, use shift-tab
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
-
-;; set C-x g to magit
-(global-set-key (kbd "C-x g") 'magit-status)
-
-;; don't nag when pushing
-(setq magit-push-always-verify nil)
-
-;; sometimes C-spc and C-@ don't work, so set mark this way too
-(global-set-key (kbd "C-x 9") 'set-mark-command)
-
-;; make C-h and M-h backspace; move help to C-x h
-;; (on some systems, C-h already sends DEL)
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "M-h") 'backward-kill-word)
-(global-set-key (kbd "C-x h") 'help-command)
-
-;; from Mickie's book
-(setq apropos-sort-by-scores t)
-
-;; take Yegge's advice on kill-region
-(global-set-key (kbd "C-x C-m") 'smex)
-(global-set-key (kbd "C-x C-k") 'kill-region)
-
-;; I switch to other window a lot
-;; (don't use "df" because of the PDF format)
-(key-chord-define-global "fg" 'other-window)
-;; Easier key-action:
-(global-set-key (kbd "M-l") 'other-window)
-
-;; and I like to switch buffers
-(key-chord-define-global "jk" 'buffer-stack-down)
-(key-chord-define-global "m<" 'buffer-stack-up)
-;; Do I need to bind 'ido-switch-buffer over the default on C-x b?
-;; (global-set-key (kbd "C-q") 'ido-switch-buffer)
-;; Yes.
-(key-chord-define-global "JK" 'ido-switch-buffer)
-(global-set-key (kbd "C-M-l") 'ido-switch-buffer)
-
-;;; UI things for display
-
-;; get rid of UI stuff (not sure all of these always apply)
-(setq inhibit-startup-screen t)
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-
-;; Highlight ugly whitespace
+;; Be aware of whitespace.
 (setq whitespace-style '(face trailing tabs tab-mark))
 (global-whitespace-mode)
+(diminish 'global-whitespace-mode)
 
-;; untabify for git committing
-(add-hook 'git-commit-mode-hook
-          '(lambda ()
-             (untabify (point-min) (point-max)))
-          t)
+;; Don't insert tabs.
+(setq-default indent-tabs-mode nil)
 
-;; so rainbow. wow.
-(define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
-  (lambda () (rainbow-mode t)))
-(my-global-rainbow-mode t)
+;; Use just 'y' or 'n', not 'yes' or 'no'.
+(defalias 'yes-or-no-p 'y-or-n-p)
+;; Do the same for running elisp in org-mode.
+(setq org-confirm-elisp-link-function 'y-or-n-p)
 
-;; turn on time mode
+;; Don't show so many stars in org-mode.
+(setq org-hide-leading-stars t)
+
+;; Improve mode-line:
+;; Show system time.
 (display-time-mode t)
-
-;; improve status line
+;; Show column number.
 (setq column-number-mode t)
-
-;; get rid of those trailing dashes
+;; Don't show trailing dashes.
 (setq mode-line-end-spaces "")
 
-;; prettify everywhere!
+;; Blink, don't beep.
+(setq visible-bell t)
+
+;; Delete marked region when typing over it.
+(delete-selection-mode t)
+
+;; Have nice parentheses.
+(show-paren-mode t)
+(electric-pair-mode t)
+
+;; One space after sentences. One.
+(setq sentence-end-double-space nil)
+
+;; Update the screen by one line, not one page.
+(setq scroll-step 1)
+
+;; Allow region downcase w/ C-x C-l, upcase w/ C-x C-u.
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+
+;; Make nice buffer names when multiple files have the same name.
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+;; Use spell-checking.
+;; The aspell executable may be in /usr/local/bin.
+(setq exec-path (append exec-path '("/usr/local/bin")))
+(add-hook 'text-mode-hook (lambda ()
+                            (flyspell-mode)
+                            (diminish 'flyspell-mode)))
+(add-hook 'prog-mode-hook (lambda ()
+                            (flyspell-prog-mode)
+                            (diminish 'flyspell-mode)))
+
+;; Show off lambdas everywhere.
 (when (and (<= 24 emacs-major-version)
            (<= 4 emacs-minor-version))
   (define-globalized-minor-mode
@@ -337,84 +125,7 @@
   (defconst prettify-symbols-alist
     '(("lambda"  . ?λ))))
 
-;; diminish some things
-(diminish 'projectile-mode)
-(diminish 'undo-tree-mode)
-(diminish 'compilation-shell-minor-mode)
-(diminish 'auto-complete-mode)
-(diminish 'whole-line-or-region-mode)
-(diminish 'page-break-lines-mode)
-(diminish 'global-whitespace-mode)
-(diminish 'rainbow-mode)
-(diminish 'drag-stuff-mode)
-(after 'flyspell (diminish 'flyspell-mode))
-(after 'git-gutter+ (diminish 'git-gutter+-mode))
-(after 'flycheck (diminish 'flycheck-mode)
-                 (define-key flycheck-mode-map
-                   (kbd "C-c C-n") 'flycheck-next-error)
-                 (define-key flycheck-mode-map
-                   (kbd "C-c C-p") 'flycheck-previous-error))
-(after 'robe (diminish 'robe-mode))
-
-;; set a color scheme
-(load-theme 'zenburn t)
-;; disable with disable-theme
-
-;; frame zooming with zoom-frm
-(require 'zoom-frm)
-(global-set-key (kbd "C-=") 'zoom-in/out)
-(global-set-key (kbd "C-+") 'zoom-in/out)
-(global-set-key (kbd "C-0") 'zoom-in/out)
-(global-set-key (kbd "C--") 'zoom-in/out)
-
-;; don't beep all the time
-(setq visible-bell nil) ; turned off for now
-;; (doesn't apply to terminal mode)
-;; (have to adjust a setting in the term)
-
-;; get spell-checking in graphical mode where path is weird
-(setq exec-path (append exec-path '("/usr/local/bin")))
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
-
-
-;;; UI things for interaction
-
-;; Don't insert tabs!
-(setq-default indent-tabs-mode nil)
-
-;; four space tabs for javascript and CSS
-(setq-default js2-basic-offset 4)
-(setq css-indent-offset 4)
-
-;; just 'y' or 'n', not 'yes' or 'no'
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-;; switch point into buffer list
-(global-set-key (kbd "C-x C-b") 'buffer-menu)
-
-;;; parentheses etc.
-(show-paren-mode t)
-(electric-pair-mode t)
-(wrap-region-global-mode t)
-(wrap-region-add-wrappers '(("`" "`")))
-(after 'wrap-region (diminish 'wrap-region-mode))
-
-;; delete marked stuff
-(delete-selection-mode t)
-
-;; One space after sentences. One.
-(setq sentence-end-double-space nil)
-
-;; Precise when moving to next lines
-(setq scroll-step 1)
-
-;; Allow region downcase w/ C-x C-l, upcase w/ C-x C-u
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
-
-;; Put backup files a little out of the way
+;; Put backup files a little out of the way.
 (defvar --backup-directory (concat user-emacs-directory "backups"))
 (if (not (file-exists-p --backup-directory))
             (make-directory --backup-directory t))
@@ -428,51 +139,270 @@
       vc-make-backup-files t       ; backup version-controlled files too
 )
 
-;; better buffer names when multiple files have the same name
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
 
-;; make it easier to run elisp in org mode
-(setq org-confirm-elisp-link-function 'y-or-n-p)
+;;; Set some keybindings.
 
-;; fewer stars everywhere
-(setq org-hide-leading-stars t)
+;; Use Mac keys:
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
+(setq ns-function-modifier 'hyper)
+(global-set-key (kbd "C-<backspace>") 'just-one-space)
 
-;; don't open images in emacs
-(add-hook 'org-mode-hook '(lambda ()
-  (setq org-file-apps (append '(("\\.png\\'" . default)
-                                ("\\.jpg\\'" . default)) org-file-apps))
-))
+;; Jump easily to beginning and end.
+(global-set-key (kbd "C-]") 'beginning-of-buffer)
+(global-set-key (kbd "C-\\") 'end-of-buffer)
+
+;; Easily memorable whole-buffer selection.
+(global-set-key (kbd "M-A") 'mark-whole-buffer)
+
+;; Easily turn line numbers on and off.
+(global-set-key (kbd "M-1") 'linum-mode)
+
+;; switch point into buffer list
+(global-set-key (kbd "C-x C-b") 'buffer-menu)
+
+;; dired at point is nice
+(global-set-key (kbd "C-x C-j") 'dired-at-point)
+
+;; Make C-h and M-h backspace; move help to C-x h.
+;; (On some systems, C-h already sends DEL.)
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-h") 'backward-kill-word)
+(global-set-key (kbd "C-x h") 'help-command)
 
 
-;; let Windows suck a little less
-(if (equal system-type 'windows-nt)
-    (progn (setq explicit-shell-file-name
-                 "C:/Program Files (x86)/Git/bin/sh.exe")
-           (setq shell-file-name explicit-shell-file-name)
-           (add-to-list 'exec-path "C:/Program Files (x86)/Git/bin")
-           (setq explicit-sh.exe-args '("--login" "-i"))
-           (setenv "SHELL" shell-file-name)
-           (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)))
+;; Use nice colors.
+(use-package zenburn-theme
+  :config (load-theme 'zenburn t))
+;; Themes can be disabled with disable-theme.
 
-;; the-the in honor of An Introduction to Programming in Emacs Lisp
-(defun the-the ()
-  "Search forward for for a duplicated word."
+
+;; Get useful line behaviors when region is not active.
+(use-package whole-line-or-region
+  :config (whole-line-or-region-mode t)
+  :diminish whole-line-or-region-mode)
+
+
+;; Show where files have changed vs. last commit.
+(use-package git-gutter-fringe+
+  :config (global-git-gutter+-mode t)
+  :diminish git-gutter+-mode)
+
+
+;; Interactive selection of things.
+;; TODO: consider helm instead (see Sacha's config)
+(ido-mode t)
+(ido-everywhere t)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
+(global-set-key (kbd "M-l") 'other-window)
+(global-set-key (kbd "C-M-l") 'ido-switch-buffer)
+
+;; list vertically (so much nicer!)
+(use-package ido-vertical-mode
+  :config (ido-vertical-mode t))
+
+(use-package flx-ido
+  :config (flx-ido-mode 1))
+
+;; Smart M-x
+(use-package smex
+  :config
+  (smex-initialize)
+  (global-set-key (kbd "M-x") 'smex)
+  ;; take Yegge's advice and don't require M for M-x
+  (global-set-key (kbd "C-x C-m") 'smex)
+  ;; This is the old M-x.
+  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands))
+
+
+;; Add nice project functions for git repos.
+(use-package projectile
+  :config (projectile-global-mode)
+  :diminish projectile-mode)
+
+
+;; See the undo history and move through it.
+(use-package undo-tree
+  :config (global-undo-tree-mode t)
+  :diminish undo-tree-mode)
+
+
+;; Un-namespaced Common Lisp names.
+;; https://github.com/browse-kill-ring/browse-kill-ring/pull/56
+(require 'cl)
+(use-package browse-kill-ring
+  :config
+  ;; Bind M-y to visual interactive kill ring.
+  (browse-kill-ring-default-keybindings))
+
+
+;; Get auto-complete functionality.
+;; TODO: Determine whether this is doing what I really want.
+(use-package auto-complete
+  :config (global-auto-complete-mode t)
+  :diminish auto-complete-mode)
+
+
+;; Display lines for ^L characters.
+(use-package page-break-lines
+  :config (global-page-break-lines-mode t)
+  :diminish page-break-lines-mode)
+
+
+;; Edit in multiple places at the same time.
+(use-package multiple-cursors
+  :bind
+  ("C-x r t" . mc/edit-lines)
+  ("C-x C-x" . mc/mark-more-like-this-extended))
+
+
+;; (Near) simultaneous keypresses create new keys.
+(use-package key-chord
+  :config
+  (key-chord-mode t)
+  (key-chord-define-global "hj" 'undo))
+
+
+;; Flip through buffers with ease.
+(use-package buffer-stack
+  :config
+  (key-chord-define-global "jk" 'buffer-stack-down))
+
+
+;; Move things around intuitively.
+(use-package drag-stuff
+  :config (drag-stuff-global-mode)
+  :diminish drag-stuff-mode)
+
+
+;; expand-region is that new hotness.
+(use-package expand-region
+  :bind ("M-o" . er/expand-region))
+
+
+;; Work well with parentheses and friends.
+;; TODO: Consider switching to smartparens.
+(use-package wrap-region
+  :config
+  (wrap-region-global-mode t)
+  (wrap-region-add-wrappers '(("`" "`")))
+  :diminish wrap-region-mode)
+
+
+;; Conveniently zoom all of Emacs.
+(use-package zoom-frm
+  :bind
+  ("C-=" . zoom-in/out)
+  ("C-+" . zoom-in/out)
+  ("C--" . zoom-in/out))
+
+
+;; Search the web from Emacs.
+(use-package engine-mode
+  :config
+  (engine-mode t)
+  (engine/set-keymap-prefix (kbd "C-/"))
+  (defengine github
+    "https://github.com/search?ref=simplesearch&q=%s")
+  (defengine duckduckgo
+    "https://duckduckgo.com/?q=%s"
+    :keybinding "d")
+  (defengine google
+    "https://www.google.com/#q=%s"
+    :keybinding "g"))
+
+
+;; Check syntax, make life better.
+(use-package flycheck
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (define-key flycheck-mode-map
+    (kbd "C-c C-n")
+    'flycheck-next-error)
+  (define-key flycheck-mode-map
+    (kbd "C-c C-p")
+    'flycheck-previous-error)
+  :diminish flycheck-mode)
+
+
+;; Elpy the Emacs Lisp Python Environment.
+(use-package elpy
+  :config
+  (elpy-enable)
+  ;; Use ipython if available.
+  (when (executable-find "ipython")
+    (elpy-use-ipython))
+  ;; Don't use flymake if flycheck is available.
+  (when (require 'flycheck nil t)
+    (setq elpy-modules
+          (delq 'elpy-module-flymake elpy-modules)))
+  ;; Don't use highlight-indentation-mode.
+  (delete 'elpy-module-highlight-indentation elpy-modules)
+  ;; this is messed with by emacs if you let it...
+  (custom-set-variables
+   '(elpy-rpc-backend "jedi")
+   '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
+   '(help-at-pt-timer-delay 0.9)
+   '(tab-width 4))
+  ;; Elpy also installs yasnippets.
+  ;; Don't use tab for yasnippets, use shift-tab.
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+  (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
+  :diminish elpy-mode)
+
+
+;; Emacs Speaks Statistics includes support for R.
+(use-package ess-site
+  :ensure ess)
+
+
+;; Use a nice JavaScript mode.
+(use-package js2-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+
+
+;; Work with git with magic ease.
+(use-package magit
+  :bind ("C-x g" . magit-status)
+  :config
+  (setq magit-push-always-verify nil)
+  (set-default 'magit-unstage-all-confirm nil)
+  (set-default 'magit-stage-all-confirm nil)
+  (set-default 'magit-revert-buffers 'silent)
+  ;; Don't use tabs, magit!
+  (add-hook 'git-commit-mode-hook
+            '(lambda () (untabify (point-min) (point-max))) t))
+
+
+;; See colors specified with text.
+(use-package rainbow-mode
+  :config
+  (defun rainbow-mode-quietly ()
+    (rainbow-mode)
+    (diminish 'rainbow-mode))
+  (add-hook 'html-mode-hook 'rainbow-mode-quietly)
+  (add-hook 'css-mode-hook 'rainbow-mode-quietly))
+
+
+;;; Functions Written by others:
+
+(defun prelude-open-with ()
+  "Simple function that allows us to open the underlying
+file of a buffer in an external program."
   (interactive)
-  (message "Searching for for duplicated words ...")
-  (push-mark)
-  ;; This regexp is not perfect
-  ;; but is fairly good over all:
-  (if (re-search-forward
-       "\\b\\([^@ \n\t]+\\)[ \n\t]+\\1\\b" nil 'move)
-      (message "Found duplicated word.")
-    (message "End of buffer")))
-
-;; Bind `the-the' to  C-c \
-(global-set-key "\C-c\\" 'the-the)
-
-
-;;; randomize-reqion:
+  (when buffer-file-name
+    (shell-command (concat
+                    (if (eq system-type 'darwin)
+                        "open"
+                      (read-shell-command "Open current file with: "))
+                    " "
+                    buffer-file-name))))
+(global-set-key (kbd "C-c o") 'prelude-open-with)
 
 (defun randomize-region (beg end)
   (interactive "r")
@@ -514,27 +444,22 @@ All permutations equally likely."
       (setq i (1+ i))))
   list)
 
-;;; randomize-region.el
-
-;;; the open function from prelude
-(defun prelude-open-with ()
-  "Simple function that allows us to open the underlying
-file of a buffer in an external program."
+;; the-the in honor of An Introduction to Programming in Emacs Lisp
+(defun the-the ()
+  "Search forward for for a duplicated word."
   (interactive)
-  (when buffer-file-name
-    (shell-command (concat
-                    (if (eq system-type 'darwin)
-                        "open"
-                      (read-shell-command "Open current file with: "))
-                    " "
-                    buffer-file-name))))
-(global-set-key (kbd "C-c o") 'prelude-open-with)
-;;; end prelude open function
+  (message "Searching for for duplicated words ...")
+  (push-mark)
+  ;; This regexp is not perfect
+  ;; but is fairly good over all:
+  (if (re-search-forward
+       "\\b\\([^@ \n\t]+\\)[ \n\t]+\\1\\b" nil 'move)
+      (message "Found duplicated word.")
+    (message "End of buffer")))
 
 
-;;; my functions!
+;;; Functions written by me:
 
-;; possibly a useful function
 (defun space-tab (current desired)
   "Change size of space tabs."
   (interactive "nCurrent size: \nnDesired size: ")
@@ -597,16 +522,3 @@ Operates on the active region or the whole buffer."
                  all-files-list)))))
       (setq current-directory-list (cdr current-directory-list)))
     all-files-list))
-
-
-;;; set up email maybe?
-
-(setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-      smtpmail-auth-credentials '(("smtp.gmail.com" 587
-                                   "ajschumacher@gmail.com" nil))
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587
-      user-full-name "Aaron Schumacher"
-      user-mail-address "ajschumacher@gmail.com")
