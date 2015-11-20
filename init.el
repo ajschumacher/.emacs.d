@@ -412,14 +412,14 @@
 ;; (wrap-region-add-wrappers '(("`" "`")))
 ;; (after 'wrap-region (diminish 'wrap-region-mode))
 
-;; ;; delete marked stuff
-;; (delete-selection-mode t)
+;; delete marked stuff
+(delete-selection-mode t)
 
-;; ;; One space after sentences. One.
-;; (setq sentence-end-double-space nil)
+;; One space after sentences. One.
+(setq sentence-end-double-space nil)
 
-;; ;; Precise when moving to next lines
-;; (setq scroll-step 1)
+;; Precise when moving to next lines
+(setq scroll-step 1)
 
 ;; Allow region downcase w/ C-x C-l, upcase w/ C-x C-u
 (put 'downcase-region 'disabled nil)
@@ -450,95 +450,16 @@
 ;; ;; fewer stars everywhere
 ;; (setq org-hide-leading-stars t)
 
-;; ;; don't open images in emacs
-;; (add-hook 'org-mode-hook '(lambda ()
-;;   (setq org-file-apps (append '(("\\.png\\'" . default)
-;;                                 ("\\.jpg\\'" . default)) org-file-apps))
-;; ))
-
-
-;; ;; let Windows suck a little less
-;; (if (equal system-type 'windows-nt)
-;;     (progn (setq explicit-shell-file-name
-;;                  "C:/Program Files (x86)/Git/bin/sh.exe")
-;;            (setq shell-file-name explicit-shell-file-name)
-;;            (add-to-list 'exec-path "C:/Program Files (x86)/Git/bin")
-;;            (setq explicit-sh.exe-args '("--login" "-i"))
-;;            (setenv "SHELL" shell-file-name)
-;;            (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)))
-
-;; ;; the-the in honor of An Introduction to Programming in Emacs Lisp
-;; (defun the-the ()
-;;   "Search forward for for a duplicated word."
-;;   (interactive)
-;;   (message "Searching for for duplicated words ...")
-;;   (push-mark)
-;;   ;; This regexp is not perfect
-;;   ;; but is fairly good over all:
-;;   (if (re-search-forward
-;;        "\\b\\([^@ \n\t]+\\)[ \n\t]+\\1\\b" nil 'move)
-;;       (message "Found duplicated word.")
-;;     (message "End of buffer")))
-
-;; ;; Bind `the-the' to  C-c \
-;; (global-set-key "\C-c\\" 'the-the)
-
-
-;; ;;; randomize-reqion:
-
-;; (defun randomize-region (beg end)
-;;   (interactive "r")
-;;   (if (> beg end)
-;;       (let (mid) (setq mid end end beg beg mid)))
-;;   (save-excursion
-;;     ;; put beg at the start of a line and end and the end of one --
-;;     ;; the largest possible region which fits this criteria
-;;     (goto-char beg)
-;;     (or (bolp) (forward-line 1))
-;;     (setq beg (point))
-;;     (goto-char end)
-;;     ;; the test for bolp is for those times when end is on an empty
-;;     ;; line; it is probably not the case that the line should be
-;;     ;; included in the reversal; it isn't difficult to add it
-;;     ;; afterward.
-;;     (or (and (eolp) (not (bolp)))
-;;         (progn (forward-line -1) (end-of-line)))
-;;     (setq end (point-marker))
-;;     (let ((strs (shuffle-list
-;;                  (split-string (buffer-substring-no-properties beg end)
-;;                              "\n"))))
-;;       (delete-region beg end)
-;;       (dolist (str strs)
-;;         (insert (concat str "\n"))))))
-
-;; (defun shuffle-list (list)
-;;   "Randomly permute the elements of LIST.
-;; All permutations equally likely."
-;;   (let ((i 0)
-;;   j
-;;   temp
-;;   (len (length list)))
-;;     (while (< i len)
-;;       (setq j (+ i (random (- len i))))
-;;       (setq temp (nth i list))
-;;       (setcar (nthcdr i list) (nth j list))
-;;       (setcar (nthcdr j list) temp)
-;;       (setq i (1+ i))))
-;;   list)
-
-;; ;;; randomize-region.el
-
-;; ;;; the open function from prelude
-;; (defun prelude-open-with ()
-;;   "Simple function that allows us to open the underlying
-;; file of a buffer in an external program."
-;;   (interactive)
-;;   (when buffer-file-name
-;;     (shell-command (concat
-;;                     (if (eq system-type 'darwin)
-;;                         "open"
-;;                       (read-shell-command "Open current file with: "))
-;;                     " "
-;;                     buffer-file-name))))
-;; (global-set-key (kbd "C-c o") 'prelude-open-with)
-;; ;;; end prelude open function
+;; the open function from prelude
+(defun prelude-open-with ()
+  "Simple function that allows us to open the underlying
+file of a buffer in an external program."
+  (interactive)
+  (when buffer-file-name
+    (shell-command (concat
+                    (if (eq system-type 'darwin)
+                        "open"
+                      (read-shell-command "Open current file with: "))
+                    " "
+                    buffer-file-name))))
+(global-set-key (kbd "C-c o") 'prelude-open-with)
