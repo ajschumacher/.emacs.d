@@ -201,7 +201,7 @@
              (expand-file-name "git-gutter-plus" user-emacs-directory))
 (require 'git-gutter+)
 (global-git-gutter+-mode)
-; change! again! again!
+; change! again! again! and again!
 ;; Show where files have changed vs. last commit.
 ;; (use-package git-gutter-fringe+
 ;;   :ensure nil
