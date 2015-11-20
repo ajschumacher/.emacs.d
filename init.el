@@ -461,7 +461,23 @@ All permutations equally likely."
 
 ;;; Functions written by me:
 
-(defun space-tab (current desired)
+(defun ajs-push-page-up ()
+  (interactive)
+  (scroll-up 1)
+  ;; next-line is only meant for interactive use,
+  ;; but it works really well here.
+  (next-line))
+(global-set-key (kbd "s-<up>") 'ajs-push-page-up)
+
+(defun ajs-push-page-down ()
+  (interactive)
+  (scroll-down 1)
+  ;; previous-line is only meant for interactive use,
+  ;; but it works really well here.
+  (previous-line))
+(global-set-key (kbd "s-<down>") 'ajs-push-page-down)
+
+(defun ajs-space-tab (current desired)
   "Change size of space tabs."
   (interactive "nCurrent size: \nnDesired size: ")
     (setq tab-width current)
@@ -469,7 +485,7 @@ All permutations equally likely."
     (setq tab-width desired)
     (untabify (point-min) (point-max))
     (setq tab-width desired)
-    (setq python-indent desired))
+    (setq python-indent-offset desired))
 
 (defun ajs-decimal-escapes-to-unicode ()
   "Convert escapes like '&#955;' to Unicode like 'λ'.
