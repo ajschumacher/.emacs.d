@@ -202,7 +202,7 @@
 (add-to-list 'load-path
              (expand-file-name "elisp" user-emacs-directory))
 ;; Use the fringe if in graphical mode (not terminal).
-(if (or (display-graphic-p) (boundp 'server-process))
+(if (or (display-graphic-p) (daemonp))
     (require 'git-gutter-fringe+)
   (require 'git-gutter+))
 (global-git-gutter+-mode)
