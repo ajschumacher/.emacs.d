@@ -201,13 +201,16 @@
 ;; See https://github.com/nonsequitur/git-gutter-plus/pull/27
 (add-to-list 'load-path
              (expand-file-name "elisp" user-emacs-directory))
-(require 'git-gutter+)
+;; Use the fringe if in graphical mode (not terminal).
+(if (or (display-graphic-p) (boundp 'server-process))
+    (require 'git-gutter-fringe+)
+  (require 'git-gutter+))
 (global-git-gutter+-mode)
 (diminish 'git-gutter+-mode)
-;; Use the fringe if in graphical mode (not terminal).
-(when (display-graphic-p)
-  (use-package git-gutter-fringe+))
-
+;; ;; Eventually may be able to return to something like this:
+;; (use-package git-gutter-fringe+
+;;   :init (global-git-gutter+-mode)
+;;   :diminish git-gutter+-mode)
 
 ;; Interactive selection of things.
 ;; TODO: consider helm instead (see Sacha's config)
