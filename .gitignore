@@ -1,5 +1,4 @@
-.cask/
-async-bytecomp.log
+*.elc
 ac-comphist.dat
 auto-save-list/
 backups/
@@ -7,7 +6,5 @@ backups/
 url/
 tramp
 projectile-bookmarks.eld
-flycheck_init.el
 smex-items
 ido.last
-elpa/
