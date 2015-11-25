@@ -89,6 +89,9 @@
 ;; Have nice parentheses.
 (show-paren-mode t)
 (electric-pair-mode t)
+;; C-M-d doesn't work on my Mac, so put down-list somewhere
+(global-unset-key (kbd "C-M-j"))
+(global-set-key (kbd "C-M-j") 'down-list)
 
 ;; One space after sentences. One.
 (setq sentence-end-double-space nil)
