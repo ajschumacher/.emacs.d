@@ -1,5 +1,6 @@
 *~
 *.elc
+flycheck_init.el
 ac-comphist.dat
 auto-save-list/
 backups/
