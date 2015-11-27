@@ -86,13 +86,6 @@
 ;; Delete marked region when typing over it.
 (delete-selection-mode t)
 
-;; Have nice parentheses.
-(show-paren-mode t)
-(electric-pair-mode t)
-;; C-M-d doesn't work on my Mac, so put down-list somewhere
-(global-unset-key (kbd "C-M-j"))
-(global-set-key (kbd "C-M-j") 'down-list)
-
 ;; One space after sentences. One.
 (setq sentence-end-double-space nil)
 
@@ -173,6 +166,53 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-h") 'backward-kill-word)
 (global-set-key (kbd "C-x h") 'help-command)
+
+
+;; Highlight where matching parens are.
+(show-paren-mode t)
+;; `smartparens` manages parens well.
+(use-package smartparens
+  :config
+  (require 'smartparens-config)
+  (smartparens-global-mode t)
+  (define-key smartparens-mode-map (kbd "C-M-f") 'sp-forward-sexp)
+  (define-key smartparens-mode-map (kbd "C-M-b") 'sp-backward-sexp)
+  ;; C-M-j isn't standard, but C-M-d doesn't work for me.
+  (define-key smartparens-mode-map (kbd "C-M-j") 'sp-down-sexp)
+  (define-key smartparens-mode-map (kbd "C-M-k") 'sp-kill-sexp)
+  (define-key smartparens-mode-map (kbd "C-M-w") 'sp-copy-sexp)
+  (define-key smartparens-mode-map (kbd "C-M-[") 'sp-rewrap-sexp)
+  (define-key smartparens-mode-map (kbd "C-M-]") 'sp-backward-unwrap-sexp)
+  ;; markdown-mode
+  (sp-with-modes '(markdown-mode gfm-mode rst-mode)
+    (sp-local-pair "*" "*"
+                   :wrap "C-*"
+                   :unless '(sp-point-after-word-p sp-point-at-bol-p)
+                   :post-handlers '(("[d1]" "SPC"))
+                   :skip-match 'sp--gfm-skip-asterisk)
+    (sp-local-pair "**" "**")
+    (sp-local-pair "_" "_" :wrap "C-_" :unless '(sp-point-after-word-p)))
+  (defun sp--gfm-skip-asterisk (ms mb me)
+    (save-excursion
+      (goto-char mb)
+      (save-match-data (or (looking-at "^\\* ")
+                           (looking-at "^ \\* ")))))
+  ;; Don't highlight when wrapping.
+  (setq sp-highlight-pair-overlay nil)
+  (setq sp-highlight-wrap-overlay nil)
+  (setq sp-highlight-wrap-tag-overlay nil)
+  :diminish smartparens-mode)
+
+
+;; Move things around intuitively.
+(use-package drag-stuff
+  :config (drag-stuff-global-mode)
+  :diminish drag-stuff-mode)
+
+
+;; expand-region is that new hotness.
+(use-package expand-region
+  :bind ("M-o" . er/expand-region))
 
 
 ;; Use nice colors.
@@ -299,26 +339,6 @@
 (use-package buffer-stack
   :config
   (key-chord-define-global "jk" 'buffer-stack-down))
-
-
-;; Move things around intuitively.
-(use-package drag-stuff
-  :config (drag-stuff-global-mode)
-  :diminish drag-stuff-mode)
-
-
-;; expand-region is that new hotness.
-(use-package expand-region
-  :bind ("M-o" . er/expand-region))
-
-
-;; Work well with parentheses and friends.
-;; TODO: Consider switching to smartparens.
-(use-package wrap-region
-  :config
-  (wrap-region-global-mode t)
-  (wrap-region-add-wrappers '(("`" "`")))
-  :diminish wrap-region-mode)
 
 
 ;; Conveniently zoom all of Emacs.
