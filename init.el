@@ -396,6 +396,8 @@
    '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
    '(help-at-pt-timer-delay 0.9)
    '(tab-width 4))
+  (define-key elpy-mode-map (kbd "C-c C-n") 'next-error)
+  (define-key elpy-mode-map (kbd "C-c C-p") 'previous-error)
   ;; Elpy also installs yasnippets.
   ;; Don't use tab for yasnippets, use shift-tab.
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
