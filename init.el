@@ -502,6 +502,12 @@ All permutations equally likely."
 
 ;;; Functions written by me:
 
+(defun ajs-pull-up-next-line ()
+  (interactive)
+  (delete-indentation t)
+  (delete-char 1))
+(global-set-key (kbd "C-M-o") 'ajs-pull-up-next-line)
+
 (defun ajs-push-page-up ()
   (interactive)
   (scroll-up 1)
