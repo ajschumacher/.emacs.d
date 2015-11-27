@@ -46,9 +46,6 @@
 ;; ThisIsFourWords
 (global-subword-mode t)
 
-;; Use shift-arrows for changing windows.
-(windmove-default-keybindings)
-
 ;; Show where buffers end.
 (setq-default indicate-empty-lines t)
 
@@ -138,6 +135,9 @@
 
 
 ;;; Set some keybindings.
+
+;; Use shift-arrows for changing windows.
+(windmove-default-keybindings)
 
 ;; Use Mac keys:
 (setq mac-command-modifier 'meta)
