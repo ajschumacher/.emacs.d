@@ -504,8 +504,7 @@ All permutations equally likely."
 
 (defun ajs-pull-up-next-line ()
   (interactive)
-  (delete-indentation t)
-  (delete-char 1))
+  (delete-indentation t))
 (global-set-key (kbd "C-M-o") 'ajs-pull-up-next-line)
 
 (defun ajs-push-page-up ()
