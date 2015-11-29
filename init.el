@@ -428,7 +428,10 @@
 
 
 ;; Support markdown, for goodness sake.
-(use-package markdown-mode)
+(use-package markdown-mode
+  :config
+  (define-key markdown-mode-map (kbd "M-n") nil)
+  (define-key markdown-mode-map (kbd "M-p") nil))
 
 
 ;;; Functions Written by others:
