@@ -505,6 +505,17 @@ All permutations equally likely."
 
 ;;; Functions written by me:
 
+(defun ajs-set-width (num-cols)
+  (set-frame-width (selected-frame) num-cols))
+
+(defun ajs-double-width ()
+  (interactive)
+  (ajs-set-width 168))
+
+(defun ajs-single-width ()
+  (interactive)
+  (ajs-set-width 84))
+
 (defun ajs-pull-up-next-line ()
   (interactive)
   (delete-indentation t)
