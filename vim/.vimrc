@@ -1,0 +1,1 @@
+match ErrorMsg '\s\+$'
