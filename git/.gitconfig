@@ -18,6 +18,7 @@
   co = checkout
   b = branch
   br = branch
+  r = "remote -v"
   p = push
   u = pull upstream master
   last = "log -1 HEAD"
