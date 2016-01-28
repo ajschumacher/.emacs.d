@@ -91,6 +91,9 @@ alias l='ls -CF'
 # easily check for a running program
 alias got='ps awx | grep'
 
+# easily check for python packages
+alias pipi='pip freeze | grep'
+
 # parameters for rsync over ssh
 alias srsync='rsync -avz -e ssh --progress'
 
