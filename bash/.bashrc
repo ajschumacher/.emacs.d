@@ -92,6 +92,7 @@ alias l='ls -CF'
 alias tl='tmux list-sessions'
 alias tn='tmux new-session -s'
 alias ta='tmux attach -t'
+alias td='tmux detach'
 
 # easily check for a running program
 alias got='ps awx | grep'
