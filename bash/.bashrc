@@ -88,6 +88,11 @@ alias lh='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
 
+# type less for tmux
+alias tl='tmux list-sessions'
+alias tn='tmux new-session -s'
+alias ta='tmux attach -t'
+
 # easily check for a running program
 alias got='ps awx | grep'
 
