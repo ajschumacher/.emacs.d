@@ -105,7 +105,7 @@
  * Add `~/.ssh/id_rsa.pub` to [GitHub](https://github.com/), etc.
  * In home directory, `git clone git@github.com:ajschumacher/.emacs.d.git`
  * Run the `link.sh` script as needed to connect things.
- * `brew install emacs --cocoa --srgb`
+ * `brew install emacs --with-cocoa --srgb`
  * `brew install aspell`
  * Install Slack.
  * To make all files visible in the Finder, run: `defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder` ([ref](https://discussions.apple.com/thread/1935221))
