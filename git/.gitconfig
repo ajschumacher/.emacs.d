@@ -13,7 +13,7 @@
   d = diff
   a = add
   unstage = "reset HEAD --"
-  c = commit
+  c = "commit -m"
   ci = commit
   co = checkout
   b = branch
