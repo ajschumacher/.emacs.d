@@ -108,16 +108,17 @@
                             (flyspell-prog-mode)
                             (diminish 'flyspell-mode)))
 
+;;; Turning this off because it makes for PEP8 difficulties.
 ;; Show off lambdas everywhere.
-(when (and (<= 24 emacs-major-version)
-           (<= 4 emacs-minor-version))
-  (define-globalized-minor-mode
-    my-global-prettify-symbols-mode
-    prettify-symbols-mode
-    (lambda () (prettify-symbols-mode t)))
-  (my-global-prettify-symbols-mode t)
-  (defconst prettify-symbols-alist
-    '(("lambda"  . ?λ))))
+;; (when (and (<= 24 emacs-major-version)
+;;            (<= 4 emacs-minor-version))
+;;   (define-globalized-minor-mode
+;;     my-global-prettify-symbols-mode
+;;     prettify-symbols-mode
+;;     (lambda () (prettify-symbols-mode t)))
+;;   (my-global-prettify-symbols-mode t)
+;;   (defconst prettify-symbols-alist
+;;     '(("lambda"  . ?λ))))
 
 ;; Put backup files a little out of the way.
 (defvar --backup-directory (concat user-emacs-directory "backups"))
