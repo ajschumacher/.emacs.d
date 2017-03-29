@@ -124,6 +124,9 @@ export EDITOR='emacsclient -c --alternate-editor="" -nw'
 # Convenience
 alias ..='cd ..'
 
+# protoc via grpc_tools (pip install grpcio-tools)
+alias protoc='python -m grpc_tools.protoc'
+
 # load bash-completion 2 on a Mac with brew
 if hash brew 2>/dev/null; then
     if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
