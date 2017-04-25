@@ -15,6 +15,11 @@ export PATH=$PATH:~/.cask/bin      # for Cask (Emacs packages)
 export PATH=$PATH:/usr/local/sbin  # suggested by brew
 export PATH=~/.rvm/bin:$PATH       # in case I'm using RVM
 
+# GPU IDs should match up
+export CUDA_DEVICE_ORDER=PCI_BUS_ID
+# Alternative is FASTEST_FIRST, see:
+# https://www.gpugrid.net/forum_thread.php?id=3977
+
 # WORKON_HOME considered harmful;
 # default of ~/.local/share/virtualenvs preferred -
 # but it's needed for elpy/pyvenv virtualenv support.
