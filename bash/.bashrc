@@ -100,7 +100,7 @@ alias ta='tmux attach -t'
 alias td='tmux detach'
 
 # easily check for a running program
-alias got='ps awx | grep'
+alias got='ps aux | grep'
 
 # easily check for python packages
 alias pipi='pip freeze | grep'
