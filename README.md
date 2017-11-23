@@ -2,7 +2,7 @@
 
 ### Setup
 
-(The order is not always strict.) (And there are multiple versions now.)
+(The order is not always strict.) (And there are multiple versions now.) (Most recent run-through at bottom.)
 
  * Install `git`
      * Run `ssh-keygen`
@@ -131,3 +131,45 @@
  * [Download](http://spark.apache.org/downloads.html) and unpack Spark
  * Install [Skype](http://www.skype.com/)
  * Turn on filename extension visibility [like this](http://www.idownloadblog.com/2014/10/29/how-to-show-or-hide-filename-extensions-in-os-x-yosemite/)
+
+---
+
+2017-11-22 MacBook install:
+
+ * update existing software
+ * Open Safari and install [Chrome](http://www.google.com/chrome/) and [Firefox](http://firefox.com/).
+ * Clean up the Dock and hide it.
+ * Install Slack via App Store.
+ * Install [Spotify](https://www.spotify.com/).
+ * Change computer name [in sharing preferences](https://www.wikihow.com/Change-the-Name-of-Your-MacBook).
+ * Turn off "Calls from iPhone" in FaceTime preferences.
+ * In "Messages" turn off "Notify me about messages from unknown contacts" but more importantly, turn off the phone number under "You can be reached for messages at" in the account section.
+ * Turn on filename extension visibility [like this](http://www.idownloadblog.com/2014/10/29/how-to-show-or-hide-filename-extensions-in-os-x-yosemite/).
+ * `System Preferences...`, `Keyboard`, `Modifier Keys...`, `Caps Lock to Control`
+ * Start setting up Terminal.
+     * Switch `Profiles` default to "Pro"
+     * `Profiles` - `Keyboard` - `Use Option as Meta key` on
+     * `Profiles` - `Advanced` - `Audible bell` off
+     * `Profiles` - `Advanced` - `Visual bell` - `Only when sound is muted` off
+     * `Profiles` - `Text` - Menlo Regular 14 pt.
+     * In `Shell` change "When the shell exits:" to "Close if the shell exited cleanly".
+ * To turn off window drop shadows when doing screenshots, run: `defaults write com.apple.screencapture disable-shadow -bool true; killall SystemUIServer` ([ref](http://computers.tutsplus.com/tutorials/how-to-become-an-os-x-screenshot-wizard--mac-50467)).
+ * To make all files visible in the Finder, run: `defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder` ([ref](https://discussions.apple.com/thread/1935221)).
+ * Install [brew](http://brew.sh/)
+     * This triggers the XCode command-line tools install.
+     * `brew analytics off`
+ * `brew install emacs --with-cocoa`
+ * `brew install aspell`
+ * `brew install bash` and then change shell as per [johndjameson](http://johndjameson.com/blog/updating-your-shell-with-homebrew/):
+     * sudo -s
+     * echo /usr/local/bin/bash >> /etc/shells
+     * chsh -s /usr/local/bin/bash
+     * exit
+     * chsh -s /usr/local/bin/bash
+ * `brew install bash-completion@2`
+ * `ssh-keygen`
+     * Add `~/.ssh/id_rsa.pub` to [GitHub](https://github.com/), etc.
+ * Install [Anaconda](https://www.anaconda.com/) Python.
+ * Install [Tunnelblick](https://tunnelblick.net/).
+ * In home directory, `git clone git@github.com:ajschumacher/.emacs.d.git`
+ * Run the `link.sh` script as needed to connect things.
