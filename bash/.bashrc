@@ -6,6 +6,12 @@
 # and it's easy to just have them be the same.
 
 
+# I was thinking of adding a function for making a directory and then
+# changing into it, but I think it's probably just as good to use:
+#  mkdir dirname && cd $_
+# Especially if other people are going to use my commands.
+
+
 # Set environment variables for all shells:
 
 export GOPATH=~/.go                # for installing Go things
