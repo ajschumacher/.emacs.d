@@ -124,6 +124,9 @@ alias web='python -m SimpleHTTPServer'
 alias g='git'
 alias gi='git'
 
+# Easily run pipenv
+alias p='pipenv'
+
 # Easily get IPython Notebook started up.
 alias nb='jupyter notebook'
 
