@@ -18,6 +18,7 @@ export GOPATH=~/.go                # for installing Go things
 export PATH=$PATH:$GOPATH/bin      # (like gof3r)
 export PATH=$PATH:~/.local/bin     # local installs, largely Python
 export PATH=$PATH:~/.cask/bin      # for Cask (Emacs packages)
+export PATH=$PATH:/usr/local/bin   # really ought to be there already
 export PATH=$PATH:/usr/local/sbin  # suggested by brew
 export PATH=~/.rvm/bin:$PATH       # in case I'm using RVM
 
