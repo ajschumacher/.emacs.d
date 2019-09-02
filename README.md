@@ -9,6 +9,8 @@
      * Add `~/.ssh/id_rsa.pub` to [GitHub](https://github.com/), etc.
  * In home directory, `git clone git@github.com:ajschumacher/.emacs.d.git`
  * Run the `link.sh` script as needed to connect things.
+ * Whoa, Emacs is on 26 already...
+     * https://emacsformacosx.com seems fine
  * Install `emacs` 24:
      * On Ubuntu etc.: `apt-get install emacs24`
      * On a Mac this is often okay; see also
