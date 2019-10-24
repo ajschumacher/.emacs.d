@@ -98,7 +98,7 @@ alias egrep='egrep --color=auto'
 alias ll='ls -alF'
 alias lh='ls -alFh'
 alias la='ls -A'
-alias l='ls -CF'
+alias l='ls -1F'
 
 # type less for tmux
 alias tl='tmux list-sessions'
