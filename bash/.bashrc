@@ -154,5 +154,8 @@ if hash pew 2>/dev/null; then
     source "$( dirname $(pew shell_config) )"/complete.bash
 fi
 
+# easily average a column of numbers
+alias average="awk '{sum+=\$1} END {print sum/NR}'"
+
 # optional local config
 source ~/.bashrc.local
