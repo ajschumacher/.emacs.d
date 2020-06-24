@@ -157,5 +157,8 @@ fi
 # easily average a column of numbers
 alias average="awk '{sum+=\$1} END {print sum/NR}'"
 
+# Use the following line to make aliasing work in scripts:
+# shopt -s expand_aliases
+
 # optional local config
 source ~/.bashrc.local
