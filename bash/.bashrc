@@ -18,8 +18,9 @@ export GOPATH=~/.go                # for installing Go things
 export PATH=$PATH:$GOPATH/bin      # (like gof3r)
 export PATH=$PATH:~/.local/bin     # local installs, largely Python
 export PATH=$PATH:~/.cask/bin      # for Cask (Emacs packages)
-export PATH=$PATH:/usr/local/bin   # really ought to be there already
-export PATH=$PATH:/usr/local/sbin  # suggested by brew
+# Put first so that brew-installed things are found first
+export PATH=/usr/local/bin:$PATH   # really ought to be there already
+export PATH=/usr/local/sbin:$PATH  # suggested by brew
 export PATH=~/.rvm/bin:$PATH       # in case I'm using RVM
 
 # GPU IDs should match up
