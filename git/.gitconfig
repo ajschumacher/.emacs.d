@@ -3,6 +3,8 @@
   email = ajschumacher@gmail.com
 [core]
   editor = emacsclient -c --alternate-editor=""
+[init]
+  defaultBranch = main
 [push]
   default = simple
 [color]
