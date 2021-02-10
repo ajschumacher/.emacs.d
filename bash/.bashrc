@@ -22,6 +22,7 @@ export PATH=$PATH:~/.cask/bin      # for Cask (Emacs packages)
 export PATH=/usr/local/bin:$PATH   # really ought to be there already
 export PATH=/usr/local/sbin:$PATH  # suggested by brew
 export PATH=~/.rvm/bin:$PATH       # in case I'm using RVM
+[ -f "/Users/aaron/.ghcup/env" ] && source "/Users/aaron/.ghcup/env" # ghcup-env
 
 # GPU IDs should match up
 export CUDA_DEVICE_ORDER=PCI_BUS_ID
