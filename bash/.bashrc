@@ -165,5 +165,8 @@ alias average="awk '{sum+=\$1} END {print sum/NR}'"
 # handy (?) eval of single Python expression
 py () { python -c "print($1)"; }
 
+# sure, let's also alias bc like this:
+alias c='bc <<< '
+
 # optional local config
 source ~/.bashrc.local
