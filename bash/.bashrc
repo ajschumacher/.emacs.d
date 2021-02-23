@@ -162,5 +162,8 @@ alias average="awk '{sum+=\$1} END {print sum/NR}'"
 # Use the following line to make aliasing work in scripts:
 # shopt -s expand_aliases
 
+# handy (?) eval of single Python expression
+py () { python -c "print($1)"; }
+
 # optional local config
 source ~/.bashrc.local
