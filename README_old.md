@@ -1,0 +1,176 @@
+# Older contents migrated from `README.md`
+
+(The order is not always strict.) (And there are multiple versions now.) (Most recent run-through at bottom.)
+
+ * Install `git`
+     * Run `ssh-keygen`
+     * Add `~/.ssh/id_rsa.pub` to [GitHub](https://github.com/), etc.
+ * In home directory, `git clone git@github.com:ajschumacher/.emacs.d.git`
+ * Run the `link.sh` script as needed to connect things.
+ * Whoa, Emacs is on 26 already...
+     * https://emacsformacosx.com seems fine
+ * Install `emacs` 24:
+     * On Ubuntu etc.: `apt-get install emacs24`
+     * On a Mac this is often okay; see also
+       [Clojure's fine directions](http://clojure-doc.org/articles/tutorials/emacs.html)
+         * `brew install emacs --HEAD --use-git-head --cocoa --with-gnutls`
+           *DO IT*
+         * `brew install emacs --cocoa --srgb`
+         * `brew linkapps Emacs`
+     * On a Mac this is (kind of) the bee's knees: [emacs-mac-port](https://github.com/railwaycat/emacs-mac-port)
+         * `brew tap railwaycat/emacsmacport`
+         * `brew install emacs-mac`
+         * `brew linkapps Emacs`
+         * You get nice things like more utf-8 characters actually
+           displaying, etc.
+ * To get TAGS set up for Emacs Lisp sources:
+     * `cd /usr/local/share/emacs/25.0.50/lisp/` or whatever
+     * `gunzip *.gz`
+     * `etags *.el`
+     * Now `M-.` should work. See also: [docs 1](http://www.gnu.org/software/emacs/manual/html_mono/eintr.html#Finding-More), [docs 2](http://www.gnu.org/software/emacs/manual/html_mono/eintr.html#etags)
+ * Install `aspell` to have spell checking in emacs (and everywhere)
+ * `python` and `R` kind of go without saying...
+     * make sure there's `pip` (`python-pip`)
+         * and `pip install virtualenv pew` etc.
+     * `r-base` on Ubuntu
+ * `pip install elpy jedi` for all the emacs-python love from elpy
+   (`rope` can be used in place of `jedi`)
+ * `gem install rubocop ruby-lint pry pry-doc method_source` to get nice things for Ruby
+ * possibly install `gnutls` (`brew install gnutls` on mac)
+ * `brew install leiningen` works fine.
+
+
+### Other things
+
+ * Recall that custom local short names for IP addresses are
+   configured in `/etc/hosts`.
+
+
+### Other Mac tweaks
+
+ * `System Preferences...`, `Keyboard`, `Modifier Keys...`, `Caps Lock to
+   Control`
+ * Maybe this markdown preview plugin [thing](http://inkmarkapp.com/markdown-quick-look-plugin-mac-os-x/) for Finder?
+ * Use [Karabiner](https://pqrs.org/osx/karabiner/) to `Change return key`, `Return to Control_L`. (Thanks [Howard](https://www.youtube.com/watch?v=B6jfrrwR10k).)
+ * The nice default-provided font in Terminal is called "Menlo".
+ * To turn off window drop shadows when doing screenshots, run: `defaults write com.apple.screencapture disable-shadow -bool true; killall SystemUIServer` ([ref](http://computers.tutsplus.com/tutorials/how-to-become-an-os-x-screenshot-wizard--mac-50467).
+ * To make all files visible in the Finder, run: `defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder` ([ref](https://discussions.apple.com/thread/1935221)
+
+
+### Browser stuff
+
+ * For Chrome, install (or don't, because things auto-install when you log in to Chrome):
+     * [AdBlock](https://chrome.google.com/webstore/detail/adblock/gighmmpiobklfepjocnamgkkbiglidom)
+     * [Markdown Here](http://markdown-here.com/)
+     * [Markdown Preview Plus](https://chrome.google.com/webstore/detail/markdown-preview-plus/febilkbfcbhebfnokafefeacimjdckgl)
+     * [JSONView](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc)
+     * [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
+     * [downloadyoutube](https://github.com/gantt/downloadyoutube)
+     * [Hangouts](https://chrome.google.com/webstore/detail/hangouts/nckgahadagoaajjgafhacjanaoiihapd), I guess?
+
+
+### Other things:
+
+ * I wanted to include a note about `rlwrap` and `rlundo`.
+
+ * It seems like [vcsh][] might be the eventual awesome way to do
+   configs. With [myrepos][] probably. See: [Manage Your Configs
+   with vcsh][]
+ * There's a bunch more at [dotfiles.github.io][].
+
+
+[vcsh]: https://github.com/RichiH/vcsh
+[myrepos]: http://myrepos.branchable.com/
+[Manage Your Configs with vcsh]: http://www.linuxjournal.com/content/manage-your-configs-vcsh
+[dotfiles.github.io]: http://dotfiles.github.io/
+
+
+### Setting up a new MacBook
+
+ * Open Safari and install [Chrome](http://www.google.com/chrome/) and [Firefox](http://firefox.com).
+     * Never open Safari again.
+ * Change caps lock to control.
+ * Open up Terminal.
+     * Clean up the Dock and hide it.
+     * Make Terminal settings reasonable.
+         * `Profiles` - `Keyboard` - `Use Option as Meta key` on
+         * `Profiles` - `Advanced` - `Audible bell` off
+         * `Profiles` - `Advanced` - `Visual bell` - `Only when sound is muted` off
+         * `Profiles` - `Text` - Menlo Regular 14 pt.
+         * `Profiles` - `Text` - three colors: `Text`, `Bold Text`, `Selection`
+         * `Profiles` - `Window` - background color
+ * Install [brew](http://brew.sh/)
+     * This triggers the XCode command-line tools install.
+ * `brew install git`
+ * `ssh-keygen`
+ * Add `~/.ssh/id_rsa.pub` to [GitHub](https://github.com/), etc.
+ * In home directory, `git clone git@github.com:ajschumacher/.emacs.d.git`
+ * Run the `link.sh` script as needed to connect things.
+ * `brew install emacs --with-cocoa --srgb`
+ * `brew install aspell`
+ * Install Slack.
+ * To make all files visible in the Finder, run: `defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder` ([ref](https://discussions.apple.com/thread/1935221))
+ * To turn off window drop shadows when doing screenshots, run: `defaults write com.apple.screencapture disable-shadow -bool true; killall SystemUIServer` ([ref](http://computers.tutsplus.com/tutorials/how-to-become-an-os-x-screenshot-wizard--mac-50467))
+ * Install [Anaconda](http://continuum.io/downloads) Python
+ * `brew install python`, `brew install python3`
+ * `pip install pew`
+ * `brew install bash` and then change shell as per [johndjameson](http://johndjameson.com/blog/updating-your-shell-with-homebrew/):
+     * sudo -s
+     * echo /usr/local/bin/bash >> /etc/shells
+     * chsh -s /usr/local/bin/bash
+     * exit
+     * chsh -s /usr/local/bin/bash
+ * `brew install homebrew/versions/bash-completion2`
+ * install R and RStudio
+     * https://www.r-project.org/
+     * https://www.rstudio.com/
+ * Turn off "iPhone Cellular Calls" in FaceTime preferences as per [osxdaily](http://osxdaily.com/2014/10/17/stop-iphone-calls-ringing-mac-os-x/)
+ * Install [XQuartz](https://xquartz.macosforge.org/)
+ * `brew install wine` (maybe) (or not)
+ * Install [some](https://www.java.com/en/download/mac_download.jsp) [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+ * Install GNU `tar` because the standard Mac `tar` is too dumb to unpack Spark without stupid messages: `brew install gnu-tar` (it's available as `gtar`)
+ * [Download](http://spark.apache.org/downloads.html) and unpack Spark
+ * Install [Skype](http://www.skype.com/)
+ * Turn on filename extension visibility [like this](http://www.idownloadblog.com/2014/10/29/how-to-show-or-hide-filename-extensions-in-os-x-yosemite/)
+
+---
+
+2017-11-22 MacBook install:
+
+ * update existing software
+ * Open Safari and install [Chrome](http://www.google.com/chrome/) and [Firefox](http://firefox.com/).
+ * Clean up the Dock and hide it.
+ * Install Slack via App Store.
+ * Install [Spotify](https://www.spotify.com/).
+ * Change computer name [in sharing preferences](https://www.wikihow.com/Change-the-Name-of-Your-MacBook).
+ * Turn off "Calls from iPhone" in FaceTime preferences.
+ * In "Messages" turn off "Notify me about messages from unknown contacts" but more importantly, turn off the phone number under "You can be reached for messages at" in the account section.
+ * Turn on filename extension visibility [like this](http://www.idownloadblog.com/2014/10/29/how-to-show-or-hide-filename-extensions-in-os-x-yosemite/).
+ * `System Preferences...`, `Keyboard`, `Modifier Keys...`, `Caps Lock to Control`
+ * Start setting up Terminal.
+     * Switch `Profiles` default to "Pro"
+     * `Profiles` - `Keyboard` - `Use Option as Meta key` on
+     * `Profiles` - `Advanced` - `Audible bell` off
+     * `Profiles` - `Advanced` - `Visual bell` - `Only when sound is muted` off
+     * `Profiles` - `Text` - Menlo Regular 14 pt.
+     * In `Shell` change "When the shell exits:" to "Close if the shell exited cleanly".
+ * To turn off window drop shadows when doing screenshots, run: `defaults write com.apple.screencapture disable-shadow -bool true; killall SystemUIServer` ([ref](http://computers.tutsplus.com/tutorials/how-to-become-an-os-x-screenshot-wizard--mac-50467)).
+ * To make all files visible in the Finder, run: `defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder` ([ref](https://discussions.apple.com/thread/1935221)).
+ * Install [brew](http://brew.sh/)
+     * This triggers the XCode command-line tools install.
+     * `brew analytics off`
+ * `brew install emacs --with-cocoa`
+ * `brew install aspell`
+ * `brew install bash` and then change shell as per [johndjameson](http://johndjameson.com/blog/updating-your-shell-with-homebrew/):
+     * sudo -s
+     * echo /usr/local/bin/bash >> /etc/shells
+     * chsh -s /usr/local/bin/bash
+     * exit
+     * chsh -s /usr/local/bin/bash
+ * `brew install bash-completion@2`
+ * `ssh-keygen`
+     * Add `~/.ssh/id_rsa.pub` to [GitHub](https://github.com/), etc.
+ * Install [Anaconda](https://www.anaconda.com/) Python.
+ * Install [Tunnelblick](https://tunnelblick.net/).
+ * In home directory, `git clone git@github.com:ajschumacher/.emacs.d.git`
+ * Run the `link.sh` script as needed to connect things.

@@ -14,15 +14,34 @@
 
 # Set environment variables for all shells:
 
-export GOPATH=~/.go                # for installing Go things
-export PATH=$PATH:$GOPATH/bin      # (like gof3r)
-export PATH=$PATH:~/.local/bin     # local installs, largely Python
-export PATH=$PATH:~/.cask/bin      # for Cask (Emacs packages)
-# Put first so that brew-installed things are found first
-export PATH=/usr/local/bin:$PATH   # really ought to be there already
-export PATH=/usr/local/sbin:$PATH  # suggested by brew
-export PATH=~/.rvm/bin:$PATH       # in case I'm using RVM
+# for installing Go things
+export GOPATH=~/.go
+export PATH=$PATH:$GOPATH/bin
+
+# for Cask (Emacs packages)
+export PATH=$PATH:~/.cask/bin
+
+# Homebrew-installed things
+export PATH=/opt/homebrew/sbin:$PATH
+export PATH=/opt/homebrew/bin:$PATH
+
+# in case I'm using RVM
+export PATH=~/.rvm/bin:$PATH
+
+# Haskell
 [ -f "/Users/aaron/.ghcup/env" ] && source "/Users/aaron/.ghcup/env" # ghcup-env
+
+# local installs, largely Python
+export PATH=$PATH:~/.local/bin
+
+# pyenv setup
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
 
 # GPU IDs should match up
 export CUDA_DEVICE_ORDER=PCI_BUS_ID
@@ -71,22 +90,14 @@ export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
-# Grab Python virtual env info for prompt.
-if [ -z ${VIRTUAL_ENV+x} ]
-then
-    VENV_NOTICE=""
-else
-    VENV_NOTICE=" (py: $(basename "$VIRTUAL_ENV"))"
-fi
-
 # Display an informative, nicely spaced prompt.
 # Let's use colors! This is not DRY, but it works...
-PSred='\n\[\033[0;31m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
-PSgreen='\n\[\033[0;32m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
-PSyellow='\n\[\033[0;33m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
-PSblue='\n\[\033[0;34m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
-PSpink='\n\[\033[0;35m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
-PScyan='\n\[\033[0;36m\]\u@\h \w$VENV_NOTICE$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PSred='\n\[\033[0;31m\]($(basename "$VIRTUAL_ENV")) \u@\h \w$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PSgreen='\n\[\033[0;32m\]($(basename "$VIRTUAL_ENV")) \u@\h \w$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PSyellow='\n\[\033[0;33m\]($(basename "$VIRTUAL_ENV")) \u@\h \w$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PSblue='\n\[\033[0;34m\]($(basename "$VIRTUAL_ENV")) \u@\h \w$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PSpink='\n\[\033[0;35m\]($(basename "$VIRTUAL_ENV")) \u@\h \w$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
+PScyan='\n\[\033[0;36m\]($(basename "$VIRTUAL_ENV")) \u@\h \w$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
 PS1=$PSblue
 
 # Enable color support by default.
@@ -144,17 +155,8 @@ alias ..='cd ..'
 # protoc via grpc_tools (pip install grpcio-tools)
 alias protoc='python -m grpc_tools.protoc'
 
-# load bash-completion 2 on a Mac with brew
-if hash brew 2>/dev/null; then
-    if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
-        . $(brew --prefix)/share/bash-completion/bash_completion
-    fi
-fi
-
-# get pew virtualenv auto-complete
-if hash pew 2>/dev/null; then
-    source "$( dirname $(pew shell_config) )"/complete.bash
-fi
+# load bash-completion 2
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
 # easily average a column of numbers
 alias average="awk '{sum+=\$1} END {print sum/NR}'"
