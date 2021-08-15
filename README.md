@@ -21,6 +21,8 @@ brew install bash-completion@2
 
 # Emacs!
 brew install --cask emacs
+brew install aspell
+brew install ispell  # not sure I need both, but...
 
 # pyenv (https://github.com/pyenv/pyenv)
 # via pyenv-installer (https://github.com/pyenv/pyenv-installer)
