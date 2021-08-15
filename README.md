@@ -65,8 +65,11 @@ git clone git@github.com:ajschumacher/.emacs.d.git
 
 ### Other Mac tweaks
 
- * `System Preferences...`, `Keyboard`, `Modifier Keys...`, `Caps Lock to
-   Control`
+ * `System Preferences...`, `Keyboard`, `Modifier Keys...`, `Caps Lock
+   to Control`
+ * `System Preferences...`, `Keyboard`, `Shortcuts...`, Disable
+   `Screenshot and recording options` (low value and conflicts with
+   useful Emacs key combination)
  * Turn on extension visibility [in Finder preferences][].
  * Make Terminal settings reasonable.
      * `Profiles` - `Keyboard` - `Use Option as Meta key` on
