@@ -51,13 +51,13 @@ Host *
   IdentityFile ~/.ssh/id_ed25519
 ```
 
+Continue at command-line:
+
 ```shell
 ssh-add -K ~/.ssh/id_ed25519
-```
+# And don't forget to add in GitHub interface...
 
-And then add in GitHub interface...
-
-```
+# Pull in all my custom settings:
 git clone git@github.com:ajschumacher/.emacs.d.git
 # Run the `link.sh` script as needed to connect things.
 ```
