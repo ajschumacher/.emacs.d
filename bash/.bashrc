@@ -134,8 +134,8 @@ alias srsync='rsync -avz -e ssh --progress'
 # (experimental) command-line setdiff
 function setdiff () { comm -23 <(sort "$1") <(sort "$2"); }
 
-# Easily start a simple local Python web server.
-alias web='python -m SimpleHTTPServer'
+# Easily start a simple local Python (3) web server.
+alias web='python -m http.server'
 
 # Easily run git.
 alias g='git'
