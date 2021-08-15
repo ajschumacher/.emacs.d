@@ -43,6 +43,9 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 
+# Mac inanity
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # GPU IDs should match up
 export CUDA_DEVICE_ORDER=PCI_BUS_ID
 # Alternative is FASTEST_FIRST, see:
