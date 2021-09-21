@@ -8,14 +8,15 @@ Major GUI apps (Chrome, etc.) just install as needed...
 ```shell
 # Homebrew (https://brew.sh/)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Check whether it used /opt/homebrew/bin/ or /usr/local/bin/...
 
 # Change shell to latest bash
 brew install bash
 sudo -s
-echo /opt/homebrew/bin/bash >> /etc/shells
-chsh -s /opt/homebrew/bin/bash
+echo /opt/homebrew/bin/bash >> /etc/shells  # OR: echo /usr/local/bin/bash >> /etc/shells
+chsh -s /opt/homebrew/bin/bash  # OR: chsh -s /usr/local/bin/bash
 exit
-chsh -s /opt/homebrew/bin/bash
+chsh -s /opt/homebrew/bin/bash  # OR: chsh -s /usr/local/bin/bash
 # Install appropriate bash-completion
 brew install bash-completion@2
 
