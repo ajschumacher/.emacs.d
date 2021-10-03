@@ -175,3 +175,6 @@ alias c='bc <<< '
 
 # optional local config
 source ~/.bashrc.local
+
+# This could be unhelpful if chef would do something helpful...
+#CHEF.NO.SOURCE
