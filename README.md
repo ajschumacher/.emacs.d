@@ -89,6 +89,12 @@ defaults write com.apple.screencapture disable-shadow -bool true; killall System
 
 # make all files visible in the Finder
 defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder
+
+# convince the hostname to be what you want
+scutil --set ComputerName "name"
+scutil --set LocalHostName "name"
+scutil --set HostName "name"
+# https://www.techradar.com/how-to/software/operating-systems/how-to-change-your-mac-s-name-using-the-os-x-terminal-1298974
 ```
 
 
