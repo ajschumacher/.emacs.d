@@ -148,9 +148,11 @@ alias p='pipenv'
 alias nb='jupyter notebook'
 
 # Emacs in client/server, text or graphical mode:
-alias e='emacsclient -c --alternate-editor="" -nw'
-alias eg='emacsclient -c --alternate-editor=""'
-export EDITOR='emacsclient -c --alternate-editor="" -nw'
+#alias e='emacsclient -c --alternate-editor="" -nw'
+#alias eg='emacsclient -c --alternate-editor=""'
+#export EDITOR='emacsclient -c --alternate-editor="" -nw'
+# I think I want to switch to just calling `emacs`
+export EDITOR=emacs
 
 # Convenience
 alias ..='cd ..'
