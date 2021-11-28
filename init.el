@@ -30,6 +30,10 @@
 ;; Turn on packaging.
 (package-initialize)
 
+;; https://github.com/purcell/exec-path-from-shell
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 ;; From github.com/sachac/.emacs.d:
 ;; Bootstrap install of use-package,
 ;; which also installs diminish.
@@ -602,3 +606,20 @@ Operates on the active region or the whole buffer."
                  all-files-list)))))
       (setq current-directory-list (cdr current-directory-list)))
     all-files-list))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(elpy-rpc-backend "jedi")
+ '(help-at-pt-display-when-idle '(flymake-overlay) nil (help-at-pt))
+ '(help-at-pt-timer-delay 0.9)
+ '(package-selected-packages
+   '(exec-path-from-shell zoom-frm zenburn-theme whole-line-or-region use-package undo-tree smex smartparens rainbow-mode projectile page-break-lines multiple-cursors markdown-mode magit key-chord js2-mode ido-vertical-mode fringe-helper flycheck flx-ido expand-region ess engine-mode elpy drag-stuff buffer-stack browse-kill-ring auto-complete))
+ '(tab-width 4))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
