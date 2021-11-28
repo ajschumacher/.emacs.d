@@ -24,6 +24,9 @@ brew install bash-completion@2
 brew install --cask emacs
 brew install aspell
 brew install ispell  # not sure I need both, but...
+# System Preferences - Security & Privacy - Full Disk Access:
+#  add /usr/bin/ruby (Shift+Command+Period to see /usr)
+#  maybe grant for Emacs too?
 
 # pyenv (https://github.com/pyenv/pyenv)
 # via pyenv-installer (https://github.com/pyenv/pyenv-installer)
