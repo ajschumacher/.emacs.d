@@ -101,7 +101,7 @@ PSyellow='\n\[\033[0;33m\]($(basename "$VIRTUAL_ENV")) \u@\h \w$(__git_ps1 " (%s
 PSblue='\n\[\033[0;34m\]($(basename "$VIRTUAL_ENV")) \u@\h \w$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
 PSpink='\n\[\033[0;35m\]($(basename "$VIRTUAL_ENV")) \u@\h \w$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
 PScyan='\n\[\033[0;36m\]($(basename "$VIRTUAL_ENV")) \u@\h \w$(__git_ps1 " (%s)") \d \t\[\033[00m\]\n\$ '
-PS1=$PSblue
+PS1=$PSred
 
 # Enable color support by default.
 alias ls='ls -Gp'  # this is for a Mac
