@@ -18,8 +18,9 @@
 ;; This package called package comes with Emacs.
 (require 'package)
 ;; Many packages are on MELPA.
+;; (Switched to stable...)
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
@@ -615,7 +616,7 @@ Operates on the active region or the whole buffer."
  '(help-at-pt-display-when-idle '(flymake-overlay) nil (help-at-pt))
  '(help-at-pt-timer-delay 0.9)
  '(package-selected-packages
-   '(exec-path-from-shell zoom-frm zenburn-theme whole-line-or-region use-package undo-tree smex smartparens rainbow-mode projectile page-break-lines multiple-cursors markdown-mode magit key-chord js2-mode ido-vertical-mode fringe-helper flycheck flx-ido expand-region ess engine-mode elpy drag-stuff buffer-stack browse-kill-ring auto-complete))
+   '(async magit exec-path-from-shell zoom-frm zenburn-theme whole-line-or-region use-package undo-tree smex smartparens rainbow-mode projectile page-break-lines multiple-cursors markdown-mode key-chord js2-mode ido-vertical-mode fringe-helper flycheck flx-ido expand-region ess engine-mode elpy drag-stuff buffer-stack browse-kill-ring auto-complete))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
