@@ -240,7 +240,7 @@
   (setq magit-push-always-verify nil)
   (set-default 'magit-unstage-all-confirm nil)
   (set-default 'magit-stage-all-confirm nil)
-  (set-default 'magit-revert-buffers 'silent)
+;;  (set-default 'magit-revert-buffers 'silent)
   ;; Don't use tabs, magit!
   (add-hook 'git-commit-mode-hook
             '(lambda () (untabify (point-min) (point-max))) t))
