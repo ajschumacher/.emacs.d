@@ -261,6 +261,23 @@
 ;;   :init (global-git-gutter+-mode)
 ;;   :diminish git-gutter+-mode)
 
+;; From:
+;; https://github.com/EricCrosson/git-gutter-plus-refresh-on-magit-commit
+(defun git-gutter+-refresh-all-saved-buffers ()
+  "Refresh git-gutter+ on open project-buffers.
+This function is called automatically by `git-commit-post-finish-hook'."
+  (interactive)
+  (let ((project-files (projectile-current-project-files)))
+    (dolist (file-to-refresh project-files)
+      (let ((buffer (get-file-buffer (concat (projectile-project-root) file-to-refresh))))
+        (when buffer
+          (message "Refreshing git-gutter+ in buffer '%s'" buffer)
+          (with-current-buffer buffer
+            (git-gutter+-refresh)))))))
+(add-hook 'git-commit-post-finish-hook 'git-gutter+-refresh-all-saved-buffers)
+;; That should make things refresh after commit, is the hope...
+
+
 ;; Interactive selection of things.
 ;; TODO: consider helm instead (see Sacha's config)
 ;; NOTE: "C-j: Use the current input string verbatim."
