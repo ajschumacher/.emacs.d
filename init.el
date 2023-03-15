@@ -58,9 +58,10 @@
 (abbrev-mode)
 
 ;; Be aware of whitespace.
-(setq whitespace-style '(face trailing tabs tab-mark))
-(global-whitespace-mode)
-(diminish 'global-whitespace-mode)
+;; Commenting because this isn't a minor mode any more?
+;(setq whitespace-style '(face trailing tabs tab-mark))
+;(global-whitespace-mode)
+;(diminish 'global-whitespace-mode)
 
 ;; Don't insert tabs.
 (setq-default indent-tabs-mode nil)
@@ -430,8 +431,9 @@ This function is called automatically by `git-commit-post-finish-hook'."
 
 
 ;; Emacs Speaks Statistics includes support for R.
-(use-package ess-site
-  :ensure ess)
+;; Disabling because font-lock-reference-face causes an error...
+;(use-package ess-site
+;  :ensure ess)
 
 
 ;; Use a nice JavaScript mode.
