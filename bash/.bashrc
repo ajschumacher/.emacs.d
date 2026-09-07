@@ -180,3 +180,5 @@ source ~/.bashrc.local
 
 # This could be unhelpful if chef would do something helpful...
 #CHEF.NO.SOURCE
+
+export PATH="$HOME/.elan/bin:$PATH"
