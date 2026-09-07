@@ -17,6 +17,7 @@ transient/
 
 # Generated per-machine, not part of the reproducible config.
 custom.el
+prescient-save.el
 tree-sitter/
 eln-cache/
 .~undo-tree~

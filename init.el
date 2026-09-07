@@ -49,6 +49,7 @@
         smartparens
         undo-tree
         vertico
+        vertico-prescient
         whole-line-or-region
         yasnippet
         zenburn-theme))
@@ -355,6 +356,18 @@
 ;; Annotate what is being completed.
 (use-package marginalia
   :config (marginalia-mode))
+
+;; Rank candidates by how recently and how often they have been used,
+;; which is the part of flx-ido/smex that orderless does not do on its
+;; own.  Filtering stays with orderless; prescient only sorts.
+(use-package vertico-prescient
+  :after vertico
+  :config
+  (setq vertico-prescient-enable-filtering nil
+        vertico-prescient-enable-sorting t)
+  (vertico-prescient-mode)
+  ;; Remember the rankings between sessions.
+  (prescient-persist-mode))
 
 (use-package consult
   :config
