@@ -1,10 +1,11 @@
-;;; buffer-stack.el --- Enhanced intelligent switch-to-other-buffer replacement.
+;;; buffer-stack.el --- Enhanced switch-to-other-buffer replacement  -*- lexical-binding: t; -*-
 
 ;; VENDORED.  buffer-stack was removed from MELPA and was never on
 ;; GNU/NonGNU ELPA, so there is nothing left to install it from.  It is
 ;; kept here because the "jk" key-chord uses `buffer-stack-down'.  This
-;; is the last MELPA release (20101223.220), unmodified apart from this
-;; note.
+;; is the last MELPA release (20101223.220), with two local changes: a
+;; lexical-binding cookie, and `first' (from the obsolete cl.el, and no
+;; longer defined at all in Emacs 31) replaced by the `car' it aliased.
 
 ;; Copyright (C) 2002 Adrian Kubala
 
@@ -327,7 +328,7 @@ This is THE switching command; all other motions are based on this."
             ;; wrap to the first buffer
             (progn (setq buffer-stack-index 0)
                    (buffer-stack-bury-buffer (current-buffer))
-                   (setq buffer (first buffer-stack))
+                   (setq buffer (car buffer-stack))
                    (or buffer-stack-quiet
                        (beep)))
           ;; the usual case, we put the top buffer before the indexed
@@ -421,29 +422,29 @@ This is THE switching command; all other motions are based on this."
   (unless (null buffer-stack-show-position)
     (funcall buffer-stack-show-position buffer-stack-index buffer-stack)))
 
-(defun buffer-stack-show-position-number (buffer-stack-index buffer-stack)
+(defun buffer-stack-show-position-number (index stack)
   "Show position like this: BUFFER 1/3
 That's number/total."
   (message (concat "BUFFER: "
-                   (prin1-to-string (+ buffer-stack-index 1))
+                   (prin1-to-string (+ index 1))
                    "/"
-                   (prin1-to-string (length buffer-stack)))))
+                   (prin1-to-string (length stack)))))
 
-(defun buffer-stack-show-position-buffers (buffer-stack-index buffer-stack)
+(defun buffer-stack-show-position-buffers (index stack)
   "Show position like this: DOWN: *Next Buffer* ---- UP: *Previous Buffer*"
   (let (up-buffer-index
         down-buffer-index
-        (max-index (- (length buffer-stack) 1)))
-    (if (eq buffer-stack-index 0)
+        (max-index (- (length stack) 1)))
+    (if (eq index 0)
         (setq up-buffer-index max-index)
-      (setq up-buffer-index (- buffer-stack-index 1)))
-    (if (eq buffer-stack-index max-index)
+      (setq up-buffer-index (- index 1)))
+    (if (eq index max-index)
         (setq down-buffer-index 0)
-      (setq down-buffer-index (+ buffer-stack-index 1)))
+      (setq down-buffer-index (+ index 1)))
     (message (concat "DOWN: "
-                     (buffer-name (nth down-buffer-index buffer-stack))
+                     (buffer-name (nth down-buffer-index stack))
                      " ---- " "UP: "
-                     (buffer-name (nth up-buffer-index buffer-stack))))
+                     (buffer-name (nth up-buffer-index stack))))
     ))
 
 ;;; filter stack
@@ -453,7 +454,7 @@ That's number/total."
   (funcall buffer-stack-filter buffer))
 
 (defun buffer-stack-filter-exclusive (buffer)
-  "Non-nil if buffer is not in buffer-stack-untracked or a 'hidden' buffer."
+  "Non-nil if buffer is not in buffer-stack-untracked or a hidden buffer."
   (let ((name (buffer-name buffer)))
     (not (or (null name)
              (char-equal ?  (string-to-char name))
