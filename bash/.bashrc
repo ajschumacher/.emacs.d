@@ -14,17 +14,10 @@
 
 # Set environment variables for all shells:
 
-# for installing Go things
-export GOPATH=~/.go
-export PATH=$PATH:$GOPATH/bin
-
 # Homebrew-installed things
 export PATH=/opt/homebrew/sbin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 
-
-# Haskell
-[ -f "/Users/aaron/.ghcup/env" ] && source "/Users/aaron/.ghcup/env" # ghcup-env
 
 # local installs, largely Python
 export PATH=$PATH:~/.local/bin
@@ -38,20 +31,12 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 
+# Lean, via elan.  (This used to sit at the very bottom of the file,
+# below the interactive-shell guard, so scripts never saw it.)
+export PATH="$HOME/.elan/bin:$PATH"
+
 # Mac inanity
 export BASH_SILENCE_DEPRECATION_WARNING=1
-
-# GPU IDs should match up
-export CUDA_DEVICE_ORDER=PCI_BUS_ID
-# Alternative is FASTEST_FIRST, see:
-# https://www.gpugrid.net/forum_thread.php?id=3977
-
-# WORKON_HOME considered harmful;
-# default of ~/.local/share/virtualenvs preferred -
-# but it's needed for elpy/pyvenv virtualenv support.
-export WORKON_HOME=~/.local/share/virtualenvs
-# It would be nicer to have pyvenv default like pew, but this will do.
-# Note: Anaconda can be used via pew as `pew workon ~/anaconda`.
 
 
 # If not running interactively, don't do anything.
@@ -129,12 +114,6 @@ alias lh='ls -alFh'
 alias la='ls -A'
 alias l='ls -1F'
 
-# type less for tmux
-alias tl='tmux list-sessions'
-alias tn='tmux new-session -s'
-alias ta='tmux attach -t'
-alias td='tmux detach'
-
 # easily check for a running program
 alias got='ps aux | grep'
 
@@ -153,9 +132,6 @@ alias web='python -m http.server'
 # Easily run git.
 alias g='git'
 alias gi='git'
-
-# Easily run pipenv
-alias p='pipenv'
 
 # Easily get IPython Notebook started up.
 alias nb='jupyter notebook'
@@ -189,9 +165,4 @@ py () { python -c "print($1)"; }
 alias c='bc <<< '
 
 # optional local config
-source ~/.bashrc.local
-
-# This could be unhelpful if chef would do something helpful...
-#CHEF.NO.SOURCE
-
-export PATH="$HOME/.elan/bin:$PATH"
+[ -r ~/.bashrc.local ] && source ~/.bashrc.local

@@ -22,7 +22,7 @@
   br = branch
   r = "remote -v"
   p = push
-  u = pull upstream master
+  u = pull upstream main
   last = "log -1 HEAD"
   l = "log --graph --decorate --pretty=oneline --abbrev-commit --all"
   ll = "log --graph --decorate --pretty=oneline --abbrev-commit --all"

@@ -144,6 +144,18 @@
 ;; gives M-x its most-recently-used ordering now that smex is gone.
 (savehist-mode t)
 
+;; Remember recently opened files, which consult-buffer (C-M-l) then
+;; offers alongside the live buffers.
+(recentf-mode t)
+(setq recentf-max-saved-items 200)
+
+;; Reopen a file where it was left off.
+(save-place-mode t)
+
+;; Show what a half-typed key sequence could still turn into.
+(which-key-mode)
+(diminish 'which-key-mode)
+
 ;; Use spell-checking.
 ;; Pin the checker explicitly.  `ispell-program-name' is otherwise
 ;; guessed when ispell.el first loads, and if aspell is not visible on
@@ -676,6 +688,17 @@ All permutations equally likely."
 
 
 ;;; Wrap up.
+
+;; Run a server, so that `emacsclient' has something to talk to.
+;; .gitconfig sets core.editor to emacsclient; without a server its
+;; --alternate-editor fallback quietly started a whole second Emacs for
+;; every commit message.
+;; Not under --batch: install.sh loads this file that way, and a server
+;; started there just leaves a stale socket behind for the next real
+;; Emacs to trip over.
+(require 'server)
+(unless (or noninteractive (server-running-p))
+  (server-start))
 
 (when (file-exists-p custom-file)
   (load custom-file))
