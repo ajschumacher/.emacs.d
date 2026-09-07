@@ -37,13 +37,15 @@
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
-;; From github.com/sachac/.emacs.d:
-;; Bootstrap install of use-package,
-;; which also installs diminish.
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-(setq use-package-verbose t)
+;; use-package ships with Emacs as of 29, so there is nothing to
+;; bootstrap any more.  (The copy that used to live in elpa/ pulled in
+;; a 2009 `diminish', whose `(eval-when-compile (require 'cl))' was the
+;; last source of the "Package cl is deprecated" warning at startup.)
 (require 'use-package)
+(unless (package-installed-p 'diminish)
+  (package-install 'diminish))
+(require 'diminish)
+(setq use-package-verbose t)
 (setq use-package-always-ensure t)
 ;; After this, use-package will install things as needed.
 
@@ -60,10 +62,12 @@
 (abbrev-mode)
 
 ;; Be aware of whitespace.
-;; Commenting because this isn't a minor mode any more?
-;(setq whitespace-style '(face trailing tabs tab-mark))
-;(global-whitespace-mode)
-;(diminish 'global-whitespace-mode)
+;; `show-trailing-whitespace' is a buffer-local built-in and does just
+;; the one thing wanted here.  (The old `global-whitespace-mode' block
+;; also turned on `tab-mark', which marked up every buffer.)
+(dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
+  (add-hook hook (lambda () (setq show-trailing-whitespace t))))
+;; Clean it up on demand with M-x delete-trailing-whitespace.
 
 ;; Don't insert tabs.
 (setq-default indent-tabs-mode nil)
@@ -107,14 +111,35 @@
 (setq uniquify-buffer-name-style 'forward)
 
 ;; Use spell-checking.
-;; The aspell executable may be in /usr/local/bin.
-(setq exec-path (append exec-path '("/usr/local/bin")))
+;; Pin the checker explicitly.  `ispell-program-name' is otherwise
+;; guessed when ispell.el first loads, and if aspell is not visible on
+;; `exec-path' at that moment it silently latches onto "ispell" and
+;; every flyspell command fails afterwards.
+(let ((aspell (or (executable-find "aspell")
+                  ;; Apple silicon, then Intel, for a GUI Emacs started
+                  ;; before exec-path-from-shell has fixed the path.
+                  (seq-find #'file-executable-p
+                            '("/opt/homebrew/bin/aspell"
+                              "/usr/local/bin/aspell")))))
+  (when aspell
+    (setq ispell-program-name aspell)))
+
 (add-hook 'text-mode-hook (lambda ()
                             (flyspell-mode)
                             (diminish 'flyspell-mode)))
 (add-hook 'prog-mode-hook (lambda ()
                             (flyspell-prog-mode)
                             (diminish 'flyspell-mode)))
+
+;; flyspell only checks words as they are typed, so opening an existing
+;; file shows nothing until it is edited.  Check what is already there.
+(defun ajs-flyspell-check-existing-text ()
+  "Spell-check the whole buffer when `flyspell-mode' turns on."
+  (when (and flyspell-mode
+             ;; Big files make this slow enough to notice.
+             (< (buffer-size) 100000))
+    (flyspell-buffer)))
+(add-hook 'flyspell-mode-hook #'ajs-flyspell-check-existing-text)
 
 ;;; Turning this off because it makes for PEP8 difficulties.
 ;; Show off lambdas everywhere.
@@ -325,9 +350,10 @@ This function is called automatically by `git-commit-post-finish-hook'."
   :diminish undo-tree-mode)
 
 
-;; Un-namespaced Common Lisp names.
-;; https://github.com/browse-kill-ring/browse-kill-ring/pull/56
-(require 'cl)
+;; browse-kill-ring used to need the un-namespaced Common Lisp names
+;; (see browse-kill-ring/browse-kill-ring#56), but that was fixed
+;; upstream long ago.  `cl' is obsolete and warns at startup, so it is
+;; gone.
 (use-package browse-kill-ring
   :config
   ;; Bind M-y to visual interactive kill ring.
