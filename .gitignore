@@ -1,6 +1,8 @@
 *~
 *.elc
-archive-contents
+
+# Installed packages: reinstalled from package-selected-packages, not committed.
+elpa/
 flycheck_init.el
 ac-comphist.dat
 auto-save-list/

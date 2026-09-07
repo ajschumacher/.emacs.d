@@ -18,15 +18,17 @@
 ;; This package called package comes with Emacs.
 (require 'package)
 ;; Many packages are on MELPA.
-;; (Switched to stable...)
+;; (melpa-stable was tried, but it is sparse enough that it left this
+;; config frozen for years; back to the main archive.)
 (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+             '("melpa" . "https://melpa.org/packages/") t)
 ;; From github.com/magnars/.emacs.d:
 ;; Ensure we have MELPA package awareness.
-(unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")
+;; (The old version of this check looked for the "melpa" archive dir
+;; while the "melpa-stable" archive was configured, so it always passed
+;; and the refresh never actually ran.)
+(unless (file-directory-p
+         (expand-file-name "elpa/archives/melpa" user-emacs-directory))
   (package-refresh-contents))
 ;; Turn on packaging.
 (package-initialize)
