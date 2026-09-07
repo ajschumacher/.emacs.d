@@ -18,15 +18,10 @@
 export GOPATH=~/.go
 export PATH=$PATH:$GOPATH/bin
 
-# for Cask (Emacs packages)
-export PATH=$PATH:~/.cask/bin
-
 # Homebrew-installed things
 export PATH=/opt/homebrew/sbin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 
-# in case I'm using RVM
-export PATH=~/.rvm/bin:$PATH
 
 # Haskell
 [ -f "/Users/aaron/.ghcup/env" ] && source "/Users/aaron/.ghcup/env" # ghcup-env
@@ -85,9 +80,27 @@ shopt -s checkwinsize
 # Make less more friendly for non-text input files. (See lesspipe(1).)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# Set up git prompt.
-source ~/.git-completion.sh
-source ~/.git-prompt.sh
+# Set up git completion and the prompt helper.  Homebrew's git ships
+# both of these; prefer them, and fall back to the copies vendored in
+# this repo so the prompt still works on a machine without them.
+__ajs_source_first() {
+    local candidate
+    for candidate in "$@"; do
+        if [ -r "$candidate" ]; then
+            source "$candidate"
+            return 0
+        fi
+    done
+    return 1
+}
+__ajs_source_first \
+    /opt/homebrew/etc/bash_completion.d/git-completion.bash \
+    /usr/local/etc/bash_completion.d/git-completion.bash \
+    ~/.git-completion.sh
+__ajs_source_first \
+    /opt/homebrew/etc/bash_completion.d/git-prompt.sh \
+    /usr/local/etc/bash_completion.d/git-prompt.sh \
+    ~/.git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1

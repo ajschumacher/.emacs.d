@@ -1,51 +1,38 @@
 # My config files
 
+Emacs configuration and assorted dotfiles, living in `~/.emacs.d` and
+symlinked out from there.
 
-### Setup
 
-Major GUI apps (Chrome, etc.) just install as needed...
+## New machine
 
 ```shell
-# Homebrew (https://brew.sh/)
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# Check whether it used /opt/homebrew/bin/ or /usr/local/bin/...
+# Sign in to iCloud, install Chrome and whatever else, then:
+xcode-select --install
+git clone https://github.com/ajschumacher/.emacs.d.git ~/.emacs.d
+~/.emacs.d/install.sh
+```
 
-# Change shell to latest bash
-brew install bash
-sudo -s
-echo /opt/homebrew/bin/bash >> /etc/shells  # OR: echo /usr/local/bin/bash >> /etc/shells
-chsh -s /opt/homebrew/bin/bash  # OR: chsh -s /usr/local/bin/bash
-exit
-chsh -s /opt/homebrew/bin/bash  # OR: chsh -s /usr/local/bin/bash
-# Install appropriate bash-completion
-brew install bash-completion@2
+`install.sh` installs Homebrew if it is missing, runs `brew bundle` over
+the `Brewfile`, links the dotfiles, and installs the Emacs packages. It
+is safe to run again later to pick up new dependencies.
 
-# Emacs!
-brew install --cask emacs
-brew install aspell
-brew install ispell  # not sure I need both, but...
-# System Preferences - Security & Privacy - Full Disk Access:
-#  add /usr/bin/ruby (Shift+Command+Period to see /usr)
-#  maybe grant for Emacs too?
+Three things it deliberately leaves to you, because they need a password
+or a browser:
 
-# pyenv (https://github.com/pyenv/pyenv)
-# via pyenv-installer (https://github.com/pyenv/pyenv-installer)
-curl https://pyenv.run | bash
+```shell
+# Use Homebrew's bash instead of the ancient one Apple ships
+echo "$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells
+chsh -s "$(brew --prefix)/bin/bash"
 
-# set up some Python
-pyenv install 3.8.11  # adjust version as desired
-# set new Python as default
-pyenv global 3.8.11  # adjust version as desired
-# Make a venv the pyenv way:
-pyenv virtualenv py38a
-pyenv activate py38a
-# Turn it off again:
-pyenv deactivate
+# An ssh key, to be pasted into GitHub afterwards
+ssh-keygen -t ed25519 -C "ajschumacher@gmail.com"
+```
 
-# set up an ssh keys
-# (https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-ssh-keygen -t ed25519 -C "your_email@example.com"
-eval "$(ssh-agent -s)"
+Then switch the clone to ssh, so pushing works:
+
+```shell
+git -C ~/.emacs.d remote set-url origin git@github.com:ajschumacher/.emacs.d.git
 ```
 
 Add to `~/.ssh/config`:
@@ -58,35 +45,43 @@ Host *
   IdentityFile ~/.ssh/id_ed25519
 ```
 
-Continue at command-line:
 
-```shell
-ssh-add -K ~/.ssh/id_ed25519
-# And don't forget to add in GitHub interface...
+## What is in here
 
-# Pull in all my custom settings:
-git clone git@github.com:ajschumacher/.emacs.d.git
-# Run the `link.sh` script as needed to connect things.
-```
+| Path | What it is |
+| --- | --- |
+| `early-init.el` | Frame chrome and GC, before the first frame is drawn |
+| `init.el` | The Emacs configuration, and the list of packages it needs |
+| `elisp/` | Vendored elisp that no package archive carries any more |
+| `snippets/` | yasnippet snippets |
+| `abbrev_defs` | Abbreviations |
+| `bash/` | `.bashrc`, plus fallback git completion and prompt scripts |
+| `git/` | `.gitconfig` |
+| `ipython/` | IPython profile |
+| `Brewfile` | Everything to install with `brew bundle` |
+| `install.sh` | Set up a machine |
+| `link.sh` | Symlink the dotfiles into `$HOME` |
+
+Emacs packages are **not** committed. `init.el` holds the list in
+`package-selected-packages`, and they are installed from MELPA and GNU
+ELPA on first launch.
 
 
-### Other Mac tweaks
+## Mac tweaks
 
- * `System Preferences...`, `Keyboard`, `Modifier Keys...`, `Caps Lock
-   to Control`
- * `System Preferences...`, `Keyboard`, `Shortcuts...`, Disable
-   `Screenshot and recording options` (low value and conflicts with
-   useful Emacs key combination)
- * `Finder`, `Preferences`, `Advanced`, `Show all filename extensions`
- * Make Terminal settings reasonable.
+ * `System Settings`, `Keyboard`, `Keyboard Shortcuts...`, `Modifier
+   Keys...`, `Caps Lock` to `Control`
+ * Same place, `Screenshots`: disable `Screenshot and recording
+   options` (low value, and conflicts with a useful Emacs key
+   combination)
+ * `Finder`, `Settings`, `Advanced`, `Show all filename extensions`
+ * Terminal settings
      * `Profiles` - `Keyboard` - `Use Option as Meta key` on
      * `Profiles` - `Advanced` - `Audible bell` off
      * `Profiles` - `Advanced` - `Visual bell` - `Only when sound is muted` off
      * `Profiles` - `Text` - Menlo Regular 18 pt.
 
-[in Finder preferences]: http://www.idownloadblog.com/2014/10/29/how-to-show-or-hide-filename-extensions-in-os-x-yosemite/
-
-```
+```shell
 # turn off window drop shadows when doing screenshots
 defaults write com.apple.screencapture disable-shadow -bool true; killall SystemUIServer
 
@@ -97,11 +92,12 @@ defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder
 scutil --set ComputerName "name"
 scutil --set LocalHostName "name"
 scutil --set HostName "name"
-# https://www.techradar.com/how-to/software/operating-systems/how-to-change-your-mac-s-name-using-the-os-x-terminal-1298974
 ```
 
 
-### Other things
+## Other things
 
- * Recall that custom local short names for IP addresses are
-   configured in `/etc/hosts`.
+ * Custom local short names for IP addresses go in `/etc/hosts`.
+ * `~/.bashrc.local` is sourced by `.bashrc` and is not in git, so it is
+   the place for anything machine-specific or secret.
+ * Emacs writes its Custom settings to `custom.el`, which is not in git.
