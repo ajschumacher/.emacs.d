@@ -341,8 +341,16 @@
 (use-package orderless
   :config
   (setq completion-styles '(orderless basic))
+  ;; `orderless-flex' is what brings back flx-ido's partial matching:
+  ;; the letters just have to appear in order, so "ajsdw" finds
+  ;; `ajs-double-width'.  Literal and regexp are tried first, so exact
+  ;; substrings still win.
+  (setq orderless-matching-styles
+        '(orderless-literal orderless-regexp orderless-flex))
+  ;; Let orderless apply to file names too, alongside the built-in
+  ;; styles that make partial path components (like /u/s/b) work.
   (setq completion-category-overrides
-        '((file (styles basic partial-completion)))))
+        '((file (styles basic partial-completion orderless)))))
 
 ;; Annotate what is being completed.
 (use-package marginalia
