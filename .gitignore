@@ -14,3 +14,9 @@ projectile-bookmarks.eld
 smex-items
 ido.last
 transient/
+
+# Generated per-machine, not part of the reproducible config.
+custom.el
+tree-sitter/
+eln-cache/
+.~undo-tree~

@@ -1,12 +1,9 @@
-;;; Configuration --- Summary
+;;; init.el --- Aaron's Emacs configuration  -*- lexical-binding: t; -*-
 ;;; Commentary:
-;; This is configuration for Emacs.
+;; This is configuration for Emacs.  Frame chrome and the garbage
+;; collector are dealt with in early-init.el, which runs first.
 ;;; Code:
 
-;; Just a sec - have to clean things up a little!
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (setq inhibit-startup-screen t)
 
 
@@ -15,39 +12,71 @@
       user-mail-address "ajschumacher@gmail.com")
 
 
+;;; Packages.
+
 ;; This package called package comes with Emacs.
 (require 'package)
-;; Many packages are on MELPA.
-;; (melpa-stable was tried, but it is sparse enough that it left this
-;; config frozen for years; back to the main archive.)
+;; Many packages are on MELPA.  (melpa-stable was tried, but it is
+;; sparse enough that it left this config frozen for years.)  GNU ELPA
+;; is enabled by default and is where vertico, orderless, marginalia,
+;; consult, diff-hl, undo-tree and rainbow-mode come from.
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
-;; From github.com/magnars/.emacs.d:
-;; Ensure we have MELPA package awareness.
-;; (The old version of this check looked for the "melpa" archive dir
-;; while the "melpa-stable" archive was configured, so it always passed
-;; and the refresh never actually ran.)
+(package-initialize)
+
+;; The authoritative list of what this config needs.  `install.sh' runs
+;; `package-install-selected-packages' against it on a new machine.
+;; (buffer-stack is not here: it was dropped from every archive, so a
+;; copy lives in elisp/.)
+(setq package-selected-packages
+      '(browse-kill-ring
+        consult
+        diff-hl
+        diminish
+        drag-stuff
+        exec-path-from-shell
+        expand-region
+        js2-mode
+        key-chord
+        magit
+        marginalia
+        markdown-mode
+        multiple-cursors
+        orderless
+        page-break-lines
+        projectile
+        rainbow-mode
+        smartparens
+        undo-tree
+        vertico
+        whole-line-or-region
+        yasnippet
+        zenburn-theme))
+
+;; Ensure package awareness before anything tries to install.
 (unless (file-directory-p
          (expand-file-name "elpa/archives/melpa" user-emacs-directory))
   (package-refresh-contents))
-;; Turn on packaging.
-(package-initialize)
-
-;; https://github.com/purcell/exec-path-from-shell
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
 
 ;; use-package ships with Emacs as of 29, so there is nothing to
-;; bootstrap any more.  (The copy that used to live in elpa/ pulled in
-;; a 2009 `diminish', whose `(eval-when-compile (require 'cl))' was the
-;; last source of the "Package cl is deprecated" warning at startup.)
+;; bootstrap any more.
 (require 'use-package)
 (unless (package-installed-p 'diminish)
   (package-install 'diminish))
 (require 'diminish)
-(setq use-package-verbose t)
 (setq use-package-always-ensure t)
-;; After this, use-package will install things as needed.
+
+;; Locally vendored elisp (buffer-stack).
+(add-to-list 'load-path
+             (expand-file-name "elisp" user-emacs-directory))
+
+;; https://github.com/purcell/exec-path-from-shell
+;; A GUI Emacs started from the Dock inherits a minimal PATH, so import
+;; the shell's.  This has to happen before anything looks for an
+;; executable -- notably aspell, below.
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
+  :config (exec-path-from-shell-initialize))
 
 
 ;;; Set some defaults.
@@ -59,7 +88,10 @@
 (setq-default indicate-empty-lines t)
 
 ;; Consider using abbreviations.
-(abbrev-mode)
+;; (A bare `(abbrev-mode)' only toggled it in whatever buffer happened
+;; to be current while init ran, which was never the one wanted.)
+(setq-default abbrev-mode t)
+(diminish 'abbrev-mode)
 
 ;; Be aware of whitespace.
 ;; `show-trailing-whitespace' is a buffer-local built-in and does just
@@ -71,9 +103,10 @@
 
 ;; Don't insert tabs.
 (setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
 
 ;; Use just 'y' or 'n', not 'yes' or 'no'.
-(defalias 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t)
 ;; Do the same for running elisp in org-mode.
 (setq org-confirm-elisp-link-function 'y-or-n-p)
 
@@ -84,13 +117,9 @@
 ;; Show system time.
 (display-time-mode t)
 ;; Show column number.
-(setq column-number-mode t)
+(column-number-mode t)
 ;; Don't show trailing dashes.
 (setq mode-line-end-spaces "")
-
-;; Blink, don't beep.
-;; (setq visible-bell t)
-;; A good setting, but resulting in visual artifacts.
 
 ;; Delete marked region when typing over it.
 (delete-selection-mode t)
@@ -110,14 +139,17 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
+;; Remember minibuffer history between sessions.  This is also what
+;; gives M-x its most-recently-used ordering now that smex is gone.
+(savehist-mode t)
+
 ;; Use spell-checking.
 ;; Pin the checker explicitly.  `ispell-program-name' is otherwise
 ;; guessed when ispell.el first loads, and if aspell is not visible on
 ;; `exec-path' at that moment it silently latches onto "ispell" and
 ;; every flyspell command fails afterwards.
 (let ((aspell (or (executable-find "aspell")
-                  ;; Apple silicon, then Intel, for a GUI Emacs started
-                  ;; before exec-path-from-shell has fixed the path.
+                  ;; Apple silicon, then Intel, as a fallback.
                   (seq-find #'file-executable-p
                             '("/opt/homebrew/bin/aspell"
                               "/usr/local/bin/aspell")))))
@@ -133,31 +165,30 @@
 
 ;; flyspell only checks words as they are typed, so opening an existing
 ;; file shows nothing until it is edited.  Check what is already there.
+;; Hang this on `find-file-hook' rather than `flyspell-mode-hook': the
+;; latter also fires for the throwaway buffers used during byte
+;; compilation, which made installing a package spell-check its source.
+;; Defer to an idle moment so that opening a file stays instant.
 (defun ajs-flyspell-check-existing-text ()
-  "Spell-check the whole buffer when `flyspell-mode' turns on."
-  (when (and flyspell-mode
+  "Spell-check this file once Emacs is idle."
+  (when (and (bound-and-true-p flyspell-mode)
+             buffer-file-name
              ;; Big files make this slow enough to notice.
              (< (buffer-size) 100000))
-    (flyspell-buffer)))
-(add-hook 'flyspell-mode-hook #'ajs-flyspell-check-existing-text)
-
-;;; Turning this off because it makes for PEP8 difficulties.
-;; Show off lambdas everywhere.
-;; (when (and (<= 24 emacs-major-version)
-;;            (<= 4 emacs-minor-version))
-;;   (define-globalized-minor-mode
-;;     my-global-prettify-symbols-mode
-;;     prettify-symbols-mode
-;;     (lambda () (prettify-symbols-mode t)))
-;;   (my-global-prettify-symbols-mode t)
-;;   (defconst prettify-symbols-alist
-;;     '(("lambda"  . ?λ))))
+    (let ((buffer (current-buffer)))
+      (run-with-idle-timer
+       1 nil
+       (lambda ()
+         (when (buffer-live-p buffer)
+           (with-current-buffer buffer
+             (flyspell-buffer))))))))
+(add-hook 'find-file-hook #'ajs-flyspell-check-existing-text)
 
 ;; Put backup files a little out of the way.
-(defvar --backup-directory (concat user-emacs-directory "backups"))
-(if (not (file-exists-p --backup-directory))
-            (make-directory --backup-directory t))
-(setq backup-directory-alist `(("." . ,--backup-directory)))
+(defvar ajs-backup-directory (concat user-emacs-directory "backups"))
+(if (not (file-exists-p ajs-backup-directory))
+    (make-directory ajs-backup-directory t))
+(setq backup-directory-alist `(("." . ,ajs-backup-directory)))
 (setq make-backup-files t          ; backup file the first time it is saved
       backup-by-copying t          ; don't clobber symlinks
       version-control t            ; version numbers for backup files
@@ -165,7 +196,10 @@
       delete-by-moving-to-trash t  ; system recycle bin or whatever
       auto-save-default t          ; auto-save every buffer that visits file
       vc-make-backup-files t       ; backup version-controlled files too
-)
+      )
+
+;; Custom writes here instead of scribbling in this file.
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 
 ;;; Set some keybindings.
@@ -187,7 +221,8 @@
 (global-set-key (kbd "M-A") 'mark-whole-buffer)
 
 ;; Easily turn line numbers on and off.
-(global-set-key (kbd "M-1") 'linum-mode)
+;; (linum-mode is obsolete; this is its replacement.)
+(global-set-key (kbd "M-1") 'display-line-numbers-mode)
 
 ;; switch point into buffer list
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
@@ -201,6 +236,18 @@
 (global-set-key (kbd "M-h") 'backward-kill-word)
 (global-set-key (kbd "C-x h") 'help-command)
 
+;; Other window, as ever.
+(global-set-key (kbd "M-l") 'other-window)
+
+;; Conveniently zoom all of Emacs.
+;; (zoom-frm did this before; `global-text-scale-adjust' is built in as
+;; of Emacs 29 and keeps reading further presses of =, + and -.)
+(global-set-key (kbd "C-=") 'global-text-scale-adjust)
+(global-set-key (kbd "C-+") 'global-text-scale-adjust)
+(global-set-key (kbd "C--") 'global-text-scale-adjust)
+
+
+;;; Packages, configured.
 
 ;; Highlight where matching parens are.
 (show-paren-mode t)
@@ -226,7 +273,7 @@
                    :skip-match 'sp--gfm-skip-asterisk)
     (sp-local-pair "**" "**")
     (sp-local-pair "_" "_" :wrap "C-_" :unless '(sp-point-after-word-p)))
-  (defun sp--gfm-skip-asterisk (ms mb me)
+  (defun sp--gfm-skip-asterisk (_ms mb _me)
     (save-excursion
       (goto-char mb)
       (save-match-data (or (looking-at "^\\* ")
@@ -257,114 +304,88 @@
 
 ;; Get useful line behaviors when region is not active.
 (use-package whole-line-or-region
-  :config (whole-line-or-region-mode t)
-  :diminish whole-line-or-region-mode)
+  :config (whole-line-or-region-global-mode t)
+  :diminish whole-line-or-region-local-mode)
 
 
 ;; Work with git with magic ease.
 (use-package magit
   :bind ("C-x g" . magit-status)
   :config
-  (setq magit-push-always-verify nil)
-  (set-default 'magit-unstage-all-confirm nil)
-  (set-default 'magit-stage-all-confirm nil)
-  (set-default 'magit-revert-buffers 'silent)
   ;; Don't use tabs, magit!
   (add-hook 'git-commit-mode-hook
-            '(lambda () (untabify (point-min) (point-max))) t))
+            (lambda () (untabify (point-min) (point-max))) t))
 
 
-;; Use my fix to git-gutter+
-;; See https://github.com/nonsequitur/git-gutter-plus/pull/27
-(add-to-list 'load-path
-             (expand-file-name "elisp" user-emacs-directory))
-;; Use the fringe if in graphical mode (not terminal).
-(if (or (display-graphic-p) (daemonp))
-    (require 'git-gutter-fringe+)
-  (require 'git-gutter+))
-(global-git-gutter+-mode)
-(diminish 'git-gutter+-mode)
-;; ;; Eventually may be able to return to something like this:
-;; (use-package git-gutter-fringe+
-;;   :init (global-git-gutter+-mode)
-;;   :diminish git-gutter+-mode)
-
-;; From:
-;; https://github.com/EricCrosson/git-gutter-plus-refresh-on-magit-commit
-(defun git-gutter+-refresh-all-saved-buffers ()
-  "Refresh git-gutter+ on open project-buffers.
-This function is called automatically by `git-commit-post-finish-hook'."
-  (interactive)
-  (let ((project-files (projectile-current-project-files)))
-    (dolist (file-to-refresh project-files)
-      (let ((buffer (get-file-buffer (concat (projectile-project-root) file-to-refresh))))
-        (when buffer
-          (message "Refreshing git-gutter+ in buffer '%s'" buffer)
-          (with-current-buffer buffer
-            (git-gutter+-refresh)))))))
-(add-hook 'git-commit-post-finish-hook 'git-gutter+-refresh-all-saved-buffers)
-;; That should make things refresh after commit, is the hope...
-
-
-;; Interactive selection of things.
-;; TODO: consider helm instead (see Sacha's config)
-;; NOTE: "C-j: Use the current input string verbatim."
-(ido-mode t)
-(ido-everywhere t)
-;; disable ido faces to see flx highlights.
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
-(global-set-key (kbd "M-l") 'other-window)
-(global-set-key (kbd "C-M-l") 'ido-switch-buffer)
-
-;; list vertically (so much nicer!)
-(use-package ido-vertical-mode
+;; Show git changes in the fringe.
+;; (This replaces a vendored fork of git-gutter+ and a hand-rolled
+;; projectile-based refresh hook; diff-hl talks to magit directly.)
+(use-package diff-hl
   :config
-  (ido-vertical-mode t)
-  (setq ido-vertical-define-keys 'C-n-C-p-up-and-down))
+  (global-diff-hl-mode)
+  ;; The fringe is only there in a graphical frame.
+  (unless (display-graphic-p)
+    (diff-hl-margin-mode))
+  (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
-(use-package flx-ido
-  :config (flx-ido-mode 1))
 
-;; Smart M-x
-(use-package smex
+;;; Interactive selection of things.
+;; This replaces ido + ido-vertical + flx-ido + smex.  The keys are the
+;; same ones those had.
+
+(use-package vertico
+  :config (vertico-mode))
+
+;; Match on space-separated pieces, in any order.
+(use-package orderless
   :config
-  (smex-initialize)
-  (global-set-key (kbd "M-x") 'smex)
-  ;; take Yegge's advice and don't require M for M-x
-  (global-set-key (kbd "C-x C-m") 'smex)
-  ;; This is the old M-x.
-  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands))
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-overrides
+        '((file (styles basic partial-completion)))))
+
+;; Annotate what is being completed.
+(use-package marginalia
+  :config (marginalia-mode))
+
+(use-package consult
+  :config
+  ;; NOTE: for the old ido habit, "M-n" inserts the thing at point.
+  (global-set-key (kbd "C-M-l") 'consult-buffer))
+
+;; Smart M-x, without smex: `savehist-mode' above remembers what has
+;; been run, and vertico floats those to the top.
+(global-set-key (kbd "M-x") 'execute-extended-command)
+;; take Yegge's advice and don't require M for M-x
+(global-set-key (kbd "C-x C-m") 'execute-extended-command)
+;; This is the old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+;; Just this mode's commands (what smex-major-mode-commands did).
+(global-set-key (kbd "M-X") 'execute-extended-command-for-buffer)
 
 
 ;; Add nice project functions for git repos.
 (use-package projectile
-  :config (projectile-global-mode)
+  :config (projectile-mode)
   :diminish projectile-mode)
 
 
 ;; See the undo history and move through it.
 (use-package undo-tree
-  :config (global-undo-tree-mode t)
+  :config
+  (global-undo-tree-mode t)
+  ;; Otherwise it litters .~undo-tree~ files next to everything.
+  (setq undo-tree-auto-save-history nil)
   :diminish undo-tree-mode)
 
 
 ;; browse-kill-ring used to need the un-namespaced Common Lisp names
 ;; (see browse-kill-ring/browse-kill-ring#56), but that was fixed
-;; upstream long ago.  `cl' is obsolete and warns at startup, so it is
-;; gone.
+;; upstream long ago.
 (use-package browse-kill-ring
   :config
-  ;; Bind M-y to visual interactive kill ring.
+  ;; Makes M-y run browse-kill-ring when the last command wasn't a yank.
   (browse-kill-ring-default-keybindings))
-
-
-;; Get auto-complete functionality.
-;; TODO: Determine whether this is doing what I really want.
-(use-package auto-complete
-  :config (global-auto-complete-mode t)
-  :diminish auto-complete-mode)
 
 
 ;; Display lines for ^L characters.
@@ -388,86 +409,57 @@ This function is called automatically by `git-commit-post-finish-hook'."
 
 
 ;; Flip through buffers with ease.
+;; buffer-stack is vendored in elisp/ -- see the note in that file.
 (use-package buffer-stack
+  :ensure nil
   :config
   (key-chord-define-global "jk" 'buffer-stack-down))
 
 
-;; Conveniently zoom all of Emacs.
-(use-package zoom-frm
-  :bind
-  ("C-=" . zoom-in/out)
-  ("C-+" . zoom-in/out)
-  ("C--" . zoom-in/out))
-
-
-;; Search the web from Emacs.
-(use-package engine-mode
+;; Snippets.  (These used to arrive via elpy.)
+(use-package yasnippet
   :config
-  (engine-mode t)
-  (engine/set-keymap-prefix (kbd "C-/"))
-  (defengine github
-    "https://github.com/search?ref=simplesearch&q=%s")
-  (defengine duckduckgo
-    "https://duckduckgo.com/?q=%s"
-    :keybinding "d")
-  (defengine google
-    "https://www.google.com/#q=%s"
-    :keybinding "g"))
-
-
-;; Check syntax, make life better.
-(use-package flycheck
-  :config
-  (add-hook 'after-init-hook #'global-flycheck-mode)
-  (define-key flycheck-mode-map
-    (kbd "C-c C-n")
-    'flycheck-next-error)
-  (define-key flycheck-mode-map
-    (kbd "C-c C-p")
-    'flycheck-previous-error)
-  :diminish flycheck-mode)
-
-
-;; Elpy the Emacs Lisp Python Environment.
-(use-package elpy
-  :config
-  (elpy-enable)
-  ;; Use ipython if available.
-  (when (executable-find "ipython")
-    (elpy-use-ipython))
-  ;; Don't use flymake if flycheck is available.
-  (when (require 'flycheck nil t)
-    (setq elpy-modules
-          (delq 'elpy-module-flymake elpy-modules)))
-  ;; Don't use highlight-indentation-mode.
-  (delete 'elpy-module-highlight-indentation elpy-modules)
-  ;; this is messed with by emacs if you let it...
-  (custom-set-variables
-   '(elpy-rpc-backend "jedi")
-   '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
-   '(help-at-pt-timer-delay 0.9)
-   '(tab-width 4))
-  (define-key elpy-mode-map (kbd "C-c C-n") 'next-error)
-  (define-key elpy-mode-map (kbd "C-c C-p") 'previous-error)
-  ;; Elpy also installs yasnippets.
+  (yas-global-mode 1)
   ;; Don't use tab for yasnippets, use shift-tab.
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
   (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
-  :diminish elpy-mode)
+  :diminish yas-minor-mode)
 
 
-;; Emacs Speaks Statistics includes support for R.
-;; Disabling because font-lock-reference-face causes an error...
-;(use-package ess-site
-;  :ensure ess)
+;; Check syntax, make life better.
+;; flymake is built in and is what eglot reports through, so there is
+;; no reason to run flycheck alongside it any more.  Same keys.
+(use-package flymake
+  :ensure nil
+  :hook (prog-mode . flymake-mode)
+  :bind (:map flymake-mode-map
+              ("C-c C-n" . flymake-goto-next-error)
+              ("C-c C-p" . flymake-goto-prev-error))
+  :diminish flymake-mode)
+
+
+;; Python, via the built-in LSP client instead of elpy.
+;; Needs a language server on PATH; the Brewfile installs
+;; python-lsp-server.  Without one, python-mode still works, eglot just
+;; doesn't start.
+(use-package eglot
+  :ensure nil
+  :hook ((python-mode . eglot-ensure)
+         (python-ts-mode . eglot-ensure)))
+
+;; Use the tree-sitter Python mode when its grammar is actually
+;; installed, so this degrades quietly on a machine where it isn't.
+(setq treesit-language-source-alist
+      '((python "https://github.com/tree-sitter/tree-sitter-python")))
+(when (and (fboundp 'treesit-language-available-p)
+           (treesit-language-available-p 'python))
+  (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode)))
 
 
 ;; Use a nice JavaScript mode.
 (use-package js2-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+  :mode "\\.js\\'")
 
 
 ;; See colors specified with text.
@@ -490,8 +482,7 @@ This function is called automatically by `git-commit-post-finish-hook'."
 ;;; Functions Written by others:
 
 (defun prelude-open-with ()
-  "Simple function that allows us to open the underlying
-file of a buffer in an external program."
+  "Open the underlying file of a buffer in an external program."
   (interactive)
   (when buffer-file-name
     (shell-command (concat
@@ -502,7 +493,23 @@ file of a buffer in an external program."
                     buffer-file-name))))
 (global-set-key (kbd "C-c o") 'prelude-open-with)
 
+(defun shuffle-list (list)
+  "Randomly permute the elements of LIST.
+All permutations equally likely."
+  (let ((i 0)
+        j
+        temp
+        (len (length list)))
+    (while (< i len)
+      (setq j (+ i (random (- len i))))
+      (setq temp (nth i list))
+      (setcar (nthcdr i list) (nth j list))
+      (setcar (nthcdr j list) temp)
+      (setq i (1+ i))))
+  list)
+
 (defun randomize-region (beg end)
+  "Randomly permute the lines between BEG and END."
   (interactive "r")
   (if (> beg end)
       (let (mid) (setq mid end end beg beg mid)))
@@ -522,25 +529,10 @@ file of a buffer in an external program."
     (setq end (point-marker))
     (let ((strs (shuffle-list
                  (split-string (buffer-substring-no-properties beg end)
-                             "\n"))))
+                               "\n"))))
       (delete-region beg end)
       (dolist (str strs)
         (insert (concat str "\n"))))))
-
-(defun shuffle-list (list)
-  "Randomly permute the elements of LIST.
-All permutations equally likely."
-  (let ((i 0)
-  j
-  temp
-  (len (length list)))
-    (while (< i len)
-      (setq j (+ i (random (- len i))))
-      (setq temp (nth i list))
-      (setcar (nthcdr i list) (nth j list))
-      (setcar (nthcdr j list) temp)
-      (setq i (1+ i))))
-  list)
 
 ;; the-the in honor of An Introduction to Programming in Emacs Lisp
 (defun the-the ()
@@ -559,17 +551,21 @@ All permutations equally likely."
 ;;; Functions written by me:
 
 (defun ajs-set-width (num-cols)
+  "Set the selected frame's width to NUM-COLS."
   (set-frame-width (selected-frame) num-cols))
 
 (defun ajs-double-width ()
+  "Widen the frame to two columns' worth."
   (interactive)
   (ajs-set-width 168))
 
 (defun ajs-single-width ()
+  "Narrow the frame to one column's worth."
   (interactive)
   (ajs-set-width 84))
 
 (defun ajs-pull-up-next-line ()
+  "Join the next line onto this one, leaving a single space."
   (interactive)
   (delete-indentation t)
   (when (looking-at " ")
@@ -577,6 +573,7 @@ All permutations equally likely."
 (global-set-key (kbd "C-M-o") 'ajs-pull-up-next-line)
 
 (defun ajs-push-page-up ()
+  "Scroll the page up by one line, keeping point where it is."
   (interactive)
   (scroll-up 1)
   ;; next-line is only meant for interactive use,
@@ -585,6 +582,7 @@ All permutations equally likely."
 (global-set-key (kbd "M-n") 'ajs-push-page-up)
 
 (defun ajs-push-page-down ()
+  "Scroll the page down by one line, keeping point where it is."
   (interactive)
   (scroll-down 1)
   ;; previous-line is only meant for interactive use,
@@ -593,18 +591,17 @@ All permutations equally likely."
 (global-set-key (kbd "M-p") 'ajs-push-page-down)
 
 (defun ajs-space-tab (current desired)
-  "Change size of space tabs."
+  "Change space-tab size from CURRENT to DESIRED."
   (interactive "nCurrent size: \nnDesired size: ")
-    (setq tab-width current)
-    (tabify (point-min) (point-max))
-    (setq tab-width desired)
-    (untabify (point-min) (point-max))
-    (setq tab-width desired)
-    (setq python-indent-offset desired))
+  (setq tab-width current)
+  (tabify (point-min) (point-max))
+  (setq tab-width desired)
+  (untabify (point-min) (point-max))
+  (setq tab-width desired)
+  (setq python-indent-offset desired))
 
 (defun ajs-decimal-escapes-to-unicode ()
-  "Convert escapes like '&#955;' to Unicode like 'λ'.
-Operates on the active region or the whole buffer."
+  "Convert decimal HTML escapes in the region or buffer to Unicode."
   (interactive)
   (let ((start (point)) (end (mark)))
     (or (use-region-p)
@@ -616,7 +613,7 @@ Operates on the active region or the whole buffer."
              (filter-buffer-substring start end t)))))
 
 (defun ajs-run-in-file-and-save (filename function)
-  "Run the function in a buffer for the FILE and save it"
+  "Run FUNCTION in a buffer for FILENAME and save it."
   (save-excursion
     (let ((buffer (find-file-noselect filename)))
       (message "Working on %s" filename)
@@ -626,6 +623,7 @@ Operates on the active region or the whole buffer."
       (kill-buffer buffer))))
 
 (defun ajs-run-in-many-files-and-save (list-of-filenames function)
+  "Run FUNCTION in a buffer for each of LIST-OF-FILENAMES and save."
   (dolist (filename list-of-filenames)
     (ajs-run-in-file-and-save filename function)))
 
@@ -654,20 +652,16 @@ Operates on the active region or the whole buffer."
                  all-files-list)))))
       (setq current-directory-list (cdr current-directory-list)))
     all-files-list))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(elpy-rpc-backend "jedi")
- '(help-at-pt-display-when-idle '(flymake-overlay) nil (help-at-pt))
- '(help-at-pt-timer-delay 0.9)
- '(package-selected-packages
-   '(async magit exec-path-from-shell zoom-frm zenburn-theme whole-line-or-region use-package undo-tree smex smartparens rainbow-mode projectile page-break-lines multiple-cursors markdown-mode key-chord js2-mode ido-vertical-mode fringe-helper flycheck flx-ido expand-region ess engine-mode elpy drag-stuff buffer-stack browse-kill-ring auto-complete))
- '(tab-width 4))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+
+;;; Wrap up.
+
+(when (file-exists-p custom-file)
+  (load custom-file))
+
+;; early-init.el turned the garbage collector way down for startup.
+(setq gc-cons-threshold (* 64 1024 1024)
+      gc-cons-percentage 0.1)
+
+(provide 'init)
+;;; init.el ends here
