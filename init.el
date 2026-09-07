@@ -182,12 +182,18 @@
 ;; latter also fires for the throwaway buffers used during byte
 ;; compilation, which made installing a package spell-check its source.
 ;; Defer to an idle moment so that opening a file stays instant.
+(defvar ajs-flyspell-buffer-size-limit 30000
+  "Largest buffer to spell-check on open.
+Measured here, `flyspell-buffer' on a markdown buffer costs about
+0.36s at 20,000 characters, 0.93s at 30,000 and 2.04s at 40,000.
+Above this, use \\[flyspell-buffer] by hand.")
+
 (defun ajs-flyspell-check-existing-text ()
   "Spell-check this file once Emacs is idle."
   (when (and (bound-and-true-p flyspell-mode)
              buffer-file-name
              ;; Big files make this slow enough to notice.
-             (< (buffer-size) 100000))
+             (< (buffer-size) ajs-flyspell-buffer-size-limit))
     (let ((buffer (current-buffer)))
       (run-with-idle-timer
        1 nil
@@ -510,6 +516,67 @@
   :config
   (define-key markdown-mode-map (kbd "M-n") nil)
   (define-key markdown-mode-map (kbd "M-p") nil))
+
+;; markdown-mode's italic matcher is quadratic on the wrong kind of
+;; file.  For every `_' or `*' it asks whether that position is inside
+;; inline code, and that check rescans the enclosing block from the
+;; start each time.  A long document with few blank lines is one huge
+;; block, so a link list with a couple of thousand underscores in it
+;; costs about eight seconds per refontification -- which jit-lock does
+;; while typing, so every keystroke stalls.
+;;
+;; Size alone is a bad predictor: a 77KB prose file here fontifies in
+;; 0.06s while a 78KB link list takes 8.3s.  What matters is how many
+;; candidates share a block, so estimate that directly.  It is cheap
+;; (about 2ms) and separates the real files here by a factor of ~850.
+(defvar ajs-markdown-italic-cost-limit 1000000
+  "Rough cost above which `markdown-match-italic' is dropped.
+Measured here, fontification takes roughly cost/1.2e7 seconds, so
+this is about a tenth of a second.  The markdown files on this
+machine score between 37,000 and 222,000 except for the one link
+list that prompted all this, which scores 190 million.
+See `ajs-markdown-italic-cost'.  Set to nil to never drop it.")
+
+(defun ajs-markdown-italic-cost ()
+  "Estimate what italic fontification will cost in this buffer.
+Sums, over each blank-line-separated block, the number of italic
+candidates in the block times the block's length."
+  (save-excursion
+    (save-match-data
+      (let ((cost 0) (start (point-min)))
+        (goto-char (point-min))
+        (while (< start (point-max))
+          (let* ((end (if (re-search-forward "^[ \t]*$" nil t) (point) (point-max)))
+                 (len (- end start))
+                 (candidates 0))
+            (save-excursion
+              (goto-char start)
+              (while (re-search-forward "[_*]" end t)
+                (setq candidates (1+ candidates))))
+            (setq cost (+ cost (* candidates len))
+                  start (max end (1+ start)))
+            (goto-char start)))
+        cost))))
+
+(defun ajs-markdown-disable-italic-fontification ()
+  "Drop `markdown-match-italic' from font-lock in this buffer."
+  (interactive)
+  (setq-local markdown-mode-font-lock-keywords
+              (seq-remove (lambda (keyword)
+                            (eq (car-safe keyword) 'markdown-match-italic))
+                          markdown-mode-font-lock-keywords))
+  (font-lock-refresh-defaults))
+
+(defun ajs-markdown-maybe-disable-italic-fontification ()
+  "Turn off italic fontification when it would make typing crawl."
+  (when ajs-markdown-italic-cost-limit
+    (let ((cost (ajs-markdown-italic-cost)))
+      (when (> cost ajs-markdown-italic-cost-limit)
+        (ajs-markdown-disable-italic-fontification)
+        (message "Italic fontification off in %s: too slow (cost %d)."
+                 (buffer-name) cost)))))
+(add-hook 'markdown-mode-hook
+          #'ajs-markdown-maybe-disable-italic-fontification)
 
 
 ;;; Functions Written by others:
