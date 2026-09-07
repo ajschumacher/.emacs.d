@@ -1,23 +1,29 @@
 *~
 *.elc
 
-# Installed packages: reinstalled from package-selected-packages, not committed.
+# Packages are installed from package-selected-packages in init.el,
+# not committed.
 elpa/
-flycheck_init.el
-ac-comphist.dat
+eln-cache/
+
+# Tree-sitter grammars are built per machine by install.sh.
+tree-sitter/
+
+# Runtime state Emacs writes for itself: caches, histories, rankings.
+# All per-machine, none of it worth carrying to a new one.
 auto-save-list/
 backups/
-.mc-lists.el
+history
+network-security.data
+bookmarks
+prescient-save.el
+projectile-bookmarks.eld
+projectile-frecency.eld
+transient/
 url/
 tramp
-projectile-bookmarks.eld
-smex-items
-ido.last
-transient/
-
-# Generated per-machine, not part of the reproducible config.
-custom.el
-prescient-save.el
-tree-sitter/
-eln-cache/
+.mc-lists.el
 .~undo-tree~
+
+# Custom writes here; everything intentional lives in init.el.
+custom.el
