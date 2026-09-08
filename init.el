@@ -304,6 +304,27 @@ curling a quote inside a code sample corrupts it."
 (global-set-key (kbd "C--") 'global-text-scale-adjust)
 
 
+;; Dashes.  Everywhere else on a Mac, Option+hyphen types an en dash and
+;; Option+Shift+hyphen an em dash.  That does not happen here, because
+;; `mac-option-modifier' is super above: Option is a modifier key and no
+;; longer composes characters, so those two chords arrive as s-- and
+;; s-_.  Bind them to do what the fingers already expect.  (s-- was
+;; `text-scale-adjust', which is redundant when zooming is on C-= and
+;; C--.)  The long way round is still C-x 8 _ n and C-x 8 _ m.
+(defun ajs-insert-en-dash ()
+  "Insert an en dash, which is the one that goes between dates."
+  (interactive)
+  (insert ?\N{EN DASH}))
+
+(defun ajs-insert-em-dash ()
+  "Insert an em dash, the long one used as punctuation."
+  (interactive)
+  (insert ?\N{EM DASH}))
+
+(global-set-key (kbd "s--") 'ajs-insert-en-dash)
+(global-set-key (kbd "s-_") 'ajs-insert-em-dash)
+
+
 ;;; Packages, configured.
 
 ;; Highlight where matching parens are.
