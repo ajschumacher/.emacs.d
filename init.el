@@ -203,6 +203,44 @@ Above this, use \\[flyspell-buffer] by hand.")
              (flyspell-buffer))))))))
 (add-hook 'find-file-hook #'ajs-flyspell-check-existing-text)
 
+;; Curly quotes while writing prose.  `electric-quote-mode' is built in
+;; as of Emacs 25.  Neither setting below is its default, but together
+;; they are what makes it useful: " curls as well as ', and a ' after a
+;; word becomes an apostrophe rather than an opening quote, so "don't"
+;; comes out right.  C-q ' still inserts a straight quote.
+(declare-function markdown-code-block-at-point-p "markdown-mode" (&optional pos))
+(declare-function markdown-inline-code-at-point-p "markdown-mode" (&optional pos))
+
+(defvar ajs-electric-quote-exempt-files
+  (rx string-start
+      (or "COMMIT_EDITMSG" "MERGE_MSG" "TAG_EDITMSG" "NOTES_EDITMSG"
+          "SQUASH_MSG" "EDIT_DESCRIPTION")
+      string-end)
+  "Files that are prose, but close enough to code to want straight quotes.
+Magit's `git-commit-mode' is a minor mode enabled after
+`text-mode-hook' has already run, so it cannot be tested for there;
+match the file name instead.")
+
+(defun ajs-inhibit-electric-quote-p ()
+  "Non-nil at a point where quotes must stay straight.
+Markdown code blocks and inline code are the cases that matter:
+curling a quote inside a code sample corrupts it."
+  (and (derived-mode-p 'markdown-mode)
+       (or (markdown-code-block-at-point-p)
+           (markdown-inline-code-at-point-p))))
+
+(defun ajs-enable-electric-quote ()
+  "Turn on curly quotes for prose in this buffer."
+  (unless (and buffer-file-name
+               (string-match-p ajs-electric-quote-exempt-files
+                               (file-name-nondirectory buffer-file-name)))
+    (setq-local electric-quote-replace-double t
+                electric-quote-context-sensitive t)
+    (add-hook 'electric-quote-inhibit-functions
+              #'ajs-inhibit-electric-quote-p nil t)
+    (electric-quote-local-mode 1)))
+(add-hook 'text-mode-hook #'ajs-enable-electric-quote)
+
 ;; Put backup files a little out of the way.
 (defvar ajs-backup-directory (concat user-emacs-directory "backups"))
 (if (not (file-exists-p ajs-backup-directory))
