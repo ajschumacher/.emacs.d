@@ -370,9 +370,15 @@ curling a quote inside a code sample corrupts it."
   :diminish smartparens-mode)
 
 
-;; Move things around intuitively.
+;; Move things around intuitively, with M-<up> and friends.
+;; `drag-stuff-define-keys' has to be called explicitly: until 2016 the
+;; minor mode called it itself when it turned on, so the arrow keys came
+;; for free, and the config never mentioned them.  Now the mode installs
+;; an empty keymap unless asked.
 (use-package drag-stuff
-  :config (drag-stuff-global-mode)
+  :config
+  (drag-stuff-global-mode)
+  (drag-stuff-define-keys)
   :diminish drag-stuff-mode)
 
 
@@ -470,8 +476,12 @@ curling a quote inside a code sample corrupts it."
 
 
 ;; Add nice project functions for git repos.
+;; The C-c p prefix also has to be asked for now: projectile used to
+;; bind it from a `projectile-keymap-prefix' defcustom, which is gone.
 (use-package projectile
-  :config (projectile-mode)
+  :config
+  (projectile-mode)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   :diminish projectile-mode)
 
 
