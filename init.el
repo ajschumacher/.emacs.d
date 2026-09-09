@@ -203,11 +203,13 @@ Above this, use \\[flyspell-buffer] by hand.")
              (flyspell-buffer))))))))
 (add-hook 'find-file-hook #'ajs-flyspell-check-existing-text)
 
-;; Curly quotes while writing prose.  `electric-quote-mode' is built in
-;; as of Emacs 25.  Neither setting below is its default, but together
-;; they are what makes it useful: " curls as well as ', and a ' after a
-;; word becomes an apostrophe rather than an opening quote, so "don't"
-;; comes out right.  C-q ' still inserts a straight quote.
+;; Curly quotes for double quotes only, while writing prose.
+;; `electric-quote-mode' is built in as of Emacs 25.  It normally curls
+;; the apostrophe too, turning "I'm" into a typographer's "I’m", but
+;; that gets in the way of typing contractions fluently, so the inhibit
+;; function below leaves every single quote alone.  Double quotes still
+;; curl, which is the part worth having.  (An occasional real ’ or ‘ is
+;; available from C-x 8 RET.)
 (declare-function markdown-code-block-at-point-p "markdown-mode" (&optional pos))
 (declare-function markdown-inline-code-at-point-p "markdown-mode" (&optional pos))
 
@@ -222,12 +224,15 @@ Magit's `git-commit-mode' is a minor mode enabled after
 match the file name instead.")
 
 (defun ajs-inhibit-electric-quote-p ()
-  "Non-nil at a point where quotes must stay straight.
-Markdown code blocks and inline code are the cases that matter:
-curling a quote inside a code sample corrupts it."
-  (and (derived-mode-p 'markdown-mode)
-       (or (markdown-code-block-at-point-p)
-           (markdown-inline-code-at-point-p))))
+  "Non-nil at a point where a quote must be left straight.
+Two cases.  An apostrophe, always: contractions are far more common
+than single-quoted phrases, and a rule that treats every single quote
+the same way is easier to trust than one that guesses.  And anywhere
+inside markdown code, where curling a quote corrupts the sample."
+  (or (eq (char-before) ?\N{APOSTROPHE})
+      (and (derived-mode-p 'markdown-mode)
+           (or (markdown-code-block-at-point-p)
+               (markdown-inline-code-at-point-p)))))
 
 (defun ajs-enable-electric-quote ()
   "Turn on curly quotes for prose in this buffer."
