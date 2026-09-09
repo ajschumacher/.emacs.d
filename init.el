@@ -321,8 +321,15 @@ curling a quote inside a code sample corrupts it."
   (interactive)
   (insert ?\N{EM DASH}))
 
+(defun ajs-insert-ellipsis ()
+  "Insert a real ellipsis character, rather than three periods."
+  (interactive)
+  (insert ?\N{HORIZONTAL ELLIPSIS}))
+
 (global-set-key (kbd "s--") 'ajs-insert-en-dash)
 (global-set-key (kbd "s-_") 'ajs-insert-em-dash)
+;; Option+semicolon, likewise.
+(global-set-key (kbd "s-;") 'ajs-insert-ellipsis)
 
 
 ;;; Packages, configured.
