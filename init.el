@@ -243,7 +243,42 @@ inside markdown code, where curling a quote corrupts the sample."
                 electric-quote-context-sensitive t)
     (add-hook 'electric-quote-inhibit-functions
               #'ajs-inhibit-electric-quote-p nil t)
+    ;; Depth 90: after both smartparens and electric-quote have run.
+    (add-hook 'post-self-insert-hook #'ajs-electric-quote-pair 90 t)
     (electric-quote-local-mode 1)))
+(defun ajs-sp-leave-double-quotes-alone (orig &rest args)
+  "Keep smartparens from auto-pairing \" where electric-quote is on.
+Prose wants a curly pair, and smartparens insists on a straight one.
+Its own configuration cannot switch this off -- sp-local-pair with
+:actions nil, an :unless predicate, and editing sp-pair-list were all
+tried, and string-quote characters bypass all of them -- so skip its
+post-self-insert handler for this one character instead."
+  (unless (and (bound-and-true-p electric-quote-mode)
+               (eq last-command-event ?\N{QUOTATION MARK}))
+    (apply orig args)))
+(advice-add 'sp--post-self-insert-hook-handler
+            :around #'ajs-sp-leave-double-quotes-alone)
+
+(defun ajs-electric-quote-pair ()
+  "Keep double quotes in matched curly pairs while typing.
+With smartparens out of the way, `electric-quote-mode\=' curls whichever
+quote is typed; this supplies the partner for an opening one, and steps
+over the waiting partner when the closing one is typed.
+
+This cannot test `last-command-event\=' for a plain double quote:
+electric-quote reassigns it to the curly character it just inserted."
+  (cond
+   ;; Typed the closing quote where its partner is already waiting.
+   ((and (eq (char-before) ?\N{RIGHT DOUBLE QUOTATION MARK})
+         (eq (char-after) ?\N{RIGHT DOUBLE QUOTATION MARK}))
+    (delete-char -1)
+    (forward-char))
+   ;; Opened a quote: put its partner in place, point staying inside.
+   ((and (eq (char-before) ?\N{LEFT DOUBLE QUOTATION MARK})
+         (not (eq (char-after) ?\N{RIGHT DOUBLE QUOTATION MARK})))
+    (save-excursion
+      (insert-char ?\N{RIGHT DOUBLE QUOTATION MARK})))))
+
 (add-hook 'text-mode-hook #'ajs-enable-electric-quote)
 
 ;; Put backup files a little out of the way.
