@@ -243,30 +243,7 @@ inside markdown code, where curling a quote corrupts the sample."
                 electric-quote-context-sensitive t)
     (add-hook 'electric-quote-inhibit-functions
               #'ajs-inhibit-electric-quote-p nil t)
-    ;; Depth 90 so this runs after smartparens and electric-quote have
-    ;; both had their say.
-    (add-hook 'post-self-insert-hook #'ajs-electric-quote-fix-pair 90 t)
     (electric-quote-local-mode 1)))
-(defun ajs-electric-quote-fix-pair ()
-  "Make an auto-inserted straight closing quote match the curly opener.
-smartparens auto-pairs the double quote, but `electric-quote-mode'
-only curls the one actually typed, so typing \" leaves a curly opener
-and a straight closer.  Repair that, and let a typed closing quote
-skip over the closer that is already there rather than adding another."
-  (when (eq last-command-event ?\N{QUOTATION MARK})
-    (cond
-     ;; “| "   ->   “|”
-     ((and (eq (char-before) ?\N{LEFT DOUBLE QUOTATION MARK})
-           (eq (char-after) ?\N{QUOTATION MARK}))
-      (delete-char 1)
-      (insert-char ?\N{RIGHT DOUBLE QUOTATION MARK})
-      (backward-char))
-     ;; ...”|”  ->  ...”|   (typed the closer that was already waiting)
-     ((and (eq (char-before) ?\N{RIGHT DOUBLE QUOTATION MARK})
-           (eq (char-after) ?\N{RIGHT DOUBLE QUOTATION MARK}))
-      (delete-char -1)
-      (forward-char)))))
-
 (add-hook 'text-mode-hook #'ajs-enable-electric-quote)
 
 ;; Put backup files a little out of the way.
