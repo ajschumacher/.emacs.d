@@ -1,5 +1,8 @@
 *~
 *.elc
+# Emacs auto-save and lock files.
+\#*\#
+.\#*
 
 # Packages are installed from package-selected-packages in init.el,
 # not committed.
@@ -16,6 +19,8 @@ backups/
 history
 network-security.data
 bookmarks
+places.eld
+recentf.eld
 prescient-save.el
 projectile-bookmarks.eld
 projectile-frecency.eld
